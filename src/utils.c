@@ -10,61 +10,35 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lem_in.h"
+#include "../lem_in.h"i
 
-t_point	*assign_pt(t_point *p, int x, int y)
+void free_lemin(t_lemin *lemin)
 {
-	p->x = x;
-	p->y = y;
-	return (p);
+  free(lemin);
+  lemin = NULL;
+  exit(-1);
 }
 
-void	init_object(t_object *o)
+int	get_nb_chartab(char **tab, char c)
 {
-	o->tab = NULL;
-	o->h = 0;
-	o->w = 0;
-	o->nb = 0;
-}
-
-void	get_nb_chartab(t_object *o, char c)
-{
+	int	nb;
 	int	i;
 	int	j;
 
+	nb = 0;
 	j = 0;
 	while (j < o->h)
 	{
 		i = 0;
 		while (i < o->w)
 		{
-			if (o->tab[j][i] == c)
-				o->nb++;
+			if (tab[j][i] == c)
+				nb++;
 			i++;
 		}
 		j++;
 	}
-}
-
-void	free_tabs(t_filler *f)
-{
-	f->map.tab = free_tab(f->map.tab, f->map.h - 1);
-	f->piece.tab = free_tab(f->piece.tab, f->piece.h - 1);
-}
-
-void	place(t_filler *f, int j, int i)
-{
-	// static int	o = 0;
-	FILE		*ID = fopen("debugi.txt", "a");
-
-	fprintf(ID, "P L A C E ==> %d %d <==\n", j, i);
-	fclose(ID);
-	f->nb_piece++;
-	ft_printf("%d %d\n", j, i);
-	free_tabs(f);
-	// o++;
-	// if (o == 1)
-	// 	exit(1);
+	return (nb);
 }
 
 void	print_tab(t_object *o)

@@ -6,7 +6,7 @@
 /*   By: mbui <mbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:43 by mbui              #+#    #+#             */
-/*   Updated: 2021/04/02 11:24:29 by mbui             ###   ########.fr       */
+/*   Updated: 2021/04/13 18:33:38 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef struct s_gnl
 	int		ret;
 	char	*ptr;
 }				t_gnl;
+
+typedef struct s_point
+{
+	int	x;
+	int	y;
+}				t_point;
 
 /*
 ** functions of string.h
@@ -159,5 +165,6 @@ char			**tabcpy(char **map, size_t size);
 int				get_next_line(const int fd, char **line);
 int				nbwords(char const *s, char c);
 size_t			ft_pos_i(char *str, int c);
+t_point			*assign_pt(t_point *p, int x, int y);
 
 #endif

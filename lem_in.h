@@ -14,24 +14,18 @@
 # define LEM_IN_H
 
 # include "libft/libft.h"
-# include <stdio.h> //using for fprintf
-
-typedef struct s_point
+# include <fcntl.h> //use for open() ?
+# define MAX_STRING 65535
+typedef struct s_room
 {
-	int	x;
-	int	y;
-}				t_point;
-
-typedef struct s_player
-{
-	char	let;
-	t_point	init;
-}				t_player;
+	char	*name;
+	t_point	pt;
+	char	**link;
+}				t_room;
 
 /*
 ** w = width & h = height
 */
-
 typedef struct s_object
 {
 	int		w;
@@ -40,41 +34,42 @@ typedef struct s_object
 	char	**tab;
 }				t_object;
 
-typedef struct s_filler
+typedef struct s_lemin
 {
-	t_player	me;
-	t_player	opp;
+	int		nb_ants;
+	t_room	start;
+	t_room	end;
 	t_object	piece;
 	t_object	map;
 	int			nb_piece;
-}				t_filler;
+}				t_lemin;
 
 int				main(void);
 
 /*
 ** parse.c
 */
-int				get_player(t_filler *f);
-void			get_map(t_filler *f, char *line);
-void			get_piece(t_filler *f, char *line);
+int				get_player(t_lemin *f);
+void			get_map(t_lemin *f, char *line);
+void			get_piece(t_lemin *f, char *line);
 void			fill_object(t_object *o, unsigned int start);
-void			find_start(t_filler *f);
+void			find_start(t_lemin *f);
 
 /*
 ** algo.c & algo2.c
 */
-void			which_algo(t_filler *f);
-int				check_place(t_filler *f, int j, int i);
-int				possible_sp_no(t_filler *f);
-int				possible_sp_ne(t_filler *f);
-int				possible_sp_se(t_filler *f);
-int				possible_sp_so(t_filler *f);
-int				possible_sp_last(t_filler *f);
+void			which_algo(t_lemin *f);
+int				check_place(t_lemin *f, int j, int i);
+int				possible_sp_no(t_lemin *f);
+int				possible_sp_ne(t_lemin *f);
+int				possible_sp_se(t_lemin *f);
+int				possible_sp_so(t_lemin *f);
+int				possible_sp_last(t_lemin *f);
 
-int				possible_sp_no2(t_filler *f);
-int				possible_sp_ne2(t_filler *f);
-int				possible_sp_se2(t_filler *f);
-int				possible_sp_so2(t_filler *f);
+int				possible_sp_no2(t_lemin *f);
+int				possible_sp_ne2(t_lemin *f);
+int				possible_sp_se2(t_lemin *f);
+int				possible_sp_so2(t_lemin *f);
 
 /*
 ** utils.c & utils2.c
@@ -82,10 +77,10 @@ int				possible_sp_so2(t_filler *f);
 void			init_object(t_object *o);
 t_point			*assign_pt(t_point *p, int x, int y);
 void			get_nb_chartab(t_object *o, char c);
-void			place(t_filler *f, int j, int i);
-void			free_tabs(t_filler *f);
+void			place(t_lemin *f, int j, int i);
+void			free_tabs(t_lemin *f);
 
-int				touch_border_right(t_filler *f);
-int				touch_border_left(t_filler *f);
+int				touch_border_right(t_lemin *f);
+int				touch_border_left(t_lemin *f);
 void			print_tab(t_object *o);
 #endif
