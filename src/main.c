@@ -12,67 +12,90 @@
 
 #include "../lem_in.h"
 
-void	init_filler(t_filler *f)
-{
-	assign_pt(&f->me.init, -1, -1);
-	assign_pt(&f->opp.init, -1, -1);
-	f->nb_piece = 0;
-}
-
-char	*ft_read(int fd)
+int	ft_read(int fd)
 {
 	char	*file;
 	int		ret;
-	int		i;
 
-	if (!(file = ft_strnew(MAX_STRING + 1)))
-		return (NULL);
+	file = ft_strnew(MAX_STRING + 1);
+	if (!file)
+		return (-1);
 	if ((ret = read(fd, file, MAX_STRING + 1)) <= 0 || ret > MAX_STRING)
 	{
 		ft_strdel(&file);
-		return (NULL);
+		return (-1);
 	}
-	i = -1;
-	while (file[++i])
-		if (file[i] != '#' && file[i] != '\n' && file[i] != '.')
-		{
-			ft_strdel(&file);
-			return (NULL);
-		}
-	if (link_count(file) == 1)
+	return (1);
+}
+
+int	get_nb_ants(char *line)
+{
+	ft_printf("GET_ANTS\n");
+	int	i;
+
+	i = 0;
+	while (line[i])
 	{
-		ft_strdel(&file);
-		return (NULL);
+		if (!ft_isdigit(line[i++]))
+			return (-1);
 	}
-	return (file);
+	return (ft_atoi(line));
+}
+
+void	init_room(t_room *r)
+{
+	r->name = NULL;
+	r->link = NULL;
+	assign_pt(&r->pt, 0, 0);
+}
+
+t_room	*get_room(char *line)
+{
+	t_room	*r;
+
+	init_room(r);
+	r->name = ft_strtrim(line);
+	r->pt.x = ft_atoi(ft_strchr(line, ' '));
+	r->pt.y = ft_atoi(ft_strrchr(line, ' '));
+	ft_printf("room=%s x=%d y=%d\n", r->name, r->pt.x, r->pt.y);
+	return (r);
+}
+
+void	init_lemin(t_lemin *l)
+{
+	l->nb_ants = 0;
 }
 
 int	main(void)
 {
 	t_lemin	*l;
-	char	*file;
-	int		fd;
+	char	*line;
 
-	// if (argc != 2)
+	// if ((ft_read(0)) == -1)
 	// {
-	// 	ft_putendl("usage: ./fillit [file]");
+	// 	ft_putendl("ERROR");
 	// 	return (-1);
 	// }
 	l = (t_lemin *)ft_memalloc(sizeof(t_lemin));
 	if (!l)
-		return (NULL);
-	fd = open(argv[1], O_RDONLY);
-	if ((file = ft_read(fd)) == NULL)
+		return (-1);
+	init_lemin(l);
+	if (!(get_next_line(0, &line)))
+		return (-1);
+	ft_printf("[%s]\n", line);
+	if (l->nb_ants == 0)
+		l->nb_ants = get_nb_ants(line);
+	if (l->nb_ants == -1)
+		free_lemin(l);
+	ft_printf("[%d]\n", l->nb_ants);
+	if (line)
+		ft_strdel(&line);
+	while (get_next_line(0, &line) > 0)
 	{
-		ft_putendl("ERROR");
-		return (-1);
+		if (line && !ft_strcmp(line, "##start"))
+		if (line && !ft_strcmp(line, "##end"))
+		if (line)
+			ft_strdel(&line);
 	}
-	if ((tetro = stock(file)) == NULL)
-	{
-		ft_putendl("ERROR");
-		return (-1);
-	}
-	if ((get_solv(tetro)) == -1)
-		return (-1);
 	return (0);
 }

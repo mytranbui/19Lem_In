@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lem_in.h"i
+#include "../lem_in.h"
 
 void free_lemin(t_lemin *lemin)
 {
@@ -19,39 +19,17 @@ void free_lemin(t_lemin *lemin)
   exit(-1);
 }
 
-int	get_nb_chartab(char **tab, char c)
-{
-	int	nb;
-	int	i;
-	int	j;
+// void	print_tab(t_object *o)
+// {
+// 	FILE *ID;
+// 	int j;
 
-	nb = 0;
-	j = 0;
-	while (j < o->h)
-	{
-		i = 0;
-		while (i < o->w)
-		{
-			if (tab[j][i] == c)
-				nb++;
-			i++;
-		}
-		j++;
-	}
-	return (nb);
-}
-
-void	print_tab(t_object *o)
-{
-	FILE *ID;
-	int j;
-
-	j = 0;
-	while (j < o->h)
-	{
-		ID = fopen("debugi.txt", "a");
-		fprintf(ID, "%03d %s\n", j, o->tab[j]);
-		fclose(ID);
-		j++;
-	}
-}
+// 	j = 0;
+// 	while (j < o->h)
+// 	{
+// 		ID = fopen("debugi.txt", "a");
+// 		fprintf(ID, "%03d %s\n", j, o->tab[j]);
+// 		fclose(ID);
+// 		j++;
+// 	}
+// }
