@@ -14,7 +14,6 @@
 # define LEM_IN_H
 
 # include "libft/libft.h"
-# include <fcntl.h> //use for open() ?
 # define MAX_STRING 65535
 typedef struct s_room
 {
@@ -23,20 +22,10 @@ typedef struct s_room
 	char	**link;
 }				t_room;
 
-// /*
-// ** w = width & h = height
-// */
-// typedef struct s_object
-// {
-// 	int		w;
-// 	int		h;
-// 	int		nb;
-// 	char	**tab;
-// }				t_object;
-
 typedef struct s_lemin
 {
 	int		nb_ants;
+	char	**rooms;
 	t_room	start;
 	t_room	end;
 }				t_lemin;
@@ -54,5 +43,9 @@ int				main(void);
 /*
 ** utils.c & utils2.c
 */
-void free_lemin(t_lemin *lemin);
+
+/*
+** free.c
+*/
+void			free_lemin(t_lemin *lemin);
 #endif

@@ -64,13 +64,40 @@ t_room	*get_room(char *line)
 void	init_lemin(t_lemin *l)
 {
 	l->nb_ants = 0;
+	l->rooms = NULL;
 }
 
+int		match_room_name(char *line, t_lemin *l)
+{
+	int	i;
+
+	i = 0;
+	while (l)
+}
+
+int	char_in_string(char *line, char c)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+		if (line[i++] == c)
+			return (1);
+	return (-1);
+}
+
+/*
+** Room will never start with the character L nor the character #
+*/
 int	main(void)
 {
 	t_lemin	*l;
 	char	*line;
+	int		start;
+	int		end;
 
+	start = 0;
+	end = 0;
 	// if ((ft_read(0)) == -1)
 	// {
 	// 	ft_putendl("ERROR");
@@ -93,9 +120,25 @@ int	main(void)
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line && !ft_strcmp(line, "##start"))
+		{
+			start++;
+		}
 		if (line && !ft_strcmp(line, "##end"))
+		{
+			end++;
+		}
+		if (line[0] == 'L' || start > 1 || end > 1)
+			return (-1);
+		if (line[0] != '#')
+		{
+			
+			if (char_in_string(line, '-') == 1)
+				get_link();
+		}
 		if (line)
 			ft_strdel(&line);
 	}
+	if (start == 0 || end == 0)
+		return (-1);
 	return (0);
 }
