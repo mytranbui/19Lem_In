@@ -101,7 +101,7 @@ t_room	get_room(char *line)
 }
 
 /*
-** Room will never start with the character L nor the character #
+** Room will never start with the character 'L' nor the character '#'
 */
 int	main(void)
 {
