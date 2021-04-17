@@ -28,19 +28,7 @@ int	ft_read(int fd)
 	return (1);
 }
 
-int	isdigitstr(char *line)
-{
-	ft_printf("GET_ANTS\n");
-	int	i;
 
-	i = 0;
-	while (line[i])
-	{
-		if (!ft_isdigit(line[i++]))
-			return (-1);
-	}
-	return (ft_atoi(line));
-}
 
 void	init_room(t_room *r)
 {
@@ -87,25 +75,31 @@ int	char_in_string(char *line, char c)
 }
 
 
-int	check_good_room(char *line)
+t_room	get_room(char *line)
 {
 	char	**info;
+	t_room	r;
 
 	info = NULL;
 	if (nbchar_string(line, ' ') != 2)
-		return (-1);
+		return (NULL);
 	info = ft_strsplit(line, ' ');
 	if (!info)
-		return (-1);
+		return (NULL);
 	if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
 	{
-		free_tab(info, 2);
-		return (-1);
+		info = free_tab(info, 2);
+		return (NULL);
 	}
-
-	free_tab(info, 2);
-	return (1);
+	r.name = ft_strdup(info[0]);
+	if (!r.name)
+		return (NULL);
+	r.pt.x = ft_atoi(info[1]);
+	r.pt.y = ft_atoi(info[2]);
+	info = free_tab(info, 2);
+	return (r);
 }
+
 /*
 ** Room will never start with the character L nor the character #
 */
@@ -152,8 +146,8 @@ int	main(void)
 			return (-1);
 		if (line[0] != '#')
 		{
-			if (check_good_room(line) == 1)
-				get_room();
+			if (get_room(line) == NULL)
+				return (-1);
 			if (char_in_string(line, '-') == 1) //check first str match with one room --?hash check
 				get_link();
 		}
