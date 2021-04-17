@@ -30,7 +30,7 @@ int	isdigitstr(char *s)
 		if (!ft_isdigit(line[i++]))
 			return (-1);
 	}
-	return (ft_atoi(line));
+	return (ft_atoi(s));
 }
 
 int nbchar_string(char *s, char c)
