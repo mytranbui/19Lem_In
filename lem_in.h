@@ -48,4 +48,6 @@ int				main(void);
 ** free.c
 */
 void			free_lemin(t_lemin *lemin);
+int				nbchar_string(char *s, char c);
+int				isdigitstr(char *s);
 #endif
