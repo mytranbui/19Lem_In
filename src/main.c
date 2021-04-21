@@ -76,10 +76,18 @@ t_room	*get_room(char *line)
 
 int	hash(char *key)
 {
+	char *k;
+	k = key;
 	int	value;
-
-	value = key % SIZE;
-	ft_printf("value = %d\n");
+	int	i;
+	
+	i = 0;
+	value = 0;
+	while (key[i] != '\0')
+		value = value + 6 * (key[i++] % 10 + 60);
+	ft_printf("value = %d\n", value);
+	value = value % 200;
+	ft_printf("value = %d\n", value);
 	return (value);
 }
 
