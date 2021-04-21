@@ -49,6 +49,7 @@ int nbchar_string(char *s, char c)
   return (nb);
 }
 
+//replaced by nbwords
 int	char_in_string(char *s, char c)
 {
 	int	i;
@@ -60,14 +61,14 @@ int	char_in_string(char *s, char c)
 	return (-1);
 }
 
-int	match_key(char *s, t_hashmap **h)
+int	match_key(char *s, t_hashmap **hm)
 {
 	int	i;
 
 	i = 0;
-	while(h[i])
+	while(hm[i])
 	{
-		if (s && !ft_strcmp(s, h[i]->key))
+		if (s && !ft_strcmp(s, hm[i]->key))
 			return (i);
 		i++;
 	}

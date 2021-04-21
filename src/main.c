@@ -91,7 +91,7 @@ int	hash(char *key)
 	return (value);
 }
 
-void	insert_item(t_hashmap **h, char *key, int x, int y)
+void	insert_item(t_hashmap **hm, char *key, int x, int y)
 {
 	t_hashmap	*item;
 	int	i;
@@ -103,11 +103,11 @@ void	insert_item(t_hashmap **h, char *key, int x, int y)
 	item->key = key;
 	item->pt.x = x;
 	item->pt.y = y;
-	h[i] = item;
-	ft_printf("h[%d]=%s x=%d y=%d\n", i, h[i]->key, h[i]->pt.x, h[i]->pt.y);
+	hm[i] = item;
+	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 }
 
-int	check_room(char *line, t_hashmap **h)
+int	check_room(char *line, t_hashmap **hm)
 {
 	char	**info;
 	char	*name;
@@ -127,16 +127,35 @@ int	check_room(char *line, t_hashmap **h)
 	name = ft_strdup(info[0]);
 	if (!name)
 		return (-1);
-	insert_item(h, name, ft_atoi(info[1]), ft_atoi(info[2]));
+	insert_item(hm, name, ft_atoi(info[1]), ft_atoi(info[2]));
 	ft_printf("room=%s x=%d y=%d\n", name, ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
 	return (1);
 }
 
-void	get_link(char *line)//, t_hashmap **h)
+void	get_link(char *line)//, t_hashmap **hm)
 {
 	ft_printf("GET_LINK\n");
 	ft_printf("%s\n", ft_strcsub(line, 0, '-'));
+}
+
+int	check_link(char *line, t_hashmap **hm)
+{
+	char	*name;
+
+	name = NULL;
+	if (char_in_string(line, '-') == -1)
+		return (-1);
+	name = ft_strcsub(line, 0, '-');
+	if (!name)
+		return (-1);
+	if (match_key(name, hm) != -1)
+		return (-1);
+	if (match_key(ft_strchr(line, '-'), hm) != -1)
+		return (-1);
+	ft_printf("CHECK_LINK OK\n");
+	get_link(line);
+	return (1);
 }
 
 /*
@@ -148,7 +167,7 @@ int	main(void)
 	char	*line;
 	int		start;
 	int		end;
-	t_hashmap	*h[SIZE];
+	t_hashmap	*hm[SIZE];
 
 	start = 0;
 	end = 0;
@@ -187,14 +206,21 @@ int	main(void)
 			return (-1);
 		if (line[0] != '#')
 		{
-			if (check_room(line, h) == -1)
-				return (-1);
+			if (nbwords(line, ' ') == 3)
+			{
+				ft_printf("FIRST_IF\n");
+				if (check_room(line, hm) == -1)
+					return (-1);
+			}
 			// if (get_room(line) == NULL)
 				// return (-1);
-			else if (char_in_string(line, '-') == 1)
-			// && match_key(ft_strchr(line, '-'), h) != -1
-			// && match_key(ft_strrchr(line, '-'), h) != -1)
-				get_link(line);//, h);
+			else if (nbwords(line, '-') == 2)
+			{
+				ft_printf("SECOND_IF\n");
+				if (check_link(line, hm) == -1)
+					return (-1);
+				// get_link(line);//, h);
+			}
 		}
 		if (line)
 			ft_strdel(&line);
