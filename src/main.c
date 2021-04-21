@@ -74,7 +74,57 @@ t_room	*get_room(char *line)
 	return (r);
 }
 
+int	hash(char *key)
+{
+	int	value;
 
+	value = key % SIZE;
+	ft_printf("value = %d\n");
+	return (value);
+}
+
+void	insert_item(t_hashmap **h, char *key, int x, int y)
+{
+	t_hashmap	*item;
+	int	i;
+
+	i = hash(key);
+	item = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	if (!item)
+		return ;
+	item->key = key;
+	item->pt.x = x;
+	item->pt.y = y;
+	h[i] = item;
+	//delete hash item fct
+	//return ();
+}
+
+int	check_room(char *line, t_hashmap **h)
+{
+	char	**info;
+	char	*name;
+
+	info = NULL;
+	name = NULL;
+	if (nbchar_string(line, ' ') != 2)
+		return (-1);
+	info = ft_strsplit(line, ' ');
+	if (!info)
+		return (-1);
+	if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
+	{
+		info = free_tab(info, 2);
+		return (-1);
+	}
+	name = ft_strdup(info[0]);
+	if (!name)
+		return (-1);
+	insert_item(h, name, ft_atoi(info[1]), ft_atoi(info[2]));
+	ft_printf("room=%s x=%d y=%d\n", name, ft_atoi(info[1]), ft_atoi(info[2]));
+	info = free_tab(info, 2);
+	return (1);
+}
 
 /*
 ** Room will never start with the character 'L' nor the character '#'
@@ -86,7 +136,6 @@ int	main(void)
 	int		start;
 	int		end;
 	t_hashmap	*h[SIZE];
-	t_hashmap	*item;
 
 	start = 0;
 	end = 0;
@@ -125,8 +174,10 @@ int	main(void)
 			return (-1);
 		if (line[0] != '#')
 		{
-			if (get_room(line) == NULL)
+			if (check_room(line, h) == -1)
 				return (-1);
+			// if (get_room(line) == NULL)
+				// return (-1);
 			// if (char_in_string(line, '-') == 1) //check first str match with one room --?hash check
 			// 	get_link();
 		}
