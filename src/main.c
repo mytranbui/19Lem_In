@@ -104,6 +104,7 @@ void	insert_item(t_hashmap **h, char *key, int x, int y)
 	item->pt.x = x;
 	item->pt.y = y;
 	h[i] = item;
+	ft_printf("h[%d]=%s x=%d y=%d\n", i, h[i]->key, h[i]->pt.x, h[i]->pt.y);
 	//delete hash item fct
 	//return ();
 }
