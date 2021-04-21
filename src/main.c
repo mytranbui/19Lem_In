@@ -28,24 +28,16 @@ int	ft_read(int fd)
 	return (1);
 }
 
-
-
-void	init_room(t_room *r)
-{
-	r->name = NULL;
-	r->link = NULL;
-	assign_pt(&r->pt, 0, 0);
-}
-
-t_room	*get_room(char *line)
+t_room	*init_room(void)
 {
 	t_room	*r;
 
-	init_room(r);
-	r->name = ft_strtrim(line);
-	r->pt.x = ft_atoi(ft_strchr(line, ' '));
-	r->pt.y = ft_atoi(ft_strrchr(line, ' '));
-	ft_printf("room=%s x=%d y=%d\n", r->name, r->pt.x, r->pt.y);
+	r = (t_room *)ft_memalloc(sizeof(t_room));
+	if (!r)
+		return (NULL);
+	r->name = NULL;
+	r->link = NULL;
+	assign_pt(&r->pt, 0, 0);
 	return (r);
 }
 
@@ -55,32 +47,13 @@ void	init_lemin(t_lemin *l)
 	l->rooms = NULL;
 }
 
-int		match_room_name(char *line, t_lemin *l)
-{
-	int	i;
-
-	i = 0;
-	while (l)
-}
-
-int	char_in_string(char *line, char c)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-		if (line[i++] == c)
-			return (1);
-	return (-1);
-}
-
-
-t_room	get_room(char *line)
+t_room	*get_room(char *line)
 {
 	char	**info;
-	t_room	r;
+	t_room	*r;
 
 	info = NULL;
+	r = init_room();
 	if (nbchar_string(line, ' ') != 2)
 		return (NULL);
 	info = ft_strsplit(line, ' ');
@@ -91,14 +64,17 @@ t_room	get_room(char *line)
 		info = free_tab(info, 2);
 		return (NULL);
 	}
-	r.name = ft_strdup(info[0]);
-	if (!r.name)
+	r->name = ft_strdup(info[0]);
+	if (!r->name)
 		return (NULL);
-	r.pt.x = ft_atoi(info[1]);
-	r.pt.y = ft_atoi(info[2]);
+	r->pt.x = ft_atoi(info[1]);
+	r->pt.y = ft_atoi(info[2]);
 	info = free_tab(info, 2);
+	ft_printf("room=%s x=%d y=%d\n", r->name, r->pt.x, r->pt.y);
 	return (r);
 }
+
+
 
 /*
 ** Room will never start with the character 'L' nor the character '#'
@@ -109,7 +85,8 @@ int	main(void)
 	char	*line;
 	int		start;
 	int		end;
-	char	**info;
+	t_hashmap	*h[SIZE];
+	t_hashmap	*item;
 
 	start = 0;
 	end = 0;
@@ -134,8 +111,10 @@ int	main(void)
 		ft_strdel(&line);
 	while (get_next_line(0, &line) > 0)
 	{
+		ft_printf("[%s]\n", line);
 		if (line && !ft_strcmp(line, "##start"))
 		{
+			ft_printf("start\n");
 			start++;
 		}
 		if (line && !ft_strcmp(line, "##end"))
@@ -148,12 +127,13 @@ int	main(void)
 		{
 			if (get_room(line) == NULL)
 				return (-1);
-			if (char_in_string(line, '-') == 1) //check first str match with one room --?hash check
-				get_link();
+			// if (char_in_string(line, '-') == 1) //check first str match with one room --?hash check
+			// 	get_link();
 		}
 		if (line)
 			ft_strdel(&line);
 	}
+	ft_printf("s=%d e=%d\n", start, end);
 	if (start == 0 || end == 0)
 		return (-1);
 	return (0);

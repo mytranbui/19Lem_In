@@ -21,13 +21,13 @@ void free_lemin(t_lemin *lemin)
 
 int	isdigitstr(char *s)
 {
-	ft_printf("ISDIGITSTR\n");
+	//ft_printf("ISDIGITSTR\n");
 	int	i;
 
 	i = 0;
-	while (line[i])
+	while (s[i])
 	{
-		if (!ft_isdigit(line[i++]))
+		if (!ft_isdigit(s[i++]))
 			return (-1);
 	}
 	return (ft_atoi(s));
@@ -47,6 +47,17 @@ int nbchar_string(char *s, char c)
     i++;
   }
   return (nb);
+}
+
+int	char_in_string(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		if (s[i++] == c)
+			return (1);
+	return (-1);
 }
 
 // void	print_tab(t_object *o)

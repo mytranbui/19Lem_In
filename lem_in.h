@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # define MAX_STRING 65535
+# define SIZE 200
 typedef struct s_room
 {
 	char	*name;
@@ -29,6 +30,19 @@ typedef struct s_lemin
 	t_room	start;
 	t_room	end;
 }				t_lemin;
+
+
+/*
+** key = name of the room
+** value =
+*/
+typedef struct	s_hashmap
+{
+	char	*key;
+	int		value;
+	t_point	pt;
+	t_room	r;
+}				t_hashmap;
 
 int				main(void);
 
@@ -49,5 +63,6 @@ int				main(void);
 */
 void			free_lemin(t_lemin *lemin);
 int				nbchar_string(char *s, char c);
+int				char_in_string(char *s, char c);
 int				isdigitstr(char *s);
 #endif
