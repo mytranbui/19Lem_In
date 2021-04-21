@@ -60,6 +60,19 @@ int	char_in_string(char *s, char c)
 	return (-1);
 }
 
+int	match_key(char *s, t_hashmap **h)
+{
+	int	i;
+
+	i = 0;
+	while(h[i])
+	{
+		if (s && !ft_strcmp(s, h[i]->key))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 // void	print_tab(t_object *o)
 // {
 // 	FILE *ID;

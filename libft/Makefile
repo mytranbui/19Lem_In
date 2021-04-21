@@ -6,7 +6,7 @@
 #    By: mbui <mbui@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 12:49:35 by mbui              #+#    #+#              #
-#    Updated: 2021/04/13 18:34:14 by mbui             ###   ########.fr        #
+#    Updated: 2021/04/21 15:20:50 by mbui             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRCS_STRING = ft_bzero.c \
 			  ft_strmap.c \
 			  ft_strmapi.c \
 			  ft_strsub.c \
+			  ft_strcsub.c \
 			  ft_strtrim.c \
 			  ft_strsplit.c \
 			  ft_strnew.c \
@@ -132,6 +133,7 @@ SRCS_BONUS = ft_swap.c \
 			sort_int_tab.c \
 			tabcpy.c \
 			nbwords.c \
+			lstring.c \
 			ft_intlen.c \
 			ft_pos_i.c \
 			assign_pt.c \

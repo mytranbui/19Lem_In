@@ -105,8 +105,6 @@ void	insert_item(t_hashmap **h, char *key, int x, int y)
 	item->pt.y = y;
 	h[i] = item;
 	ft_printf("h[%d]=%s x=%d y=%d\n", i, h[i]->key, h[i]->pt.x, h[i]->pt.y);
-	//delete hash item fct
-	//return ();
 }
 
 int	check_room(char *line, t_hashmap **h)
@@ -133,6 +131,12 @@ int	check_room(char *line, t_hashmap **h)
 	ft_printf("room=%s x=%d y=%d\n", name, ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
 	return (1);
+}
+
+void	get_link(char *line)//, t_hashmap **h)
+{
+	ft_printf("GET_LINK\n");
+	ft_printf("%s\n", ft_strcsub(line, 0, '-'));
 }
 
 /*
@@ -187,8 +191,10 @@ int	main(void)
 				return (-1);
 			// if (get_room(line) == NULL)
 				// return (-1);
-			// if (char_in_string(line, '-') == 1) //check first str match with one room --?hash check
-			// 	get_link();
+			else if (char_in_string(line, '-') == 1)
+			// && match_key(ft_strchr(line, '-'), h) != -1
+			// && match_key(ft_strrchr(line, '-'), h) != -1)
+				get_link(line);//, h);
 		}
 		if (line)
 			ft_strdel(&line);

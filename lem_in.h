@@ -65,4 +65,5 @@ void			free_lemin(t_lemin *lemin);
 int				nbchar_string(char *s, char c);
 int				char_in_string(char *s, char c);
 int				isdigitstr(char *s);
+int				match_key(char *s, t_hashmap **h);
 #endif

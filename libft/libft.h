@@ -6,7 +6,7 @@
 /*   By: mbui <mbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:43 by mbui              #+#    #+#             */
-/*   Updated: 2021/04/13 18:33:38 by mbui             ###   ########.fr       */
+/*   Updated: 2021/04/21 15:32:19 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 char			*ft_strmap(char const *s, char (*f)(char));
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
+char			*ft_strcsub(char const *s, unsigned int start, char c);
 char			*ft_strtrim(char const *s);
 char			**ft_strsplit(char const *s, char c);
 char			*ft_strnew(size_t size);
@@ -164,6 +165,7 @@ void			sort_int_tab(int *tab, unsigned int size);
 char			**tabcpy(char **map, size_t size);
 int				get_next_line(const int fd, char **line);
 int				nbwords(char const *s, char c);
+int				lstring(char const *s, int start, char c);
 size_t			ft_pos_i(char *str, int c);
 t_point			*assign_pt(t_point *p, int x, int y);
 
