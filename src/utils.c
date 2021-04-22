@@ -83,7 +83,7 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 		// ret = !ft_strcmp(key, hm[i]->key);
 		// ft_printf("ret=%d\n", ret);
 		i++;
-		i %= SIZE;
+		//i %= SIZE;
 	}
 	// ft_printf("ret=%d\n", ret);
 	return (NULL);
