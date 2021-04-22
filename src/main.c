@@ -108,7 +108,7 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 	//free item
 }
 
-int	check_room(char *line, t_hashmap **hm)
+int	check_room(char *line)//, t_hashmap **hm)
 {
 	char	**info;
 	char	*name;
@@ -120,17 +120,21 @@ int	check_room(char *line, t_hashmap **hm)
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
-	if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
-	{
-		info = free_tab(info, 2);
-		return (-1);
-	}
-	name = ft_strdup(info[0]);
-	if (!name)
-		return (-1);
-	insert_item(hm, name, ft_atoi(info[1]), ft_atoi(info[2]));
-	ft_printf("room=%s x=%d y=%d\n", name, ft_atoi(info[1]), ft_atoi(info[2]));
-	info = free_tab(info, 2);
+	ft_printf("[%s] [%s] [%s]\n",info[0],info[1],info[2]);
+	// name = ft_strcsub(line, 0, ' ');
+	// if (!name)
+	// 	return (-1);
+	// if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
+	// {
+	// 	info = free_tab(info, 2);
+	// 	return (-1);
+	// }
+	// name = ft_strdup(info[0]);
+	// if (!name)
+	// 	return (-1);
+	// insert_item(hm, name, ft_atoi(info[1]), ft_atoi(info[2]));
+	// ft_printf("room=%s x=%d y=%d\n", name, ft_atoi(info[1]), ft_atoi(info[2]));
+	// info = free_tab(info, 2);
 	return (1);
 }
 
@@ -182,7 +186,7 @@ int	main(void)
 	char	*line;
 	int		start;
 	int		end;
-	t_hashmap	*hm[SIZE];
+	// t_hashmap	*hm[SIZE];
 
 	start = 0;
 	end = 0;
@@ -221,17 +225,17 @@ int	main(void)
 			return (-1);
 		if (line[0] != '#')
 		{
-			if (nbwords(line, ' ') == 3)
+			if (nb_word(line, ' ') == 3)
 			{
 				ft_printf("FIRST_IF\n");
-				// if (check_room(line, hm) == -1)
-				// 	return (-1);
+				if (check_room(line) == -1)
+					return (-1);
 			}
-			else if (nbwords(line, '-') == 2)
+			else if (nb_word(line, '-') == 2)
 			{
 				ft_printf("SECOND_IF\n");
-				if (check_link(line, hm) == -1)
-					return (-1);
+				// if (check_link(line, hm) == -1)
+				// 	return (-1);
 			}
 		}
 		if (line)

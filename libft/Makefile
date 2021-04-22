@@ -132,7 +132,7 @@ SRCS_BONUS = ft_swap.c \
 			get_next_line.c \
 			sort_int_tab.c \
 			tabcpy.c \
-			nbwords.c \
+			nb_word.c \
 			lstring.c \
 			ft_intlen.c \
 			ft_pos_i.c \

@@ -183,7 +183,7 @@ int				tablen(char **tab);
 void			sort_int_tab(int *tab, unsigned int size);
 char			**tabcpy(char **map, size_t size);
 int				get_next_line(const int fd, char **line);
-int				nbwords(char const *s, char c);
+int				nb_word(char const *s, char c);
 int				lstring(char const *s, int start, char c);
 size_t			ft_pos_i(char *str, int c);
 t_point			*assign_pt(t_point *p, int x, int y);

@@ -49,7 +49,7 @@ int nbchar_string(char *s, char c)
   return (nb);
 }
 
-//replaced by nbwords
+//replaced by nb_word
 int	char_in_string(char *s, char c)
 {
 	int	i;
