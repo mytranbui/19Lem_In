@@ -67,20 +67,23 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 	int	i;
 	// int ret;
 
-	i = 0;
+	i = hash(key);
 	// ret = 40;
-	while(i < SIZE - 1)
+	while(hm[i] && i < SIZE - 1)
 	{
-		ft_printf("WHILE\n");
-		if (hm[i] && !ft_strcmp(key, hm[i]->key))
+		ft_printf("WHILE %d\n", i);
+		if (hm[i]->key && !ft_strcmp(hm[i]->key, key))
 		{
-			ft_printf("IF\n");
+			// ft_printf("IF\n");
 			// ft_printf("ret=%d\n", ret);
+	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+
 			return (hm[i]);
 		}
 		// ret = !ft_strcmp(key, hm[i]->key);
 		// ft_printf("ret=%d\n", ret);
 		i++;
+		i %= SIZE;
 	}
 	// ft_printf("ret=%d\n", ret);
 	return (NULL);

@@ -146,7 +146,7 @@ int	check_link(char *line, t_hashmap **hm)
 		return (-1);
 	ft_printf("S1=[%s]\n", info[0]);
 	ft_printf("S2=[%s]\n", info[1]);
-	if (!match_key(info[0], hm))
+	if (!match_key(info[0], hm) || !match_key(info[1], hm))
 	{
 		ft_printf("MATCH_KEY NO1\n");
 		return (-1);

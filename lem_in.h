@@ -66,4 +66,5 @@ int				nbchar_string(char *s, char c);
 int				char_in_string(char *s, char c);
 int				isdigitstr(char *s);
 t_hashmap		*match_key(char *s, t_hashmap **hm);
+int				hash(char *key);
 #endif
