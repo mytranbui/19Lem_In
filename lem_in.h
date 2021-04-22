@@ -31,10 +31,10 @@ typedef struct s_lemin
 	t_room	end;
 }				t_lemin;
 
-
 /*
-** key = name of the room
-** value =
+** key	 = name of the room
+** value = hash(key)
+** pt	 = coords of the room
 */
 typedef struct	s_hashmap
 {

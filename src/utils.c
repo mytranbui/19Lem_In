@@ -61,31 +61,40 @@ int	char_in_string(char *s, char c)
 	return (-1);
 }
 
+int	hash(char *key)
+{
+	int	value;
+	int	i;
+	
+	i = 0;
+	value = 0;
+	while (key[i] != '\0')
+		value = value + 6 * (key[i++] % 10 + 60);
+	ft_printf("value = %d\n", value);
+	value = value % 200;
+	ft_printf("value = %d\n", value);
+	return (value);
+}
+
 t_hashmap	*match_key(char *key, t_hashmap **hm)
 {
 	ft_printf("MATCH_KEY\n");
 	int	i;
-	// int ret;
 
 	i = hash(key);
-	// ret = 40;
-	while(hm[i] && i < SIZE - 1)
-	{
-		ft_printf("WHILE %d\n", i);
+	// while(hm[i] && i < SIZE - 1)
+	// {
+	// 	ft_printf("WHILE %d\n", i);
+	ft_printf("key=%s | h[%d]=%s", key, i, hm[i]->key);
 		if (hm[i]->key && !ft_strcmp(hm[i]->key, key))
 		{
-			// ft_printf("IF\n");
-			// ft_printf("ret=%d\n", ret);
 	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 
 			return (hm[i]);
 		}
-		// ret = !ft_strcmp(key, hm[i]->key);
-		// ft_printf("ret=%d\n", ret);
-		i++;
-		//i %= SIZE;
-	}
-	// ft_printf("ret=%d\n", ret);
+	// 	i++;
+	// 	//i %= SIZE;
+	// }
 	return (NULL);
 }
 

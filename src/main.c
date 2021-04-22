@@ -74,23 +74,6 @@ void	init_lemin(t_lemin *l)
 // 	return (r);
 // }
 
-int	hash(char *key)
-{
-	char *k;
-	k = key;
-	int	value;
-	int	i;
-	
-	i = 0;
-	value = 0;
-	while (key[i] != '\0')
-		value = value + 6 * (key[i++] % 10 + 60);
-	ft_printf("value = %d\n", value);
-	value = value % 200;
-	ft_printf("value = %d\n", value);
-	return (value);
-}
-
 void	insert_item(t_hashmap **hm, char *key, int x, int y)
 {
 	t_hashmap	*item;
@@ -199,7 +182,6 @@ int	main(void)
 		ft_printf("[%s]\n", line);
 		if (line && !ft_strcmp(line, "##start"))
 		{
-			ft_printf("start\n");
 			start++;
 		}
 		if (line && !ft_strcmp(line, "##end"))
@@ -212,13 +194,11 @@ int	main(void)
 		{
 			if (nb_word(line, ' ') == 3)
 			{
-				// ft_printf("FIRST_IF\n");
 				if (check_room(line, hm) == -1)
 					return (-1);
 			}
 			else if (nb_word(line, '-') == 2)
 			{
-				ft_printf("SECOND_IF\n");
 				if (check_link(line, hm) == -1)
 					return (-1);
 			}
