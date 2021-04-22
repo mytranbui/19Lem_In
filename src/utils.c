@@ -61,19 +61,47 @@ int	char_in_string(char *s, char c)
 	return (-1);
 }
 
-int	match_key(char *s, t_hashmap **hm)
+t_hashmap	*match_key(char *key, t_hashmap **hm)
 {
+	ft_printf("MATCH_KEY\n");
 	int	i;
+	// int ret;
 
 	i = 0;
-	while(hm[i])
+	// ret = 40;
+	while(i < SIZE - 1)
 	{
-		if (s && !ft_strcmp(s, hm[i]->key))
-			return (i);
+		ft_printf("WHILE\n");
+		if (hm[i] && !ft_strcmp(key, hm[i]->key))
+		{
+			ft_printf("IF\n");
+			// ft_printf("ret=%d\n", ret);
+			return (hm[i]);
+		}
+		// ret = !ft_strcmp(key, hm[i]->key);
+		// ft_printf("ret=%d\n", ret);
 		i++;
 	}
-	return (-1);
+	// ft_printf("ret=%d\n", ret);
+	return (NULL);
 }
+
+// t_hashmap *find_hash(int key, t_hashmap **hm)
+// {
+//    //get the hash 
+//    int i = hashCode(key);  
+	
+//    //move in array until an empty 
+//    while(hm[i] != NULL)
+//    {
+//       if(hm[i]->key == key)
+//          return hm[i]; 
+//       ++i;	
+//       //wrap around the table
+//       i %= SIZE;
+//    }        
+//    return (NULL);        
+// }
 // void	print_tab(t_object *o)
 // {
 // 	FILE *ID;

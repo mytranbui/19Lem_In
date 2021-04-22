@@ -47,32 +47,32 @@ void	init_lemin(t_lemin *l)
 	l->rooms = NULL;
 }
 
-t_room	*get_room(char *line)
-{
-	char	**info;
-	t_room	*r;
+// t_room	*get_room(char *line)
+// {
+// 	char	**info;
+// 	t_room	*r;
 
-	info = NULL;
-	r = init_room();
-	if (nbchar_string(line, ' ') != 2)
-		return (NULL);
-	info = ft_strsplit(line, ' ');
-	if (!info)
-		return (NULL);
-	if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
-	{
-		info = free_tab(info, 2);
-		return (NULL);
-	}
-	r->name = ft_strdup(info[0]);
-	if (!r->name)
-		return (NULL);
-	r->pt.x = ft_atoi(info[1]);
-	r->pt.y = ft_atoi(info[2]);
-	info = free_tab(info, 2);
-	ft_printf("room=%s x=%d y=%d\n", r->name, r->pt.x, r->pt.y);
-	return (r);
-}
+// 	info = NULL;
+// 	r = init_room();
+// 	if (nbchar_string(line, ' ') != 2)
+// 		return (NULL);
+// 	info = ft_strsplit(line, ' ');
+// 	if (!info)
+// 		return (NULL);
+// 	if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
+// 	{
+// 		info = free_tab(info, 2);
+// 		return (NULL);
+// 	}
+// 	r->name = ft_strdup(info[0]);
+// 	if (!r->name)
+// 		return (NULL);
+// 	r->pt.x = ft_atoi(info[1]);
+// 	r->pt.y = ft_atoi(info[2]);
+// 	info = free_tab(info, 2);
+// 	ft_printf("room=%s x=%d y=%d\n", r->name, r->pt.x, r->pt.y);
+// 	return (r);
+// }
 
 int	hash(char *key)
 {
@@ -105,6 +105,7 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 	item->pt.y = y;
 	hm[i] = item;
 	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+	//free item
 }
 
 int	check_room(char *line, t_hashmap **hm)
@@ -142,19 +143,33 @@ void	get_link(char *line)//, t_hashmap **hm)
 int	check_link(char *line, t_hashmap **hm)
 {
 	char	*name;
+	char	**info;
 
 	name = NULL;
+	info = ft_strsplit(line, '-');
+	if (!info)
+		return (-1);
 	if (char_in_string(line, '-') == -1)
 		return (-1);
 	name = ft_strcsub(line, 0, '-');
 	if (!name)
 		return (-1);
-	if (match_key(name, hm) != -1)
+	ft_printf("NA=[%s]\n", name);
+	ft_printf("S1=[%s]\n", info[0]);
+	ft_printf("S2=[%s]\n", info[1]);
+	if (match_key(name, hm) == NULL)
+	{
+		ft_printf("MATCH_KEY NO1\n");
 		return (-1);
-	if (match_key(ft_strchr(line, '-'), hm) != -1)
+	}
+	if (match_key(info[1], hm) == NULL)
+	{
+		ft_printf("MATCH_KEY NO2\n");
 		return (-1);
+	}
 	ft_printf("CHECK_LINK OK\n");
 	get_link(line);
+	info = free_tab(info, 1);
 	return (1);
 }
 
@@ -209,17 +224,14 @@ int	main(void)
 			if (nbwords(line, ' ') == 3)
 			{
 				ft_printf("FIRST_IF\n");
-				if (check_room(line, hm) == -1)
-					return (-1);
+				// if (check_room(line, hm) == -1)
+				// 	return (-1);
 			}
-			// if (get_room(line) == NULL)
-				// return (-1);
 			else if (nbwords(line, '-') == 2)
 			{
 				ft_printf("SECOND_IF\n");
 				if (check_link(line, hm) == -1)
 					return (-1);
-				// get_link(line);//, h);
 			}
 		}
 		if (line)

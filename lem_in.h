@@ -41,7 +41,7 @@ typedef struct	s_hashmap
 	char	*key;
 	int		value;
 	t_point	pt;
-	t_room	r;
+	//t_room	r;
 }				t_hashmap;
 
 int				main(void);
@@ -65,5 +65,5 @@ void			free_lemin(t_lemin *lemin);
 int				nbchar_string(char *s, char c);
 int				char_in_string(char *s, char c);
 int				isdigitstr(char *s);
-int				match_key(char *s, t_hashmap **hm);
+t_hashmap		*match_key(char *s, t_hashmap **hm);
 #endif
