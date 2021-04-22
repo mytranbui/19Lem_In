@@ -108,33 +108,24 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 	//free item
 }
 
-int	check_room(char *line)//, t_hashmap **hm)
+int	check_room(char *line, t_hashmap **hm)
 {
 	char	**info;
-	char	*name;
 
 	info = NULL;
-	name = NULL;
 	if (nbchar_string(line, ' ') != 2)
 		return (-1);
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
-	ft_printf("[%s] [%s] [%s]\n",info[0],info[1],info[2]);
-	// name = ft_strcsub(line, 0, ' ');
-	// if (!name)
-	// 	return (-1);
-	// if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
-	// {
-	// 	info = free_tab(info, 2);
-	// 	return (-1);
-	// }
-	// name = ft_strdup(info[0]);
-	// if (!name)
-	// 	return (-1);
-	// insert_item(hm, name, ft_atoi(info[1]), ft_atoi(info[2]));
-	// ft_printf("room=%s x=%d y=%d\n", name, ft_atoi(info[1]), ft_atoi(info[2]));
-	// info = free_tab(info, 2);
+	if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
+	{
+		info = free_tab(info, 2);
+		return (-1);
+	}
+	insert_item(hm, info[0], ft_atoi(info[1]), ft_atoi(info[2]));
+	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
+	info = free_tab(info, 2);
 	return (1);
 }
 
@@ -146,31 +137,25 @@ void	get_link(char *line)//, t_hashmap **hm)
 
 int	check_link(char *line, t_hashmap **hm)
 {
-	char	*name;
 	char	**info;
 
-	name = NULL;
 	info = ft_strsplit(line, '-');
 	if (!info)
 		return (-1);
 	if (char_in_string(line, '-') == -1)
 		return (-1);
-	name = ft_strcsub(line, 0, '-');
-	if (!name)
-		return (-1);
-	ft_printf("NA=[%s]\n", name);
 	ft_printf("S1=[%s]\n", info[0]);
 	ft_printf("S2=[%s]\n", info[1]);
-	if (match_key(name, hm) == NULL)
+	if (!match_key(info[0], hm))
 	{
 		ft_printf("MATCH_KEY NO1\n");
 		return (-1);
 	}
-	if (match_key(info[1], hm) == NULL)
-	{
-		ft_printf("MATCH_KEY NO2\n");
-		return (-1);
-	}
+	// if (match_key(info[1], hm) == NULL)
+	// {
+	// 	ft_printf("MATCH_KEY NO2\n");
+	// 	return (-1);
+	// }
 	ft_printf("CHECK_LINK OK\n");
 	get_link(line);
 	info = free_tab(info, 1);
@@ -186,7 +171,7 @@ int	main(void)
 	char	*line;
 	int		start;
 	int		end;
-	// t_hashmap	*hm[SIZE];
+	t_hashmap	*hm[SIZE];
 
 	start = 0;
 	end = 0;
@@ -227,15 +212,15 @@ int	main(void)
 		{
 			if (nb_word(line, ' ') == 3)
 			{
-				ft_printf("FIRST_IF\n");
-				if (check_room(line) == -1)
+				// ft_printf("FIRST_IF\n");
+				if (check_room(line, hm) == -1)
 					return (-1);
 			}
 			else if (nb_word(line, '-') == 2)
 			{
 				ft_printf("SECOND_IF\n");
-				// if (check_link(line, hm) == -1)
-				// 	return (-1);
+				if (check_link(line, hm) == -1)
+					return (-1);
 			}
 		}
 		if (line)
