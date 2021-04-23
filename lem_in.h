@@ -15,7 +15,7 @@
 
 # include "libft/libft.h"
 # define MAX_STRING 65535
-# define SIZE 2000
+# define SIZE 200
 typedef struct s_room
 {
 	char	*name;
@@ -67,4 +67,7 @@ int				char_in_string(char *s, char c);
 int				isdigitstr(char *s);
 t_hashmap		*match_key(char *s, t_hashmap **hm);
 int				hash(char *key);
+
+void	print_key(t_hashmap **hm);
+
 #endif

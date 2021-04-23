@@ -83,7 +83,9 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 	item = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
 	if (!item)
 		return ;
-	item->key = key;
+	item->key = ft_strdup(key);
+	if (!item->key)
+		return ;
 	item->pt.x = x;
 	item->pt.y = y;
 	hm[i] = item;
@@ -129,16 +131,12 @@ int	check_link(char *line, t_hashmap **hm)
 		return (-1);
 	ft_printf("S1=[%s]\n", info[0]);
 	ft_printf("S2=[%s]\n", info[1]);
+	// if (!match_key("C", hm))
 	if (!match_key(info[0], hm) || !match_key(info[1], hm))
 	{
 		ft_printf("MATCH_KEY NO1\n");
 		return (-1);
 	}
-	// if (match_key(info[1], hm) == NULL)
-	// {
-	// 	ft_printf("MATCH_KEY NO2\n");
-	// 	return (-1);
-	// }
 	ft_printf("CHECK_LINK OK\n");
 	get_link(line);
 	info = free_tab(info, 1);
@@ -199,6 +197,7 @@ int	main(void)
 			}
 			else if (nb_word(line, '-') == 2)
 			{
+				// print_key(hm);
 				if (check_link(line, hm) == -1)
 					return (-1);
 			}

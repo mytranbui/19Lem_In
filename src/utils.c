@@ -98,6 +98,24 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 	return (NULL);
 }
 
+void	print_key(t_hashmap **hm)
+{
+	int	i;
+
+	i = 0;
+	while (i < SIZE)
+	{
+		if (hm[i])
+		{
+			printf("key=%s\n", hm[i]->key);
+			ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+		}
+		else
+			ft_printf("~");
+		i++;
+	}
+}
+
 // t_hashmap *find_hash(int key, t_hashmap **hm)
 // {
 //    //get the hash 
