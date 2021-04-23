@@ -100,6 +100,7 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 
 void	print_key(t_hashmap **hm)
 {
+	ft_printf("PRINT_KEY\n");
 	int	i;
 
 	i = 0;
@@ -107,31 +108,17 @@ void	print_key(t_hashmap **hm)
 	{
 		if (hm[i])
 		{
-			printf("key=%s\n", hm[i]->key);
-			ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+			ft_printf("h[%d]=%s x[%d] y[%d]\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 		}
-		else
-			ft_printf("~");
+		printf("i%d\n",i);
+		// else
+		// 	ft_printf("~");
 		i++;
 	}
 }
 
-// t_hashmap *find_hash(int key, t_hashmap **hm)
-// {
-//    //get the hash 
-//    int i = hashCode(key);  
-	
-//    //move in array until an empty 
-//    while(hm[i] != NULL)
-//    {
-//       if(hm[i]->key == key)
-//          return hm[i]; 
-//       ++i;	
-//       //wrap around the table
-//       i %= SIZE;
-//    }        
-//    return (NULL);        
-// }
+int	error, int errnum)
+
 // void	print_tab(t_object *o)
 // {
 // 	FILE *ID;

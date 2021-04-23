@@ -19,16 +19,17 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
+# include <sys/errno.h>
 # include <stdarg.h>
 # include <limits.h>
 # include <stdint.h>
 
 /*
 ** unistd.h	: use of write()
-** sys/types.h & sys/uio.h : use of read()
+** sys/types.h & sys/uio.h	: use of read()
 ** stdlib.h	: use of malloc(), free() and exit()
 ** stdio.h	: use of perror()
-** string.h	: use of strerror()
+** string.h & sys/errno.h	: use of strerror()
 ** stdarg.h	: use of va_arg(), va_start() and va_end()
 ** limits.h	: use of OPEN_MAX
 ** stdint.h	: compatibility use with Linux for intmax_t and uintmax_t

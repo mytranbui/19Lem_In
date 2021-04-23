@@ -197,9 +197,11 @@ int	main(void)
 			}
 			else if (nb_word(line, '-') == 2)
 			{
+				perror("ERROR");
+				// ft_printf(strerror(22));
 				// print_key(hm);
-				if (check_link(line, hm) == -1)
-					return (-1);
+				// if (check_link(line, hm) == -1)
+				// 	return (-1);
 			}
 		}
 		if (line)
