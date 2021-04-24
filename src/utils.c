@@ -61,6 +61,31 @@ int	char_in_string(char *s, char c)
 	return (-1);
 }
 
+t_hashmap	*init_hashmap_item(void)
+{
+	t_hashmap	*item;
+
+	item = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	if (!item)
+		return (NULL);
+	item->key = NULL;
+	item->value = 0;
+	assign_pt(&item->pt, 0, 0);
+	return (item);
+}
+
+void	free_hashmap_item(t_hashmap **item, char *key)
+{
+	ft_strdel(&key);
+	key = NULL;
+	if (item)
+	{
+		free(*item);
+		*item = NULL;
+	}
+	item = NULL;
+}
+
 int	hash(char *key)
 {
 	int	value;
@@ -71,7 +96,7 @@ int	hash(char *key)
 	while (key[i] != '\0')
 		value = value + 6 * (key[i++] % 10 + 60);
 	ft_printf("value = %d\n", value);
-	value = value % 200;
+	value = value % SIZE;
 	ft_printf("value = %d\n", value);
 	return (value);
 }
@@ -110,15 +135,20 @@ void	print_key(t_hashmap **hm)
 		{
 			ft_printf("h[%d]=%s x[%d] y[%d]\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 		}
-		printf("i%d\n",i);
 		// else
-		// 	ft_printf("~");
+		// 	ft_printf("~~\n");
+		printf("i%d\n",i);
 		i++;
 	}
 }
 
-int	error, int errnum)
-
+int	error(int errnum)
+{
+	ft_printf("ERROR : ");
+	if (errnum == 0)
+		ft_printf("Invalid Argument");
+	return (-1);
+}
 // void	print_tab(t_object *o)
 // {
 // 	FILE *ID;

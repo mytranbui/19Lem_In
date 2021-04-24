@@ -67,7 +67,9 @@ int				char_in_string(char *s, char c);
 int				isdigitstr(char *s);
 t_hashmap		*match_key(char *s, t_hashmap **hm);
 int				hash(char *key);
-
+int				error(int errnum);
+t_hashmap	*init_hashmap_item(void);
+void	free_hashmap_item(t_hashmap **item, char *key);
 void	print_key(t_hashmap **hm);
 
 #endif
