@@ -49,18 +49,6 @@ int nbchar_string(char *s, char c)
   return (nb);
 }
 
-//replaced by nb_word
-int	char_in_string(char *s, char c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		if (s[i++] == c)
-			return (1);
-	return (-1);
-}
-
 t_hashmap	*init_hashmap_item(void)
 {
 	t_hashmap	*item;
@@ -95,15 +83,15 @@ int	hash(char *key)
 	value = 0;
 	while (key[i] != '\0')
 		value = value + 6 * (key[i++] % 10 + 60);
-	ft_printf("value = %d\n", value);
+	// ft_printf("hash_i = %d\n", value);
 	value = value % SIZE;
-	ft_printf("value = %d\n", value);
+	// ft_printf("hash_i = %d\n", value);
 	return (value);
 }
 
 t_hashmap	*match_key(char *key, t_hashmap **hm)
 {
-	ft_printf("MATCH_KEY\n");
+	// ft_printf("~MATCH_KEY~\n");
 	int	i;
 
 	i = hash(key);
@@ -113,21 +101,21 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 	// ft_printf("key=%s | h[%d]=%s", key, i, hm[i]->key);
 		if (hm[i]->key && !ft_strcmp(hm[i]->key, key))
 		{
-			ft_printf("FOUND KEY\n");
-	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+			// ft_printf("FOUND KEY\n");
+	ft_printf("FOUND KEY : h[%d]=%s	x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 
 			return (hm[i]);
 		}
 	// 	i++;
 	// 	i %= SIZE;
 	// }
-	ft_printf("MATCH_KEYEND\n");
+	// ft_printf("~MATCH_KEY~END\n");
 	return (NULL);
 }
 
 void	print_key(t_hashmap **hm)
 {
-	ft_printf("PRINT_KEY\n");
+	ft_printf("~PRINT_KEY~\n");
 	int	i;
 
 	i = 0;

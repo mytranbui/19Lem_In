@@ -76,7 +76,7 @@ void	init_lemin(t_lemin *l)
 
 void	insert_item(t_hashmap **hm, char *key, int x, int y)
 {
-	ft_printf("INSERT\n");
+	// ft_printf("~INSERT~\n");
 	t_hashmap	*item;
 	int	i;
 
@@ -96,18 +96,20 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 	// 	// i %= SIZE;
 	// }
 	hm[i] = item;
-	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+	ft_printf("h[%d]=%s x=%d y=%d		====>i=%d	%s\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y, i, hm[i]->key);
 	//free_hashmap_item(&item), item->key);
 	//if free can't print so free after?
+	// ft_printf("~INSERT~OK\n");
 }
 
 int	check_room(char *line, t_hashmap **hm)
 {
+	// ft_printf("~CHECK_ROOM~\n");
 	char	**info;
 
 	info = NULL;
-	if (nbchar_string(line, ' ') != 2)
-		return (-1);
+	// if (nbchar_string(line, ' ') != 2)
+	// 	return (-1);
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
@@ -119,32 +121,31 @@ int	check_room(char *line, t_hashmap **hm)
 	insert_item(hm, info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
+	// ft_printf("~CHECK_ROOM~OK\n");
 	return (1);
 }
 
 void	get_link(char *line)//, t_hashmap **hm)
 {
-	ft_printf("GET_LINK\n");
+	ft_printf("~GET_LINK~\n");
 	ft_printf("%s\n", ft_strcsub(line, 0, '-'));
 }
 
 int	check_link(char *line, t_hashmap **hm)
 {
+	// ft_printf("~CHECK_LINK~\n");
 	char	**info;
 
 	info = ft_strsplit(line, '-');
 	if (!info)
 		return (-1);
-	if (char_in_string(line, '-') == -1)
-		return (-1);
-	ft_printf("S1=[%s]\n", info[0]);
-	ft_printf("S2=[%s]\n", info[1]);
+	ft_printf("s1[%s]-s2[%s]\n", info[0], info[1]);
 	if (!match_key(info[0], hm) || !match_key(info[1], hm))
 	{
-		ft_printf("MATCH_KEY NO1\n");
+		ft_printf("MATCH_KEY ERROR\n");
 		return (-1);
 	}
-	ft_printf("CHECK_LINK OK\n");
+	// ft_printf("~CHECK_LINK~OK\n");
 	get_link(line);
 	info = free_tab(info, 1);
 	return (1);
@@ -176,12 +177,12 @@ int	main(void)
 	init_lemin(l);
 	if (!(get_next_line(0, &line)))
 		return (-1);
-	ft_printf("[%s]\n", line);
+	// ft_printf("[%s]\n", line);
 	if (l->nb_ants == 0)
 		l->nb_ants = isdigitstr(line);
 	if (l->nb_ants == -1)
 		free_lemin(l);
-	ft_printf("[%d]\n", l->nb_ants);
+	ft_printf("ANTS[%d]\n", l->nb_ants);
 	if (line)
 		ft_strdel(&line);
 	while (get_next_line(0, &line) > 0)
@@ -214,7 +215,7 @@ int	main(void)
 		if (line)
 			ft_strdel(&line);
 	}
-	ft_printf("s=%d e=%d\n", start, end);
+	ft_printf("start=%d end=%d\n", start, end);
 				print_key(hm);
 	if (start == 0 || end == 0)
 		return (-1);
