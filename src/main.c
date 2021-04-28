@@ -76,6 +76,7 @@ void	init_lemin(t_lemin *l)
 
 void	insert_item(t_hashmap **hm, char *key, int x, int y)
 {
+	ft_printf("INSERT\n");
 	t_hashmap	*item;
 	int	i;
 
@@ -88,6 +89,12 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 		return ;
 	item->pt.x = x;
 	item->pt.y = y;
+	// while (hm[i] != NULL)// && hm[i]->key != NULL)
+	// {
+	// 	ft_printf("NEXT CELL\n");
+	// 	i++;
+	// 	// i %= SIZE;
+	// }
 	hm[i] = item;
 	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 	//free_hashmap_item(&item), item->key);
@@ -156,6 +163,8 @@ int	main(void)
 
 	start = 0;
 	end = 0;
+	ft_bzero(hm, SIZE);
+	ft_bzero(&hm, SIZE);
 	// if ((ft_read(0)) == -1)
 	// {
 	// 	ft_putendl("ERROR");
@@ -197,15 +206,16 @@ int	main(void)
 			}
 			else if (nb_word(line, '-') == 2)
 			{
-				print_key(hm);
-				// if (check_link(line, hm) == -1)
-				// 	return (-1);
+				if (check_link(line, hm) == -1)
+					return (-1);
+				
 			}
 		}
 		if (line)
 			ft_strdel(&line);
 	}
 	ft_printf("s=%d e=%d\n", start, end);
+				print_key(hm);
 	if (start == 0 || end == 0)
 		return (-1);
 	return (0);

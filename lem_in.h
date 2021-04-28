@@ -15,7 +15,7 @@
 
 # include "libft/libft.h"
 # define MAX_STRING 65535
-# define SIZE 200
+# define SIZE 100
 typedef struct s_room
 {
 	char	*name;

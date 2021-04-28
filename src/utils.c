@@ -107,19 +107,21 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 	int	i;
 
 	i = hash(key);
-	// while(hm[i] && i < SIZE - 1)
+	// while(hm[i])
 	// {
 	// 	ft_printf("WHILE %d\n", i);
-	ft_printf("key=%s | h[%d]=%s", key, i, hm[i]->key);
+	// ft_printf("key=%s | h[%d]=%s", key, i, hm[i]->key);
 		if (hm[i]->key && !ft_strcmp(hm[i]->key, key))
 		{
+			ft_printf("FOUND KEY\n");
 	ft_printf("h[%d]=%s x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 
 			return (hm[i]);
 		}
 	// 	i++;
-	// 	//i %= SIZE;
+	// 	i %= SIZE;
 	// }
+	ft_printf("MATCH_KEYEND\n");
 	return (NULL);
 }
 
@@ -131,7 +133,7 @@ void	print_key(t_hashmap **hm)
 	i = 0;
 	while (i < SIZE)
 	{
-		if (hm[i])
+		if (hm[i] != NULL)
 		{
 			ft_printf("h[%d]=%s x[%d] y[%d]\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 		}
@@ -149,17 +151,3 @@ int	error(int errnum)
 		ft_printf("Invalid Argument");
 	return (-1);
 }
-// void	print_tab(t_object *o)
-// {
-// 	FILE *ID;
-// 	int j;
-
-// 	j = 0;
-// 	while (j < o->h)
-// 	{
-// 		ID = fopen("debugi.txt", "a");
-// 		fprintf(ID, "%03d %s\n", j, o->tab[j]);
-// 		fclose(ID);
-// 		j++;
-// 	}
-// }
