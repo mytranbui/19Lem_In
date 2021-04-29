@@ -23,14 +23,6 @@ typedef struct s_room
 	char	**link;
 }				t_room;
 
-typedef struct s_lemin
-{
-	int		nb_ants;
-	char	**rooms;
-	t_room	start;
-	t_room	end;
-}				t_lemin;
-
 /*
 ** key	 = name of the room
 ** value = hash(key)
@@ -43,6 +35,16 @@ typedef struct	s_hashmap
 	t_point	pt;
 	//t_room	r;
 }				t_hashmap;
+
+typedef struct s_lemin
+{
+	int			nb_ants;
+	int			nb_rooms;
+	char		**rooms;
+	// t_room		start;
+	// t_room		end;
+	t_hashmap	*hm[SIZE];
+}				t_lemin;
 
 int				main(void);
 

@@ -25,27 +25,37 @@ int	ft_read(int fd)
 		ft_strdel(&file);
 		return (-1);
 	}
+	close(fd);
 	return (1);
 }
 
-t_room	*init_room(void)
+t_lemin	*init_lemin(void)
 {
-	t_room	*r;
+	t_lemin	*l;
 
-	r = (t_room *)ft_memalloc(sizeof(t_room));
-	if (!r)
+	l = (t_lemin *)ft_memalloc(sizeof(t_lemin));
+	if (!l)
 		return (NULL);
-	r->name = NULL;
-	r->link = NULL;
-	assign_pt(&r->pt, 0, 0);
-	return (r);
+	l->nb_ants = 0;
+	l->nb_rooms = 0;
+	l->rooms = NULL;
+	// ft_bzero(hm, SIZE);
+	// ft_bzero(&hm, SIZE);
+	return (l);
 }
 
-void	init_lemin(t_lemin *l)
-{
-	l->nb_ants = 0;
-	l->rooms = NULL;
-}
+// t_room	*init_room(void)
+// {
+// 	t_room	*r;
+
+// 	r = (t_room *)ft_memalloc(sizeof(t_room));
+// 	if (!r)
+// 		return (NULL);
+// 	r->name = NULL;
+// 	r->link = NULL;
+// 	assign_pt(&r->pt, 0, 0);
+// 	return (r);
+// }
 
 // t_room	*get_room(char *line)
 // {
@@ -160,21 +170,17 @@ int	main(void)
 	char	*line;
 	int		start;
 	int		end;
-	t_hashmap	*hm[SIZE];
 
 	start = 0;
 	end = 0;
-	ft_bzero(hm, SIZE);
-	ft_bzero(&hm, SIZE);
 	// if ((ft_read(0)) == -1)
 	// {
 	// 	ft_putendl("ERROR");
 	// 	return (-1);
 	// }
-	l = (t_lemin *)ft_memalloc(sizeof(t_lemin));
+	l = init_lemin();
 	if (!l)
 		return (-1);
-	init_lemin(l);
 	if (!(get_next_line(0, &line)))
 		return (-1);
 	// ft_printf("[%s]\n", line);
@@ -202,12 +208,12 @@ int	main(void)
 		{
 			if (nb_word(line, ' ') == 3)
 			{
-				if (check_room(line, hm) == -1)
+				if (check_room(line, l->hm) == -1)
 					return (-1);
 			}
 			else if (nb_word(line, '-') == 2)
 			{
-				if (check_link(line, hm) == -1)
+				if (check_link(line, l->hm) == -1)
 					return (-1);
 				
 			}
@@ -216,7 +222,7 @@ int	main(void)
 			ft_strdel(&line);
 	}
 	ft_printf("start=%d end=%d\n", start, end);
-				print_key(hm);
+				print_key(l->hm);
 	if (start == 0 || end == 0)
 		return (-1);
 	return (0);
