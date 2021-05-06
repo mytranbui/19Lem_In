@@ -6,7 +6,7 @@
 /*   By: mbui <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:53:46 by mbui              #+#    #+#             */
-/*   Updated: 2021/03/29 10:23:04 by mbui             ###   ########.fr       */
+/*   Updated: 2021/05/06 13:36:28 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void free_lemin(t_lemin *lemin)
 {
-  free(lemin);
-  lemin = NULL;
-  exit(-1);
+	free(lemin);
+	lemin = NULL;
+	exit(-1);
 }
 
 int	isdigitstr(char *s)
@@ -35,18 +35,18 @@ int	isdigitstr(char *s)
 
 int nbchar_string(char *s, char c)
 {
-  int nb;
-  int i;
+	int nb;
+	int i;
 
-  nb = 0;
-  i = 0;
-  while (s[i])
-  {
-    if (s[i] == c)
-      nb++;
-    i++;
-  }
-  return (nb);
+	nb = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			nb++;
+		i++;
+	}
+	return (nb);
 }
 
 t_hashmap	*init_hashmap_item(void)
@@ -58,6 +58,8 @@ t_hashmap	*init_hashmap_item(void)
 		return (NULL);
 	item->key = NULL;
 	item->value = 0;
+	item->start = 0;
+	item->end = 0;
 	assign_pt(&item->pt, 0, 0);
 	return (item);
 }
@@ -78,7 +80,7 @@ int	hash(char *key)
 {
 	int	value;
 	int	i;
-	
+
 	i = 0;
 	value = 0;
 	while (key[i] != '\0')
@@ -99,13 +101,13 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 	// {
 	// 	ft_printf("WHILE %d\n", i);
 	// ft_printf("key=%s | h[%d]=%s", key, i, hm[i]->key);
-		if (hm[i]->key && !ft_strcmp(hm[i]->key, key))
-		{
-			// ft_printf("FOUND KEY\n");
-	ft_printf("FOUND KEY : h[%d]=%s	x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+	if (hm[i]->key && !ft_strcmp(hm[i]->key, key))
+	{
+		// ft_printf("FOUND KEY\n");
+		ft_printf("FOUND KEY : h[%d]=%s	x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 
-			return (hm[i]);
-		}
+		return (hm[i]);
+	}
 	// 	i++;
 	// 	i %= SIZE;
 	// }
@@ -123,6 +125,10 @@ void	print_key(t_hashmap **hm)
 	{
 		if (hm[i] != NULL)
 		{
+			if (hm[i]->start == 1)
+				ft_printf("##start\n");
+			if (hm[i]->end == 1)
+				ft_printf("##end\n");
 			ft_printf("h[%d]=%s x[%d] y[%d]\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 		}
 		// else

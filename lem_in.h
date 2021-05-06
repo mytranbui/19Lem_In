@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lemin.h                                            :+:      :+:    :+:   */
+/*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbui <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:00:32 by mbui              #+#    #+#             */
-/*   Updated: 2021/04/08 18:49:11 by mbui             ###   ########.fr       */
+/*   Updated: 2021/05/06 13:36:46 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ typedef struct s_room
 }				t_room;
 
 /*
-** key	 = name of the room
-** value = hash(key)
-** pt	 = coords of the room
-*/
+ ** key	 = name of the room
+ ** value = hash(key)
+ ** pt	 = coords of the room
+ */
 typedef struct	s_hashmap
 {
 	char	*key;
 	int		value;
 	t_point	pt;
+	int		start;
+	int		end;
 	//t_room	r;
 }				t_hashmap;
 
@@ -41,6 +43,9 @@ typedef struct s_lemin
 	int			nb_ants;
 	int			nb_rooms;
 	char		**rooms;
+	int			**adj_matrix;
+	int		start;
+	int		end;
 	// t_room		start;
 	// t_room		end;
 	t_hashmap	*hm[SIZE];
@@ -49,20 +54,20 @@ typedef struct s_lemin
 int				main(void);
 
 /*
-** parse.c
-*/
+ ** parse.c
+ */
 
 /*
-** algo.c & algo2.c
-*/
+ ** algo.c & algo2.c
+ */
 
 /*
-** utils.c & utils2.c
-*/
+ ** utils.c & utils2.c
+ */
 
 /*
-** free.c
-*/
+ ** free.c
+ */
 void			free_lemin(t_lemin *lemin);
 int				nbchar_string(char *s, char c);
 int				isdigitstr(char *s);

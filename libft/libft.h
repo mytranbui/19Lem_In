@@ -6,7 +6,7 @@
 /*   By: mbui <mbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:43 by mbui              #+#    #+#             */
-/*   Updated: 2021/04/21 15:32:19 by mbui             ###   ########.fr       */
+/*   Updated: 2021/05/06 13:36:59 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@
 # include <stdint.h>
 
 /*
-** unistd.h	: use of write()
-** sys/types.h & sys/uio.h	: use of read()
-** stdlib.h	: use of malloc(), free() and exit()
-** stdio.h	: use of perror()
-** string.h & sys/errno.h	: use of strerror()
-** stdarg.h	: use of va_arg(), va_start() and va_end()
-** limits.h	: use of OPEN_MAX
-** stdint.h	: compatibility use with Linux for intmax_t and uintmax_t
-*/
+ ** unistd.h	: use of write()
+ ** sys/types.h & sys/uio.h	: use of read()
+ ** stdlib.h	: use of malloc(), free() and exit()
+ ** stdio.h	: use of perror()
+ ** string.h & sys/errno.h	: use of strerror()
+ ** stdarg.h	: use of va_arg(), va_start() and va_end()
+ ** limits.h	: use of OPEN_MAX
+ ** stdint.h	: compatibility use with Linux for intmax_t and uintmax_t
+ */
 
 # define BUFF_SIZE 9999
 
@@ -63,8 +63,8 @@ typedef struct s_point
 }				t_point;
 
 /*
-** functions of string.h
-*/
+ ** functions of string.h
+ */
 void			ft_bzero(void *s, size_t n);
 void			*ft_memset(void *b, int c, size_t len);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
@@ -107,8 +107,8 @@ char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin_free(char *s1, char *s2, int opt);
 
 /*
-** functions of stdlib.h
-*/
+ ** functions of stdlib.h
+ */
 int				ft_atoi(const char *str);
 char			*ft_itoa(int n);
 char			*ft_itoa_base(long long value, int base, char x);
@@ -120,8 +120,8 @@ long long		ft_llabs(long long i);
 intmax_t		ft_intmaxabs(intmax_t x);
 
 /*
-** functions of stdio.h
-*/
+ ** functions of stdio.h
+ */
 void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr(char const *s);
@@ -137,8 +137,8 @@ void			ft_putnbrumax_fd(uintmax_t n, int fd);
 int				ft_printf(const char *format, ...);
 
 /*
-** functions of ctype.h
-*/
+ ** functions of ctype.h
+ */
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
@@ -152,16 +152,16 @@ int				ft_toupper(int c);
 int				ft_tolower(int c);
 
 /*
-** functions of math.h
-*/
+ ** functions of math.h
+ */
 double			ft_sqrt(double nb);
 double			ft_pow(double x, double y);
 long double		ft_powl(long double x, long double y);
 float			ft_powf(float x, float y);
 
 /*
-** functions for chained lists
-*/
+ ** functions for chained lists
+ */
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
@@ -172,8 +172,8 @@ int				ft_listsize(t_list *head);
 t_list			*lstdel_tlist(t_list **head);
 
 /*
-** bonus functions
-*/
+ ** bonus functions
+ */
 void			ft_swap(int *a, int *b);
 int				ft_max(int a, int b);
 int				ft_min(int a, int b);

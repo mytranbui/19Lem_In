@@ -6,7 +6,7 @@
 /*   By: mbui <mbui@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:22:10 by mbui              #+#    #+#             */
-/*   Updated: 2021/04/01 17:26:02 by mbui             ###   ########.fr       */
+/*   Updated: 2021/05/06 13:36:17 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ t_lemin	*init_lemin(void)
 	l->nb_ants = 0;
 	l->nb_rooms = 0;
 	l->rooms = NULL;
-	// ft_bzero(hm, SIZE);
-	// ft_bzero(&hm, SIZE);
+	l->adj_matrix = NULL;
+	l->start = 0;
+	l->end = 0;
 	return (l);
 }
 
@@ -84,7 +85,7 @@ t_lemin	*init_lemin(void)
 // 	return (r);
 // }
 
-void	insert_item(t_hashmap **hm, char *key, int x, int y)
+void	insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
 {
 	// ft_printf("~INSERT~\n");
 	t_hashmap	*item;
@@ -97,14 +98,17 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 	item->key = ft_strdup(key);
 	if (!item->key)
 		return ;
-	item->pt.x = x;
-	item->pt.y = y;
+	item->pt = pt;
 	// while (hm[i] != NULL)// && hm[i]->key != NULL)
 	// {
 	// 	ft_printf("NEXT CELL\n");
 	// 	i++;
 	// 	// i %= SIZE;
 	// }
+	if (stnd == 1)
+		item->start = 1;
+	if (stnd == 2)
+		item->end = 1;
 	hm[i] = item;
 	ft_printf("h[%d]=%s x=%d y=%d		====>i=%d	%s\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y, i, hm[i]->key);
 	//free_hashmap_item(&item), item->key);
@@ -112,14 +116,14 @@ void	insert_item(t_hashmap **hm, char *key, int x, int y)
 	// ft_printf("~INSERT~OK\n");
 }
 
-int	check_room(char *line, t_hashmap **hm)
+int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 {
 	// ft_printf("~CHECK_ROOM~\n");
 	char	**info;
+	t_point	pt;
 
 	info = NULL;
-	// if (nbchar_string(line, ' ') != 2)
-	// 	return (-1);
+	assign_pt(&pt, 0, 0);
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
@@ -128,10 +132,13 @@ int	check_room(char *line, t_hashmap **hm)
 		info = free_tab(info, 2);
 		return (-1);
 	}
-	insert_item(hm, info[0], ft_atoi(info[1]), ft_atoi(info[2]));
+	pt.x = ft_atoi(info[1]);
+	pt.y = ft_atoi(info[2]);
+	insert_item(hm, info[0], pt, stnd);
 	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
 	// ft_printf("~CHECK_ROOM~OK\n");
+	l->nb_rooms++;
 	return (1);
 }
 
@@ -162,32 +169,41 @@ int	check_link(char *line, t_hashmap **hm)
 }
 
 /*
-** Room will never start with the character 'L' nor the character '#'
-*/
+ ** Room will never start with the character 'L' nor the character '#'
+ */
 int	main(void)
 {
 	t_lemin	*l;
 	char	*line;
+	char	*line2;
 	int		start;
 	int		end;
+	int		stnd;
 
 	start = 0;
 	end = 0;
+	stnd = 0;
+	line2 = NULL;
 	// if ((ft_read(0)) == -1)
 	// {
 	// 	ft_putendl("ERROR");
 	// 	return (-1);
 	// }
+	// ft_printf("READ OK\n");
 	l = init_lemin();
 	if (!l)
 		return (-1);
+	// ft_printf("READ OK2\n");
 	if (!(get_next_line(0, &line)))
 		return (-1);
-	// ft_printf("[%s]\n", line);
+	// ft_printf("READ OK3\n");
+	ft_printf("[%s]\n", line);
 	if (l->nb_ants == 0)
 		l->nb_ants = isdigitstr(line);
+	// ft_printf("READ OK4\n");
 	if (l->nb_ants == -1)
 		free_lemin(l);
+	// ft_printf("READ OK5\n");
 	ft_printf("ANTS[%d]\n", l->nb_ants);
 	if (line)
 		ft_strdel(&line);
@@ -196,11 +212,13 @@ int	main(void)
 		ft_printf("[%s]\n", line);
 		if (line && !ft_strcmp(line, "##start"))
 		{
-			start++;
+			stnd = 1;
+			l->start++;
 		}
 		if (line && !ft_strcmp(line, "##end"))
 		{
-			end++;
+			stnd = 2;
+			l->end++;
 		}
 		if (line[0] == 'L' || start > 1 || end > 1)
 			return (-1);
@@ -208,21 +226,23 @@ int	main(void)
 		{
 			if (nb_word(line, ' ') == 3)
 			{
-				if (check_room(line, l->hm) == -1)
+				if (check_room(line, l->hm, l, stnd) == -1)
 					return (-1);
+				if (stnd != 0)
+					stnd = 0;
 			}
 			else if (nb_word(line, '-') == 2)
 			{
 				if (check_link(line, l->hm) == -1)
-					return (-1);
-				
+					return (-1);	
 			}
 		}
 		if (line)
 			ft_strdel(&line);
 	}
+	ft_printf("nb_rooms=%d\n", l->nb_rooms);
 	ft_printf("start=%d end=%d\n", start, end);
-				print_key(l->hm);
+	print_key(l->hm);
 	if (start == 0 || end == 0)
 		return (-1);
 	return (0);
