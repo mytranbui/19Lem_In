@@ -39,7 +39,7 @@ t_lemin	*init_lemin(void)
 	l->nb_ants = 0;
 	l->nb_rooms = 0;
 	l->rooms = NULL;
-	l->adj_matrix = NULL;
+	//l->adj_matrix = NULL;
 	l->start = 0;
 	l->end = 0;
 	return (l);
@@ -142,13 +142,21 @@ int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 	return (1);
 }
 
-void	get_link(char *line)//, t_hashmap **hm)
+void	get_link(char *line, t_lemin *l, char *info, char *info2)
 {
 	ft_printf("~GET_LINK~\n");
+	int	i;
+	int	i2;
+
+	i = hash(info);
+	i2 = hash(info2);
 	ft_printf("%s\n", ft_strcsub(line, 0, '-'));
+	l->adj_matrix[i][i2] = 1;
+	l->adj_matrix[i2][i] = 1;
+	ft_printf("~GET_LINK~OK\n");
 }
 
-int	check_link(char *line, t_hashmap **hm)
+int	check_link(char *line, t_lemin *l, t_hashmap **hm)
 {
 	// ft_printf("~CHECK_LINK~\n");
 	char	**info;
@@ -163,8 +171,9 @@ int	check_link(char *line, t_hashmap **hm)
 		return (-1);
 	}
 	// ft_printf("~CHECK_LINK~OK\n");
-	get_link(line);
+	get_link(line, l, info[0], info[1]);
 	info = free_tab(info, 1);
+	l->nb_links++;
 	return (1);
 }
 
@@ -233,7 +242,7 @@ int	main(void)
 			}
 			else if (nb_word(line, '-') == 2)
 			{
-				if (check_link(line, l->hm) == -1)
+				if (check_link(line, l, l->hm) == -1)
 					return (-1);	
 			}
 		}
@@ -241,8 +250,10 @@ int	main(void)
 			ft_strdel(&line);
 	}
 	ft_printf("nb_rooms=%d\n", l->nb_rooms);
+	ft_printf("nb_links=%d\n", l->nb_links);
 	ft_printf("start=%d end=%d\n", start, end);
 	print_key(l->hm);
+	print_link(l);
 	if (start == 0 || end == 0)
 		return (-1);
 	return (0);

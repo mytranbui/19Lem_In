@@ -42,8 +42,10 @@ typedef struct s_lemin
 {
 	int			nb_ants;
 	int			nb_rooms;
+	int			nb_links;
 	char		**rooms;
-	int			**adj_matrix;
+	int			adj_matrix[SIZE][SIZE];
+	// int			**adj_matrix;
 	int		start;
 	int		end;
 	// t_room		start;
@@ -76,6 +78,8 @@ int				hash(char *key);
 int				error(int errnum);
 t_hashmap	*init_hashmap_item(void);
 void	free_hashmap_item(t_hashmap **item, char *key);
+
 void	print_key(t_hashmap **hm);
+void	print_link(t_lemin *l);
 
 #endif
