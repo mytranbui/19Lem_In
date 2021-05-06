@@ -23,6 +23,15 @@ typedef struct s_room
 	char	**link;
 }				t_room;
 
+typedef struct	s_path
+{
+	int		ant;
+	char	*key;
+	int		value;
+	//t_hashmap *item;
+	struct s_path	*next;
+}				t_path;
+
 /*
  ** key	 = name of the room
  ** value = hash(key)
@@ -42,12 +51,12 @@ typedef struct s_lemin
 {
 	int			nb_ants;
 	int			nb_rooms;
-	int			nb_links;
-	char		**rooms;
+	int			nb_links; //useful?
+	char		**rooms; //useful?
 	int			adj_matrix[SIZE][SIZE];
 	// int			**adj_matrix;
-	int		start;
-	int		end;
+	int		start; //use?
+	int		end;//use?
 	// t_room		start;
 	// t_room		end;
 	t_hashmap	*hm[SIZE];
@@ -78,6 +87,8 @@ int				hash(char *key);
 int				error(int errnum);
 t_hashmap	*init_hashmap_item(void);
 void	free_hashmap_item(t_hashmap **item, char *key);
+
+int	**init_matrix(int **matrix, int col, int row);
 
 void	print_key(t_hashmap **hm);
 void	print_link(t_lemin *l);

@@ -39,7 +39,9 @@ t_lemin	*init_lemin(void)
 	l->nb_ants = 0;
 	l->nb_rooms = 0;
 	l->rooms = NULL;
-	//l->adj_matrix = NULL;
+	l->adj_matrix = init_matrix(l->adj_matrix, SIZE, SIZE);
+	// ft_bzero(l->adj_matrix, SIZE); //????
+	// ft_bzero(&l->adj_matrix, SIZE); ///??? working?
 	l->start = 0;
 	l->end = 0;
 	return (l);
@@ -184,7 +186,6 @@ int	main(void)
 {
 	t_lemin	*l;
 	char	*line;
-	char	*line2;
 	int		start;
 	int		end;
 	int		stnd;
@@ -192,7 +193,6 @@ int	main(void)
 	start = 0;
 	end = 0;
 	stnd = 0;
-	line2 = NULL;
 	// if ((ft_read(0)) == -1)
 	// {
 	// 	ft_putendl("ERROR");
@@ -229,7 +229,7 @@ int	main(void)
 			stnd = 2;
 			l->end++;
 		}
-		if (line[0] == 'L' || start > 1 || end > 1)
+		if (line[0] == 'L' || l->start > 1 || l->end > 1)
 			return (-1);
 		if (line[0] != '#')
 		{
@@ -249,12 +249,13 @@ int	main(void)
 		if (line)
 			ft_strdel(&line);
 	}
+	if (l->start == 0 || l->end == 0)
+		return (-1);
 	ft_printf("nb_rooms=%d\n", l->nb_rooms);
 	ft_printf("nb_links=%d\n", l->nb_links);
 	ft_printf("start=%d end=%d\n", start, end);
 	print_key(l->hm);
 	print_link(l);
-	if (start == 0 || end == 0)
-		return (-1);
+
 	return (0);
 }

@@ -156,6 +156,7 @@ void	print_link(t_lemin *l)
 				ft_printf("matrix[%d][%d]\n", j, i);
 				n++;
 			}
+			ft_printf("matrix=%d\n", l->adj_matrix[j][i]);
 			i++;
 		}
 		j++;
@@ -163,10 +164,35 @@ void	print_link(t_lemin *l)
 	ft_printf("nb_links db=%d\n", n);
 }
 
+// void	print_result(t_lemin *l)
+// {
+// 	ft_printf("L%d-%s", ant, key);
+// }
+
 int	error(int errnum)
 {
 	ft_printf("ERROR : ");
 	if (errnum == 0)
 		ft_printf("Invalid Argument");
 	return (-1);
+}
+
+//add to libft
+int	**init_matrix(int **matrix, int col, int row)
+{
+	int	i;
+	int	j;
+	
+	j = 0;
+	while (j < col)
+	{
+		i = 0;
+		while (i < row)
+		{
+			matrix[j][i] = 0;
+			i++;
+		}
+		j++;
+	}
+	return (matrix);
 }
