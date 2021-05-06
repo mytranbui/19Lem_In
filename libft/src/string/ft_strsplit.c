@@ -57,36 +57,3 @@ char	**ft_strsplit(char const *s, char c)
 	(tab[j] = 0);
 	return (tab);
 }
-
-// char	**ft_strsplit(char const *s, char c)
-// {
-// 	char	**tab;
-// 	int		i;
-// 	int		j;
-// 	int		nb;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (!s)
-// 		return (NULL);
-// 	nb = nb_word(s, c);
-// 	tab = (char **)malloc(sizeof(char *) * nb + 1);
-// 	if (s == 0 || !tab)
-// 		return (NULL);
-// 	while (j < nb)
-// 	{
-// 		while (s[i] == c)
-// 			i++;
-// 		// else
-// 		// {
-// 			// tab[j] = ft_strcsub(s, i, c);
-// 			tab[j] = ft_strsub(s, i, lstring(s, i, c));
-// 			if (!tab[j])
-// 				return (free_tab(tab, j));
-// 			i = i + ft_strlen(tab[j]);
-// 			j++;
-// 		// }
-// 	}
-// 	tab[j] = 0;
-// 	return (tab);
-// }
