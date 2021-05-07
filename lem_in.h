@@ -16,21 +16,18 @@
 # include "libft/libft.h"
 # define MAX_STRING 65535
 # define SIZE 100
+
+/*
+** rooms : vertices of the graph
+** links : edges of the graph
+*/
+
 typedef struct s_room
 {
 	char	*name;
 	t_point	pt;
 	char	**link;
 }				t_room;
-
-typedef struct	s_path
-{
-	int		ant;
-	char	*key;
-	int		value;
-	//t_hashmap *item;
-	struct s_path	*next;
-}				t_path;
 
 /*
  ** key	 = name of the room
@@ -47,6 +44,15 @@ typedef struct	s_hashmap
 	//t_room	r;
 }				t_hashmap;
 
+typedef struct	s_path
+{
+	int		ant;
+	char	*key;
+	// int		value;
+	t_hashmap *hm;
+	struct s_path	*next;
+}				t_path;
+
 typedef struct s_lemin
 {
 	int			nb_ants;
@@ -60,6 +66,10 @@ typedef struct s_lemin
 	// t_room		start;
 	// t_room		end;
 	t_hashmap	*hm[SIZE];
+	t_hashmap	*start2;
+	t_hashmap	*end2;
+	char	*str_start;
+	char	*str_end;
 }				t_lemin;
 
 int				main(void);
@@ -88,7 +98,7 @@ int				error(int errnum);
 t_hashmap	*init_hashmap_item(void);
 void	free_hashmap_item(t_hashmap **item, char *key);
 
-int	**init_matrix(int **matrix, int col, int row);
+void	init_matrix(int ***matrix, int col, int row);
 
 void	print_key(t_hashmap **hm);
 void	print_link(t_lemin *l);

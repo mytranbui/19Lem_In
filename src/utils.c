@@ -156,7 +156,7 @@ void	print_link(t_lemin *l)
 				ft_printf("matrix[%d][%d]\n", j, i);
 				n++;
 			}
-			ft_printf("matrix=%d\n", l->adj_matrix[j][i]);
+		//	ft_printf("matrix=%d\n", l->adj_matrix[j][i]);
 			i++;
 		}
 		j++;
@@ -178,7 +178,7 @@ int	error(int errnum)
 }
 
 //add to libft
-int	**init_matrix(int **matrix, int col, int row)
+void	init_matrix(int ***matrix, int col, int row)
 {
 	int	i;
 	int	j;
@@ -189,10 +189,10 @@ int	**init_matrix(int **matrix, int col, int row)
 		i = 0;
 		while (i < row)
 		{
-			matrix[j][i] = 0;
+			*matrix[j][i] = 0;
 			i++;
 		}
 		j++;
 	}
-	return (matrix);
+	//return (matrix);
 }

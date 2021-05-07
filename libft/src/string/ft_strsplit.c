@@ -27,6 +27,13 @@ static int	len_word(const char *s, char c)
 	return (len);
 }
 
+static int	len_split(char const *s, char c, int n)
+{
+	while (s[n] == c)
+			n++;
+	return (n);
+}
+
 char	**ft_strsplit(char const *s, char c)
 {
 	char	**tab;
@@ -44,11 +51,10 @@ char	**ft_strsplit(char const *s, char c)
 	while (++j < nb_word(s, c))
 	{
 		i = 0;
-		tab[j] = ft_strnew(len_word(s + k, c));// + 1);
+		tab[j] = ft_strnew(len_word(s + k, c));
 		if (!tab[j])
 			return (free_tab(tab, j));
-		while (s[k] == c)
-			k++;
+		k = len_split(s, c, k);
 		while (s[k] && s[k] != c)
 			tab[j][i++] = s[k++];
 		tab[j][i] = '\0';
