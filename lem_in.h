@@ -29,6 +29,12 @@ typedef struct s_room
 	char	**link;
 }				t_room;
 
+typedef struct s_link
+{
+	char	*s;
+	struct s_link	*next;
+}				t_link;
+
 /*
  ** key	 = name of the room
  ** value = hash(key)
@@ -38,17 +44,19 @@ typedef struct	s_hashmap
 {
 	char	*key;
 	int		value;
+	int		visited;
 	t_point	pt;
 	int		start;
 	int		end;
+	t_link	*links;
 	//t_room	r;
 }				t_hashmap;
 
 typedef struct	s_path
 {
-	int		ant;
-	char	*key;
-	// int		value;
+	// int		ant;
+	// char	*key;
+	// int		value; visited
 	t_hashmap *hm;
 	struct s_path	*next;
 }				t_path;
@@ -66,10 +74,10 @@ typedef struct s_lemin
 	// t_room		start;
 	// t_room		end;
 	t_hashmap	*hm[SIZE];
-	t_hashmap	*start2;
-	t_hashmap	*end2;
-	char	*str_start;
-	char	*str_end;
+	t_hashmap	*hm_start;
+	t_hashmap	*hm_end;
+	// char	*str_start;
+	// char	*str_end;
 }				t_lemin;
 
 int				main(void);
@@ -102,5 +110,6 @@ void	init_matrix(int ***matrix, int col, int row);
 
 void	print_key(t_hashmap **hm);
 void	print_link(t_lemin *l);
-
+void	print_link2(t_lemin *l, int value);
+int		algo(t_lemin *l);
 #endif

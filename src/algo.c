@@ -12,20 +12,38 @@
 
 #include "../lem_in.h"
 
-int	init_path(char *key ,t_lemin *l, int i)
+t_path	*init_path(t_lemin *l)
 {
 	t_path	*p;
 
 	p = (t_path *)ft_memalloc(sizeof(t_path));
 	if (!p)
 		return (NULL);
-	p->key = key;//hm
-	p->hm = l->hm[i];
+	// p->key = l->str_start;//hm
+	// p->hm = l->hm[l];
+	p->hm = init_hashmap_item();
+	if (!p->hm)
+		return (NULL);
+	p->hm = l->hm_start;
+	// ft_printf("%s%d",p->hm->key, p->hm->value);
 	p->next = NULL;
 	return (p);
 }
 
-// int algo()
-// {
+int algo(t_lemin *l)
+{
+	t_path **p;
+	int		i;
 
-// }
+	i = 0;
+	p = (t_path **)ft_memalloc(sizeof(t_path *) * l->nb_ants);
+	if (!p)
+		return (-1);
+	while (i < l->nb_ants)
+	// {
+		p[i++] = init_path(l);
+	// }
+	ft_printf("%s%d",p[0]->hm->key, p[0]->hm->value);
+	ft_printf("%s%d",p[1]->hm->key, p[1]->hm->value);
+	return (1);
+}

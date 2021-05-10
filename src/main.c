@@ -40,6 +40,7 @@ t_lemin	*init_lemin(void)
 		return (NULL);
 	l->nb_ants = 0;
 	l->nb_rooms = 0;
+	l->nb_links = 0;
 	l->rooms = NULL;
 	//init_matrix(l->adj_matrix, SIZE, SIZE);//kk
 	//init_matrix(l->adj_matrix, SIZE, SIZE);//kk
@@ -57,11 +58,11 @@ t_lemin	*init_lemin(void)
 		}
 		j++;
 	}
-	l->start2 = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
-	if (!l->start2)
+	l->hm_start = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	if (!l->hm_start)
 		return (NULL);
-		l->end2 = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
-	if (!l->end2)
+		l->hm_end = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	if (!l->hm_end)
 		return (NULL);
 	return (l);
 }
@@ -106,19 +107,20 @@ t_lemin	*init_lemin(void)
 // 	return (r);
 // }
 
-void	insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
+t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
 {
-	// ft_printf("~INSERT~\n");
+	ft_printf("~INSERT~\n");
 	t_hashmap	*item;
 	int	i;
 
 	i = hash(key);
 	item = init_hashmap_item();
 	if (!item)
-		return ;
+		return (NULL);
+	item->value = i;
 	item->key = ft_strdup(key);
 	if (!item->key)
-		return ;
+		return (NULL);
 	item->pt = pt;
 	// while (hm[i] != NULL)// && hm[i]->key != NULL)
 	// {
@@ -127,23 +129,28 @@ void	insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
 	// 	// i %= SIZE;
 	// }
 	if (stnd == 1)
+	{
 		item->start = 1;
+		item->visited = 0;
+	}
 	if (stnd == 2)
 		item->end = 1;
-	hm[i] = item;
-	ft_printf("h[%d]=%s x=%d y=%d		====>i=%d	%s\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y, i, hm[i]->key);
+	// ft_printf("h[%d]=%s x=%d y=%d		====>i=%d	%s\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y, i, hm[i]->key);
 	//free_hashmap_item(&item), item->key);
 	//if free can't print so free after?
-	// ft_printf("~INSERT~OK\n");
+	ft_printf("~INSERT~OK\n");
+	return (hm[i] = item);
 }
 
 int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 {
-	// ft_printf("~CHECK_ROOM~\n");
+	ft_printf("~CHECK_ROOM~\n");
 	char	**info;
 	t_point	pt;
+	t_hashmap *item;
 
 	info = NULL;
+	item = NULL;
 	assign_pt(&pt, 0, 0);
 	info = ft_strsplit(line, ' ');
 	if (!info)
@@ -155,19 +162,40 @@ int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 	}
 	pt.x = ft_atoi(info[1]);
 	pt.y = ft_atoi(info[2]);
-	insert_item(hm, info[0], pt, stnd);
+	item = insert_item(hm, info[0], pt, stnd);
+	if (!item)
+		return (-1);
 	if (stnd == 1)
-		l->str_start = ft_strdup(info[0]);
+	{
+		// l->str_start = ft_strdup(info[0]);
+		l->hm_start = item;
+	}
 	if (stnd == 2)
-		l->str_end = ft_strdup(info[0]);
+	{
+		// l->str_end = ft_strdup(info[0]);
+		l->hm_end = item;
+	}
 	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
-	// ft_printf("~CHECK_ROOM~OK\n");
+	ft_printf("~CHECK_ROOM~OK\n");
 	l->nb_rooms++;
 	return (1);
 }
 
-void	get_link(char *line, t_lemin *l, char *info, char *info2)
+void	add_link(t_lemin *l, int i, char *s)
+{
+	if (l->hm[i]->links != NULL)
+		l->hm[i]->links = l->hm[i]->links->next;
+	l->hm[i]->links = (t_link *)ft_memalloc(sizeof(t_link));
+	if (!l->hm[i]->links)
+		return ;
+	l->hm[i]->links->s = ft_strdup(s);
+	if (!l->hm[i]->links->s)
+		return ;
+	l->hm[i]->links->next = NULL;
+}
+
+int	get_link(char *line, t_lemin *l, char *info, char *info2)
 {
 	ft_printf("~GET_LINK~\n");
 	int	i;
@@ -176,9 +204,14 @@ void	get_link(char *line, t_lemin *l, char *info, char *info2)
 	i = hash(info);
 	i2 = hash(info2);
 	ft_printf("%s\n", ft_strcsub(line, 0, '-'));
+	if (l->adj_matrix[i][i2] == 1 || l->adj_matrix[i2][i] == 1)
+		return (-1);
 	l->adj_matrix[i][i2] = 1;
 	l->adj_matrix[i2][i] = 1;
+	add_link(l, i, info2);
+	add_link(l, i2, info);
 	ft_printf("~GET_LINK~OK\n");
+	return (1);
 }
 
 int	check_link(char *line, t_lemin *l, t_hashmap **hm)
@@ -196,7 +229,8 @@ int	check_link(char *line, t_lemin *l, t_hashmap **hm)
 		return (-1);
 	}
 	// ft_printf("~CHECK_LINK~OK\n");
-	get_link(line, l, info[0], info[1]);
+	if (get_link(line, l, info[0], info[1]) == -1)
+		return (-1);
 	info = free_tab(info, 1);
 	l->nb_links++;
 	return (1);
@@ -279,6 +313,7 @@ int	main(void)
 	ft_printf("start=%d end=%d\n", start, end);
 	print_key(l->hm);
 	print_link(l);
-
+	print_link2(l, 90);
+	algo(l);
 	return (0);
 }
