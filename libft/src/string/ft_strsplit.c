@@ -30,7 +30,7 @@ static int	len_word(const char *s, char c)
 static int	len_split(char const *s, char c, int n)
 {
 	while (s[n] == c)
-			n++;
+		n++;
 	return (n);
 }
 
@@ -59,6 +59,6 @@ char	**ft_strsplit(char const *s, char c)
 			tab[j][i++] = s[k++];
 		tab[j][i] = '\0';
 	}
-	(tab[j] = 0);
+	tab[j] = 0;
 	return (tab);
 }
