@@ -168,30 +168,11 @@ void	print_link(t_lemin *l)
 
 void	print_link2(t_lemin *l, int value)
 {
-	int	i;
-	int	j;
-	int	n;
-
-	j = 0;
-	n = 0;
 	while (l->hm[value]->links != NULL)
 	{
 		ft_printf("hm[%d]%s->%s\n", value, l->hm[value]->key, l->hm[value]->links->s);
 		l->hm[value]->links = l->hm[value]->links->next;
-		i = 0;
-		while (i < SIZE)
-		{
-			if (l->adj_matrix[j][i] == 1)
-			{
-				ft_printf("matrix[%d][%d]\n", j, i);
-				n++;
-			}
-		//	ft_printf("matrix=%d\n", l->adj_matrix[j][i]);
-			i++;
-		}
-		j++;
 	}
-	ft_printf("nb_links db=%d\n", n);
 }
 
 // void	print_result(t_lemin *l)

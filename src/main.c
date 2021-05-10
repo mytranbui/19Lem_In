@@ -184,7 +184,7 @@ int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 
 void	add_link(t_lemin *l, int i, char *s)
 {
-	if (l->hm[i]->links != NULL)
+	while (l->hm[i]->links != NULL)
 		l->hm[i]->links = l->hm[i]->links->next;
 	l->hm[i]->links = (t_link *)ft_memalloc(sizeof(t_link));
 	if (!l->hm[i]->links)
