@@ -109,7 +109,7 @@ t_lemin	*init_lemin(void)
 
 t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
 {
-	ft_printf("~INSERT~\n");
+	// ft_printf("~INSERT~\n");
 	t_hashmap	*item;
 	int	i;
 
@@ -138,13 +138,13 @@ t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
 	// ft_printf("h[%d]=%s x=%d y=%d		====>i=%d	%s\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y, i, hm[i]->key);
 	//free_hashmap_item(&item), item->key);
 	//if free can't print so free after?
-	ft_printf("~INSERT~OK\n");
+	// ft_printf("~INSERT~OK\n");
 	return (hm[i] = item);
 }
 
 int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 {
-	ft_printf("~CHECK_ROOM~\n");
+	// ft_printf("~CHECK_ROOM~\n");
 	char	**info;
 	t_point	pt;
 	t_hashmap *item;
@@ -177,23 +177,81 @@ int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 	}
 	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
-	ft_printf("~CHECK_ROOM~OK\n");
+	// ft_printf("~CHECK_ROOM~OK\n");
 	l->nb_rooms++;
 	return (1);
 }
 
-void	add_link(t_lemin *l, int i, char *s)
+t_link	*new_link(char *s)
 {
-	while (l->hm[i]->links != NULL)
-		l->hm[i]->links = l->hm[i]->links->next;
-	l->hm[i]->links = (t_link *)ft_memalloc(sizeof(t_link));
-	if (!l->hm[i]->links)
-		return ;
-	l->hm[i]->links->s = ft_strdup(s);
-	if (!l->hm[i]->links->s)
-		return ;
-	l->hm[i]->links->next = NULL;
+	t_link *new;
+
+	new = (t_link *)ft_memalloc(sizeof(t_link));
+	if (!new)
+		return (NULL);
+	new->s = ft_strdup(s);
+	if (!new->s)
+		return (NULL);
+	new->next = NULL;
+	return (new);
 }
+
+t_link *add_link(t_lemin *l, int i, char *s)
+{
+	ft_printf("ADD_LINK\n");
+	t_link	*head;
+	// t_link	*new;
+
+	head = l->hm[i]->links;
+	if (l->hm[i]->links == NULL)
+	{
+		ft_printf("NULL\n");
+		head = new_link(s);
+		if (!head)
+			return (NULL);
+		l->hm[i]->links = head;
+		ft_printf("LOLhm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->s);
+		ft_printf("HEADhm[%d]->%s\n", i, head->s);
+	}
+	else
+	{
+		ft_printf("NOTNULL\n");
+		while (head->next != NULL)
+			head = head->next;
+		head->next = new_link(s);
+		if (!head)
+			return (NULL);
+		ft_printf("HEADhm[%d]->%s\n", i, head->s);
+	}
+	ft_printf("LOLhm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->s);
+	 return (head);
+}
+
+// t_link	*add_link(t_lemin *l, int i, char *s)
+// {
+// 	t_link	*head;
+// 	int		exist;
+
+// 	head = NULL;
+// 	exist = 0;
+// 	if (l->hm[i]->links != NULL)
+// 	{
+// 		exist = 1;
+// 		head = l->hm[i]->links;
+// 		while (l->hm[i]->links != NULL)
+// 			l->hm[i]->links = l->hm[i]->links->next;
+// 	}
+// 	l->hm[i]->links = (t_link *)ft_memalloc(sizeof(t_link));
+// 	if (!l->hm[i]->links)
+// 		return (NULL);
+// 	l->hm[i]->links->s = ft_strdup(s);
+// 	if (!l->hm[i]->links->s)
+// 		return (NULL);
+// 	if (exist == 0)
+// 		head = l->hm[i]->links;
+// 	l->hm[i]->links->next = NULL;
+// 	return (head);
+// }
 
 int	get_link(char *line, t_lemin *l, char *info, char *info2)
 {
@@ -208,8 +266,8 @@ int	get_link(char *line, t_lemin *l, char *info, char *info2)
 		return (-1);
 	l->adj_matrix[i][i2] = 1;
 	l->adj_matrix[i2][i] = 1;
-	add_link(l, i, info2);
-	add_link(l, i2, info);
+	l->hm[i]->links = add_link(l, i, info2);
+	l->hm[i2]->links = add_link(l, i2, info);
 	ft_printf("~GET_LINK~OK\n");
 	return (1);
 }
@@ -314,6 +372,8 @@ int	main(void)
 	print_key(l->hm);
 	print_link(l);
 	print_link2(l, 90);
+	print_link2(l, 14);
+	print_link2(l, 60);
 	algo(l);
 	return (0);
 }
