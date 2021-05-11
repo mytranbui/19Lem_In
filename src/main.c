@@ -372,8 +372,10 @@ int	main(void)
 	print_key(l->hm);
 	print_link(l);
 	print_link2(l, 90);
+	print_link2(l, 96);
+	print_link2(l, 8);
 	print_link2(l, 14);
 	print_link2(l, 60);
-	algo(l);
+	//algo(l);
 	return (0);
 }
