@@ -200,7 +200,7 @@ t_link *add_link(t_lemin *l, int i, char *s)
 {
 	ft_printf("ADD_LINK\n");
 	t_link	*head;
-	// t_link	*new;
+	t_link	*new;
 
 	head = l->hm[i]->links;
 	if (l->hm[i]->links == NULL)
@@ -215,11 +215,12 @@ t_link *add_link(t_lemin *l, int i, char *s)
 	}
 	else
 	{
+		new = head;
 		ft_printf("NOTNULL\n");
-		while (head->next != NULL)
-			head = head->next;
-		head->next = new_link(s);
-		if (!head)
+		while (new->next != NULL)
+			new = new->next;
+		new->next = new_link(s);
+		if (!new)
 			return (NULL);
 		ft_printf("HEADhm[%d]->%s\n", i, head->s);
 	}
