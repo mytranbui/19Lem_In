@@ -18,25 +18,10 @@
 # define SIZE 100
 
 /*
-** rooms : vertices of the graph
+** rooms : vertices/nodes of the graph
 ** links : edges of the graph
 */
 
-typedef struct s_room
-{
-	char	*name;
-	t_point	pt;
-	char	**link;
-}				t_room;
-
-/*
-** string links in a adjacency list
-*/
-typedef struct s_link
-{
-	char	*s;
-	struct s_link	*next;
-}				t_link;
 
 /*
  ** key	 = name of the room
@@ -51,9 +36,19 @@ typedef struct	s_hashmap
 	t_point	pt;
 	int		start;
 	int		end;
-	t_link	*links;
+	struct s_link *links;
 	//t_room	r;
 }				t_hashmap;
+
+/*
+** storing links in a adjacency list
+*/
+typedef struct s_link
+{
+	char		*s;
+	t_hashmap	*hm;
+	struct s_link	*next;
+}				t_link;
 
 typedef struct	s_path
 {
@@ -101,7 +96,7 @@ int				main(void);
  ** free.c
  */
 void			free_lemin(t_lemin *lemin);
-int				nbchar_string(char *s, char c);
+// int				nbchar_string(char *s, char c);
 int				isdigitstr(char *s);
 t_hashmap		*match_key(char *s, t_hashmap **hm);
 int				hash(char *key);
@@ -109,10 +104,13 @@ int				error(int errnum);
 t_hashmap	*init_hashmap_item(void);
 void	free_hashmap_item(t_hashmap **item, char *key);
 
-void	init_matrix(int ***matrix, int col, int row);
+// void	init_matrix(int ***matrix, int col, int row);
+t_link	*new_link(t_lemin *l, int i);
 
+//delete
 void	print_key(t_hashmap **hm);
 void	print_link(t_lemin *l);
 void	print_link2(t_lemin *l, int value);
+
 int		algo(t_lemin *l);
 #endif

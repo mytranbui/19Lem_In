@@ -33,21 +33,21 @@ int	isdigitstr(char *s)
 	return (ft_atoi(s));
 }
 
-int nbchar_string(char *s, char c)
-{
-	int nb;
-	int i;
+// int nbchar_string(char *s, char c)
+// {
+// 	int nb;
+// 	int i;
 
-	nb = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			nb++;
-		i++;
-	}
-	return (nb);
-}
+// 	nb = 0;
+// 	i = 0;
+// 	while (s[i])
+// 	{
+// 		if (s[i] == c)
+// 			nb++;
+// 		i++;
+// 	}
+// 	return (nb);
+// }
 
 t_hashmap	*init_hashmap_item(void)
 {
@@ -158,7 +158,6 @@ void	print_link(t_lemin *l)
 				ft_printf("matrix[%d][%d]\n", j, i);
 				n++;
 			}
-		//	ft_printf("matrix=%d\n", l->adj_matrix[j][i]);
 			i++;
 		}
 		j++;
@@ -174,7 +173,7 @@ void	print_link2(t_lemin *l, int value)
 	while (l->hm[value]->links != NULL)
 	{
 		//ft_printf("WHILE\n");
-		ft_printf("->%s", l->hm[value]->links->s);
+		ft_printf("->%s", l->hm[value]->links->hm->key);
 		l->hm[value]->links = l->hm[value]->links->next;
 	}
 }
@@ -210,4 +209,19 @@ void	init_matrix(int ***matrix, int col, int row)
 		j++;
 	}
 	//return (matrix);
+}
+
+t_link	*new_link(t_lemin *l, int i)
+{
+	t_link *new;
+
+	new = (t_link *)ft_memalloc(sizeof(t_link));
+	if (!new)
+		return (NULL);
+	new->hm = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	if (!new->hm)
+		return (NULL);
+	new->hm = l->hm[i];
+	new->next = NULL;
+	return (new);
 }

@@ -67,46 +67,6 @@ t_lemin	*init_lemin(void)
 	return (l);
 }
 
-// t_room	*init_room(void)
-// {
-// 	t_room	*r;
-
-// 	r = (t_room *)ft_memalloc(sizeof(t_room));
-// 	if (!r)
-// 		return (NULL);
-// 	r->name = NULL;
-// 	r->link = NULL;
-// 	assign_pt(&r->pt, 0, 0);
-// 	return (r);
-// }
-
-// t_room	*get_room(char *line)
-// {
-// 	char	**info;
-// 	t_room	*r;
-
-// 	info = NULL;
-// 	r = init_room();
-// 	if (nbchar_string(line, ' ') != 2)
-// 		return (NULL);
-// 	info = ft_strsplit(line, ' ');
-// 	if (!info)
-// 		return (NULL);
-// 	if (isdigitstr(info[1]) == -1 || isdigitstr(info[2]) == -1)
-// 	{
-// 		info = free_tab(info, 2);
-// 		return (NULL);
-// 	}
-// 	r->name = ft_strdup(info[0]);
-// 	if (!r->name)
-// 		return (NULL);
-// 	r->pt.x = ft_atoi(info[1]);
-// 	r->pt.y = ft_atoi(info[2]);
-// 	info = free_tab(info, 2);
-// 	ft_printf("room=%s x=%d y=%d\n", r->name, r->pt.x, r->pt.y);
-// 	return (r);
-// }
-
 t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
 {
 	// ft_printf("~INSERT~\n");
@@ -182,77 +142,48 @@ int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 	return (1);
 }
 
-t_link	*new_link(char *s)
+t_link *add_link(t_lemin *l, int i, int i2)
 {
-	t_link *new;
-
-	new = (t_link *)ft_memalloc(sizeof(t_link));
-	if (!new)
-		return (NULL);
-	new->s = ft_strdup(s);
-	if (!new->s)
-		return (NULL);
-	new->next = NULL;
-	return (new);
-}
-
-t_link *add_link(t_lemin *l, int i, char *s)
-{
-	ft_printf("ADD_LINK\n");
+	// ft_printf("ADD_LINK\n");
 	t_link	*head;
 	t_link	*new;
 
 	head = l->hm[i]->links;
 	if (l->hm[i]->links == NULL)
 	{
-		ft_printf("NULL\n");
-		head = new_link(s);
+		// ft_printf("NULL\n");
+		head = new_link(l, i2);
 		if (!head)
 			return (NULL);
 		l->hm[i]->links = head;
-		ft_printf("LOLhm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->s);
-		ft_printf("HEADhm[%d]->%s\n", i, head->s);
+		// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->s);
+		// ft_printf("HEADhm[%d]->%s\n", i, head->s);
 	}
 	else
 	{
 		new = head;
-		ft_printf("NOTNULL\n");
+		// ft_printf("NOTNULL\n");
 		while (new->next != NULL)
 			new = new->next;
-		new->next = new_link(s);
+		new->next = new_link(l, i2);
 		if (!new)
 			return (NULL);
-		ft_printf("HEADhm[%d]->%s\n", i, head->s);
+		// ft_printf("HEADhm[%d]->%s\n", i, head->s);
 	}
-	ft_printf("LOLhm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->s);
+	ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->s);
 	 return (head);
-}
-
-int	get_link(char *line, t_lemin *l, char *info, char *info2)
-{
-	ft_printf("~GET_LINK~\n");
-	int	i;
-	int	i2;
-
-	i = hash(info);
-	i2 = hash(info2);
-	ft_printf("%s\n", ft_strcsub(line, 0, '-'));
-	if (l->adj_matrix[i][i2] == 1 || l->adj_matrix[i2][i] == 1)
-		return (-1);
-	l->adj_matrix[i][i2] = 1;
-	l->adj_matrix[i2][i] = 1;
-	l->hm[i]->links = add_link(l, i, info2);
-	l->hm[i2]->links = add_link(l, i2, info);
-	ft_printf("~GET_LINK~OK\n");
-	return (1);
 }
 
 int	check_link(char *line, t_lemin *l, t_hashmap **hm)
 {
 	// ft_printf("~CHECK_LINK~\n");
 	char	**info;
+	int		i;
+	int		i2;
 
 	info = ft_strsplit(line, '-');
+	i = 0;
+	i2 = 0;
 	if (!info)
 		return (-1);
 	ft_printf("s1[%s]-s2[%s]\n", info[0], info[1]);
@@ -261,11 +192,17 @@ int	check_link(char *line, t_lemin *l, t_hashmap **hm)
 		ft_printf("MATCH_KEY ERROR\n");
 		return (-1);
 	}
-	// ft_printf("~CHECK_LINK~OK\n");
-	if (get_link(line, l, info[0], info[1]) == -1)
+	i = hash(info[0]);
+	i2 = hash(info[1]);
+	if (l->adj_matrix[i][i2] == 1 || l->adj_matrix[i2][i] == 1)
 		return (-1);
+	l->adj_matrix[i][i2] = 1;
+	l->adj_matrix[i2][i] = 1;
+	l->hm[i]->links = add_link(l, i, i2);
+	l->hm[i2]->links = add_link(l, i2, i);
 	info = free_tab(info, 1);
 	l->nb_links++;
+	// ft_printf("~CHECK_LINK~OK\n");
 	return (1);
 }
 
@@ -306,15 +243,15 @@ int	main(void)
 	ft_printf("ANTS[%d]\n", l->nb_ants);
 	if (line)
 		ft_strdel(&line);
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(0, &line) > 0 && line) //&& (line[0] == '#' || nb_word(line, ' ') == 3))
 	{
 		ft_printf("[%s]\n", line);
-		if (line && !ft_strcmp(line, "##start"))
+		if (!ft_strcmp(line, "##start"))
 		{
 			stnd = 1;
 			l->start++;
 		}
-		if (line && !ft_strcmp(line, "##end"))
+		else if (!ft_strcmp(line, "##end"))
 		{
 			stnd = 2;
 			l->end++;
@@ -339,6 +276,17 @@ int	main(void)
 		if (line)
 			ft_strdel(&line);
 	}
+	// while (get_next_line(0, &line) > 0 && line && (line[0] == '#' || nb_word(line, '-') == 2))
+	// {
+	// 	ft_printf("{%s}\n", line);
+	// 	// if (line[0] == 'L')
+	// 	// 	return (-1);
+	// 	if (line[0] != '#')
+	// 		if (check_link(line, l, l->hm) == -1)
+	// 			return (-1);
+	// 	if (line)
+	// 		ft_strdel(&line);
+	// }
 	if (l->start == 0 || l->end == 0)
 		return (-1);
 	ft_printf("nb_rooms=%d\n", l->nb_rooms);
