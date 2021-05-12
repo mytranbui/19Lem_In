@@ -228,32 +228,6 @@ t_link *add_link(t_lemin *l, int i, char *s)
 	 return (head);
 }
 
-// t_link	*add_link(t_lemin *l, int i, char *s)
-// {
-// 	t_link	*head;
-// 	int		exist;
-
-// 	head = NULL;
-// 	exist = 0;
-// 	if (l->hm[i]->links != NULL)
-// 	{
-// 		exist = 1;
-// 		head = l->hm[i]->links;
-// 		while (l->hm[i]->links != NULL)
-// 			l->hm[i]->links = l->hm[i]->links->next;
-// 	}
-// 	l->hm[i]->links = (t_link *)ft_memalloc(sizeof(t_link));
-// 	if (!l->hm[i]->links)
-// 		return (NULL);
-// 	l->hm[i]->links->s = ft_strdup(s);
-// 	if (!l->hm[i]->links->s)
-// 		return (NULL);
-// 	if (exist == 0)
-// 		head = l->hm[i]->links;
-// 	l->hm[i]->links->next = NULL;
-// 	return (head);
-// }
-
 int	get_link(char *line, t_lemin *l, char *info, char *info2)
 {
 	ft_printf("~GET_LINK~\n");

@@ -29,6 +29,9 @@ typedef struct s_room
 	char	**link;
 }				t_room;
 
+/*
+** string links in a adjacency list
+*/
 typedef struct s_link
 {
 	char	*s;
