@@ -117,72 +117,6 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 	return (NULL);
 }
 
-void	print_key(t_hashmap **hm)
-{
-	ft_printf("~PRINT_KEY~\n");
-	int	i;
-
-	i = 0;
-	while (i < SIZE)
-	{
-		if (hm[i] != NULL)
-		{
-			if (hm[i]->start == 1)
-				ft_printf("##start\n");
-			if (hm[i]->end == 1)
-				ft_printf("##end\n");
-			ft_printf("h[%d]=%s x[%d] y[%d]\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
-		}
-		// else
-		// 	ft_printf("~~\n");
-		//printf("i%d\n",i);
-		i++;
-	}
-}
-
-void	print_link(t_lemin *l)
-{
-	int	i;
-	int	j;
-	int	n;
-
-	j = 0;
-	n = 0;
-	while (j < SIZE)
-	{
-		i = 0;
-		while (i < SIZE)
-		{
-			if (l->adj_matrix[j][i] == 1)
-			{
-				ft_printf("matrix[%d][%d]\n", j, i);
-				n++;
-			}
-			i++;
-		}
-		j++;
-	}
-	ft_printf("nb_links db=%d\n", n);
-}
-
-void	print_link2(t_lemin *l, int value)
-{
-	ft_printf("\nPRINT_LINKS2\n");
-
-	ft_printf("hm[%d]%s", value, l->hm[value]->key);
-	while (l->hm[value]->links != NULL)
-	{
-		//ft_printf("WHILE\n");
-		ft_printf("->%s", l->hm[value]->links->hm->key);
-		l->hm[value]->links = l->hm[value]->links->next;
-	}
-}
-
-// void	print_result(t_lemin *l)
-// {
-// 	ft_printf("L%d-%s", ant, key);
-// }
-
 int	error(int errnum)
 {
 	ft_printf("ERROR : ");
@@ -218,10 +152,10 @@ t_link	*new_link(t_lemin *l, int i)
 	new = (t_link *)ft_memalloc(sizeof(t_link));
 	if (!new)
 		return (NULL);
-	new->hm = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
-	if (!new->hm)
+	new->node = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	if (!new->node)
 		return (NULL);
-	new->hm = l->hm[i];
+	new->node = l->hm[i];
 	new->next = NULL;
 	return (new);
 }

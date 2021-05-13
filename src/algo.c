@@ -21,10 +21,10 @@ t_path	*init_path(t_lemin *l)
 		return (NULL);
 	// p->key = l->str_start;//hm
 	// p->hm = l->hm[l];
-	p->hm = init_hashmap_item();
-	if (!p->hm)
+	p->node = init_hashmap_item();
+	if (!p->node)
 		return (NULL);
-	p->hm = l->hm_start;
+	p->node = l->node_start;
 	// ft_printf("%s%d",p->hm->key, p->hm->value);
 	p->next = NULL;
 	return (p);
@@ -43,7 +43,8 @@ int algo(t_lemin *l)
 	// {
 		p[i++] = init_path(l);
 	// }
-	ft_printf("%s%d",p[0]->hm->key, p[0]->hm->value);
-	ft_printf("%s%d",p[1]->hm->key, p[1]->hm->value);
+	ft_printf("%s%d",p[0]->node->key, p[0]->node->value);
+	ft_printf("%s%d",p[1]->node->key, p[1]->node->value);
 	return (1);
 }
+ 

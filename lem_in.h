@@ -45,17 +45,23 @@ typedef struct	s_hashmap
 */
 typedef struct s_link
 {
-	char		*s;
-	t_hashmap	*hm;
+	t_hashmap	*node;
 	struct s_link	*next;
 }				t_link;
+
+typedef struct s_edge
+{
+	t_hashmap	*before;
+	t_hashmap	*after;
+	struct s_edge	*next;
+}				t_edge;
 
 typedef struct	s_path
 {
 	// int		ant;
 	// char	*key;
 	// int		value; visited
-	t_hashmap *hm;
+	t_hashmap *node;
 	struct s_path	*next;
 }				t_path;
 
@@ -72,8 +78,8 @@ typedef struct s_lemin
 	// t_room		start;
 	// t_room		end;
 	t_hashmap	*hm[SIZE];
-	t_hashmap	*hm_start;
-	t_hashmap	*hm_end;
+	t_hashmap	*node_start;
+	t_hashmap	*node_end;
 	// char	*str_start;
 	// char	*str_end;
 }				t_lemin;
@@ -111,6 +117,7 @@ t_link	*new_link(t_lemin *l, int i);
 void	print_key(t_hashmap **hm);
 void	print_link(t_lemin *l);
 void	print_link2(t_lemin *l, int value);
+void	print_rooms(t_lemin *l);
 
 int		algo(t_lemin *l);
 #endif
