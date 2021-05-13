@@ -145,6 +145,28 @@ void	init_matrix(int ***matrix, int col, int row)
 	//return (matrix);
 }
 
+t_hashmap *copy_item(t_lemin *l, int i)
+{
+	t_hashmap *new;
+
+	new = init_hashmap_item();
+	if (!new)
+		return (NULL);
+	new->value = i;
+	new->key = ft_strdup(l->hm[i]->key);
+	if (!new->key)
+		return (NULL);
+	new->pt = l->hm[i]->pt;
+	new->visited = l->hm[i]->visited;
+	new->start = l->hm[i]->start;
+	new->end = l->hm[i]->end;
+	new->links = (t_link *)ft_memalloc(sizeof(t_link));
+	if (!new->links)
+		return (NULL);
+	new->links = l->hm[i]->links;
+	return (new);
+}
+
 t_link	*new_link(t_lemin *l, int i)
 {
 	t_link *new;
@@ -152,7 +174,13 @@ t_link	*new_link(t_lemin *l, int i)
 	new = (t_link *)ft_memalloc(sizeof(t_link));
 	if (!new)
 		return (NULL);
-	new->node = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	// new->node = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	// if (!new->node)
+	// 	return (NULL);
+	// new->node = copy_item(l, i);
+	// if (!new->node)
+	// 	return (NULL);
+	new->node = init_hashmap_item();
 	if (!new->node)
 		return (NULL);
 	new->node = l->hm[i];

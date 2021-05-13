@@ -251,17 +251,13 @@ int	main(void)
 	l = init_lemin();
 	if (!l)
 		return (-1);
-	// ft_printf("READ OK2\n");
 	if (!(get_next_line(0, &line)))
 		return (-1);
-	// ft_printf("READ OK3\n");
 	ft_printf("[%s]\n", line);
 	if (l->nb_ants == 0)
 		l->nb_ants = isdigitstr(line);
-	// ft_printf("READ OK4\n");
 	if (l->nb_ants == -1)
 		free_lemin(l);
-	// ft_printf("READ OK5\n");
 	ft_printf("ANTS[%d]\n", l->nb_ants);
 	if (line)
 		ft_strdel(&line);
