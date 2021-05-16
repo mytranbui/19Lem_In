@@ -49,6 +49,9 @@ t_lemin	*init_lemin(void)
 	              ft_bzero(&l->adj_matrix, SIZE); ///??? working?
 	l->start = 0;
 	l->end = 0;
+	l->read_error[0] = 0;
+	l->read_error[1] = 0;
+	l->read_error[2] = 0;
 	j = 0;
 	while (j < SIZE)
 	{
@@ -104,7 +107,7 @@ t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int stnd)
 	return (hm[i] = item);
 }
 
-int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
+int	check_room(char *line, t_lemin *l, t_hashmap **hm, int stnd)
 {
 	// ft_printf("~CHECK_ROOM~\n");
 	char	**info;
@@ -114,6 +117,9 @@ int	check_room(char *line, t_hashmap **hm, t_lemin *l, int stnd)
 	info = NULL;
 	item = NULL;
 	assign_pt(&pt, 0, 0);
+	if (l->read_error[0]== 0 || l->read_error[2] == 1)
+		return (-1);
+	l->read_error[1] == 1;
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
@@ -179,6 +185,9 @@ int	check_link(char *line, t_lemin *l, t_hashmap **hm)
 	int		i;
 	int		i2;
 
+	if (l->read_error[0] == 0 || l->read_error[2] == 0)
+		return (-1);
+	l->read_error[1] == 1;
 	info = ft_strsplit(line, '-');
 	i = 0;
 	i2 = 0;
@@ -228,6 +237,48 @@ void	get_rooms(t_lemin *l)
 	print_rooms(l);
 }
 
+int	get_ants(t_lemin *l, char *line)
+{
+	if (isdigitstr(line) == -1)
+		return (-1);
+	l->nb_ants = ft_atoi(line);
+	l->read_error[0] = 1;
+	return (1);
+}
+
+int invalid_read(char *line, t_lemin *l)
+{
+	if (line[0] == 'L' || l->start > 1 || l->end > 1)
+			return (1);
+} 
+
+int	read_map(t_lemin *l)
+{
+	char	*line;
+
+	line = NULL;
+	while (get_next_line(0, &line) > 0)
+	{
+		ft_printf("[%s]\n", line);
+		if (l->nb_ants == 0)
+			if (get_ants(l, line) == -1)
+				return (-1);
+		else if ((line[0] != '#') && (nb_word(line, ' ') == 3))
+			if (check_room(line, l, l->hm, stnd) == -1)
+				return (-1);
+		else if ((line[0] != '#') && (nb_word(line, '-') == 2))
+			if (check_link(line, l, l->hm) == -1)
+				 return (-1);
+		else if (invalid_read(l))
+			return (-1);
+		if (line)
+			ft_strdel(&line);
+	}
+	if (l->start == 0 || l->end == 0 || l->read_error[2] == 0)
+		return (-1);
+	return (1);
+}
+
 /*
 ** Room will never start with the character 'L' nor the character '#'
 */
@@ -251,16 +302,9 @@ int	main(void)
 	l = init_lemin();
 	if (!l)
 		return (-1);
-	if (!(get_next_line(0, &line)))
+	if (read_map(l) == -1)
 		return (-1);
-	ft_printf("[%s]\n", line);
-	if (l->nb_ants == 0)
-		l->nb_ants = isdigitstr(line);
-	if (l->nb_ants == -1)
-		free_lemin(l);
-	ft_printf("ANTS[%d]\n", l->nb_ants);
-	if (line)
-		ft_strdel(&line);
+		//error_fct(l);
 	while (get_next_line(0, &line) > 0 && line) //&& (line[0] == '#' || nb_word(line, ' ') == 3))
 	{
 		ft_printf("[%s]\n", line);

@@ -58,7 +58,9 @@ t_hashmap	*init_hashmap_item(void)
 		return (NULL);
 	item->key = NULL;
 	item->value = 0;
-	item->visited = -1;
+	item->visited = 0;
+	item->infinity = 1;
+	item->dist = 0;
 	item->start = 0;
 	item->end = 0;
 	assign_pt(&item->pt, 0, 0);

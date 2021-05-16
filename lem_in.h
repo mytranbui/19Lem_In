@@ -33,6 +33,8 @@ typedef struct	s_hashmap
 	char	*key;
 	int		value;
 	int		visited;
+	int		infinity;
+	int dist;
 	t_point	pt;
 	int		start;
 	int		end;
@@ -51,8 +53,8 @@ typedef struct s_link
 
 typedef struct s_edge
 {
-	t_hashmap	*before;
-	t_hashmap	*after;
+	t_hashmap	*src;
+	t_hashmap	*dst;
 	struct s_edge	*next;
 }				t_edge;
 
@@ -75,6 +77,7 @@ typedef struct s_lemin
 	// int			**adj_matrix;
 	int		start; //use?
 	int		end;//use?
+	int		read_error[3];
 	// t_room		start;
 	// t_room		end;
 	t_hashmap	*hm[SIZE];
