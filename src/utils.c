@@ -19,20 +19,6 @@ void free_lemin(t_lemin *lemin)
 	exit(-1);
 }
 
-int	isdigit_str(char *s)
-{
-	//ft_printf("ISDIGITSTR\n");
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (!ft_isdigit(s[i++]))
-			return (-1);
-	}
-	return (ft_atoi(s));
-}
-
 int invalid_read(char *line, t_lemin *l)
 {
 	if (line[0] == 'L' || l->start > 1 || l->end > 1)
@@ -68,8 +54,8 @@ t_hashmap	*init_hashmap_item(void)
 	item->visited = 0;
 	item->infinity = 1;
 	item->dist = 0;
-	item->start = 0;
-	item->end = 0;
+	// item->start = 0;
+	// item->end = 0;
 	assign_pt(&item->pt, 0, 0);
 	item->links = NULL;
 	return (item);
@@ -132,26 +118,6 @@ int	error(int errnum)
 	if (errnum == 0)
 		ft_printf("Invalid Argument");
 	return (-1);
-}
-
-//add to libft
-void	init_matrix(int ***matrix, int col, int row)
-{
-	int	i;
-	int	j;
-	
-	j = 0;
-	while (j < col)
-	{
-		i = 0;
-		while (i < row)
-		{
-			*matrix[j][i] = 0;
-			i++;
-		}
-		j++;
-	}
-	//return (matrix);
 }
 
 t_hashmap *copy_item(t_lemin *l, int i)

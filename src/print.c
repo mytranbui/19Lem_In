@@ -76,10 +76,11 @@ void	print_link2(t_lemin *l, int value)
 
 void	print_rooms(t_lemin *l)
 {
+	ft_printf("PRINT_ROOMS\n");
 	int	j;
 
 	j = 0;
-	while (l->rooms[j])
+	while (j < l->nb_rooms)
 	{
 		ft_printf("%s|\n", l->rooms[j]);
 		j++;

@@ -84,6 +84,7 @@ typedef struct s_lemin
 	t_hashmap	*node_start;
 	t_hashmap	*node_end;
 	int			startend;
+	t_hashmap	**tab;
 	// char	*str_start;
 	// char	*str_end;
 }				t_lemin;
@@ -93,6 +94,11 @@ int				main(void);
 /*
  ** parse.c
  */
+int	read_map(t_lemin *l);
+int	get_ants(char *line, t_lemin *l);
+int	check_start_and_end(char *line, t_lemin *l);
+int	check_room(char *line, t_lemin *l, t_hashmap **hm);
+int	check_link(char *line, t_lemin *l, t_hashmap **hm);
 
 /*
  ** algo.c & algo2.c
@@ -107,7 +113,6 @@ int				main(void);
  */
 void			free_lemin(t_lemin *lemin);
 // int				nbchar_string(char *s, char c);
-int				isdigit_str(char *s);
 t_hashmap		*match_key(char *s, t_hashmap **hm);
 int				hash(char *key);
 int				error(int errnum);
@@ -118,6 +123,7 @@ int invalid_read(char *line, t_lemin *l);
 
 // void	init_matrix(int ***matrix, int col, int row);
 t_link	*new_link(t_lemin *l, int i);
+t_hashmap *copy_item(t_lemin *l, int i);
 
 //delete
 void	print_key(t_hashmap **hm);

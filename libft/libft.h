@@ -6,7 +6,7 @@
 /*   By: mbui <mbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:43 by mbui              #+#    #+#             */
-/*   Updated: 2021/05/06 13:36:59 by mbui             ###   ########.fr       */
+/*   Updated: 2021/05/16 15:50:16 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,5 +188,6 @@ int				nb_word(char const *s, char c);
 int				lstring(char const *s, int start, char c);
 size_t			ft_pos_i(char *str, int c);
 t_point			*assign_pt(t_point *p, int x, int y);
+int				isdigit_str(char *s);
 
 #endif

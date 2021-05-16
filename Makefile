@@ -6,7 +6,7 @@
 #    By: mbui <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/15 17:37:13 by mbui              #+#    #+#              #
-#    Updated: 2021/05/13 15:00:18 by mbui             ###   ########.fr        #
+#    Updated: 2021/05/16 15:37:02 by mbui             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = lem-in
 CC = gcc
 FLG = -Wall -Wextra -Werror #-fsanitize=address
 SRC_DIR = src/
-SRC = main.c utils.c algo.c print.c#parse.c algo.c algo2.c 
+SRC = main.c utils.c algo.c print.c parse.c #algo.c algo2.c 
 LIB = libft/libft.a
 OBJ = $(SRC:.c=.o)
 

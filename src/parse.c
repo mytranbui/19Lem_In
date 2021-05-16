@@ -12,100 +12,58 @@
 
 #include "../lem_in.h"
 
-int	get_player(t_filler *f)
+int	get_ants(char *line, t_lemin *l)
 {
-	char	*line;
-
-	if (!(get_next_line(0, &line)))
+	if (isdigit_str(line) == -1)
 		return (-1);
-	if (line && !ft_strncmp(line, "$$$ exec p", 10)
-		&& (line[10] == '1' || line[10] == '2'))
-	{
-		if (line[10] == '1')
-		{
-			f->me.let = 'O';
-			f->opp.let = 'X';
-		}
-		else
-		{
-			f->me.let = 'X';
-			f->opp.let = 'O';
-		}
-		ft_strdel(&line);
-		return (1);
-	}
-	return (-1);
+	l->nb_ants = ft_atoi(line);
+	l->read_error[0] = 1;
+	return (1);
 }
 
-void	find_start(t_filler *f)
+int	check_start_and_end(char *line, t_lemin *l)
 {
-	int	i;
-	int	j;
-
-	j = 0;
-	while (j < f->map.h)
+	if (ft_strequ(line, "##start"))
 	{
-		i = 0;
-		while (i < f->map.w)
-		{
-			if (f->map.tab[j][i] == f->me.let)
-				assign_pt(&f->me.init, i, j);
-			else if (f->map.tab[j][i] == f->opp.let)
-				assign_pt(&f->opp.init, i, j);
-			i++;
-		}
-		j++;
+		l->startend = 1;
+		l->start++;
 	}
+	else if (ft_strequ(line, "##end"))
+	{
+		l->startend = 2;
+		l->end++;
+	}
+	if (l->start > 1 || l->end > 1)
+		return (-1);
+	return (1);
 }
 
-void	fill_object(t_object *o, unsigned int start)
+int	read_map(t_lemin *l)
 {
-	int		i;
 	char	*line;
+	int		ret;
 
-	i = 0;
 	line = NULL;
-	o->tab = (char **)ft_memalloc(sizeof(char *) * o->h);
-	if (!o->tab)
-		return ;
-	while (i < o->h && get_next_line(0, &line) > 0)
+	ret = 0;
+	while (get_next_line(0, &line) > 0 && line)
 	{
-		o->tab[i] = ft_strsub(line, start, o->w);
-		if (!o->tab[i])
-		{
-			o->tab = free_tab(o->tab, i);
-			return ;
-		}
+		ft_printf("[%s]\n", line);
+		if (l->nb_ants == 0)
+			ret = get_ants(line, l);
+		else if ((line[0] != '#') && (nb_word(line, ' ') == 3))
+			ret = check_room(line, l, l->hm);
+		else if ((line[0] != '#') && (nb_word(line, '-') == 2))
+			ret = check_link(line, l, l->hm);
+		else if (invalid_read(line, l) == 1)
+			return (-1);
+		else if (ft_strequ(line, "##start") || ft_strequ(line, "##end"))
+			ret = check_start_and_end(line, l);
+		if (ret == -1)
+			return (-1);
 		if (line)
 			ft_strdel(&line);
-		i++;
 	}
-}
-
-/*
-** line 87-88: skips a line from the vm
-*/
-
-void	get_map(t_filler *f, char *line)
-{
-	init_object(&f->map);
-	f->map.h = ft_atoi(ft_strchr(line, ' '));
-	f->map.w = ft_atoi(ft_strrchr(line, ' '));
-	if (!(get_next_line(0, &line)))
-		return ;
-	if (line)
-		ft_strdel(&line);
-	fill_object(&f->map, 4);
-	if (f->me.init.x == -1 && f->me.init.y == -1
-		&& f->opp.init.x == -1 && f->opp.init.y == -1)
-		find_start(f);
-}
-
-void	get_piece(t_filler *f, char *line)
-{
-	init_object(&f->piece);
-	f->piece.h = ft_atoi(ft_strchr(line, ' '));
-	f->piece.w = ft_atoi(ft_strrchr(line, ' '));
-	fill_object(&f->piece, 0);
-	get_nb_chartab(&f->piece, '*');
+	if (l->start == 0 || l->end == 0 || l->read_error[2] == 0)
+		return (-1);
+	return (1);
 }
