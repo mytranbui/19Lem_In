@@ -35,37 +35,37 @@ t_path	*init_path(t_lemin *l)
 	return (p);
 }
 
-void	get_path(t_lemin *l, t_path **p, int i)
-{
-	int	i;
-	int	index;
-	int min;
-	t_path	*path;
+// void	get_path(t_lemin *l, t_path **p, int i)
+// {
+// 	int	i;
+// 	int	index;
+// 	int min;
+// 	t_path	*path;
 
-	i = 0;
-	index = 0;
-	min = SIZE;
-	path =
-	while (p[i]->node->links)
-	{
+// 	i = 0;
+// 	index = 0;
+// 	min = SIZE;
+// 	path =
+// 	while (p[i]->node->links)
+// 	{
 		
-		p[i]->node->links->next;
-	}
-	while (i != l->node->end->value)
-	{
+// 		p[i]->node->links->next;
+// 	}
+// 	while (i != l->node->end->value)
+// 	{
 
-	}
-	while (i < SIZE)
-	{
-		if (l->hm[i]->visited == 0 && l->hm[i]->dist <= min)
-		{
-			min = l->hm[i]->dist;
-			index = i;
-		}
-		i++;
-	}
-	return (index);
-}
+// 	}
+// 	while (i < SIZE)
+// 	{
+// 		if (l->hm[i]->visited == 0 && l->hm[i]->dist <= min)
+// 		{
+// 			min = l->hm[i]->dist;
+// 			index = i;
+// 		}
+// 		i++;
+// 	}
+// 	return (index);
+// }
 
 int algo(t_lemin *l)
 {

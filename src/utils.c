@@ -19,7 +19,7 @@ void free_lemin(t_lemin *lemin)
 	exit(-1);
 }
 
-int	isdigitstr(char *s)
+int	isdigit_str(char *s)
 {
 	//ft_printf("ISDIGITSTR\n");
 	int	i;
@@ -32,6 +32,13 @@ int	isdigitstr(char *s)
 	}
 	return (ft_atoi(s));
 }
+
+int invalid_read(char *line, t_lemin *l)
+{
+	if (line[0] == 'L' || l->start > 1 || l->end > 1)
+			return (1);
+	return (-1);
+} 
 
 // int nbchar_string(char *s, char c)
 // {

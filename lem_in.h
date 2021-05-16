@@ -83,6 +83,7 @@ typedef struct s_lemin
 	t_hashmap	*hm[SIZE];
 	t_hashmap	*node_start;
 	t_hashmap	*node_end;
+	int			startend;
 	// char	*str_start;
 	// char	*str_end;
 }				t_lemin;
@@ -106,12 +107,14 @@ int				main(void);
  */
 void			free_lemin(t_lemin *lemin);
 // int				nbchar_string(char *s, char c);
-int				isdigitstr(char *s);
+int				isdigit_str(char *s);
 t_hashmap		*match_key(char *s, t_hashmap **hm);
 int				hash(char *key);
 int				error(int errnum);
 t_hashmap	*init_hashmap_item(void);
 void	free_hashmap_item(t_hashmap **item, char *key);
+
+int invalid_read(char *line, t_lemin *l);
 
 // void	init_matrix(int ***matrix, int col, int row);
 t_link	*new_link(t_lemin *l, int i);
