@@ -45,13 +45,13 @@ t_path *get_path2(t_lemin *l, t_hashmap *node)
 	if (!head)
 		return (NULL);
 	new = head;
-	while ()
+	while (l->node_start->links )
 	{
 		if (new->node->visited == 0)
 		{
-		new->next = new_path(node);
-		if (!new->next)
-		return (lstdel_path(&head));
+			new->next = new_path(node);
+			if (!new->next)
+			return (lstdel_path(&head));
 		}
 		new = new->next;
 	}
