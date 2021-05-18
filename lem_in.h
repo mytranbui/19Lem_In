@@ -124,6 +124,7 @@ int invalid_read(char *line, t_lemin *l);
 // void	init_matrix(int ***matrix, int col, int row);
 t_link	*new_link(t_lemin *l, int i);
 t_hashmap *copy_item(t_lemin *l, int i);
+t_path	*new_path(t_hashmap *hm);
 
 //delete
 void	print_key(t_hashmap **hm);

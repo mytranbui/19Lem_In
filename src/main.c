@@ -177,7 +177,7 @@ t_link *add_link(t_lemin *l, int i, int i2)
 		while (new->next != NULL)
 			new = new->next;
 		new->next = new_link(l, i2);
-		if (!new)
+		if (!new->next) //edit added->next
 			return (NULL);
 	}
 	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->node->key);
@@ -202,10 +202,7 @@ int	check_link(char *line, t_lemin *l, t_hashmap **hm)
 		return (-1);
 	ft_printf("s1[%s]-s2[%s]\n", info[0], info[1]);
 	if (!match_key(info[0], hm) || !match_key(info[1], hm))
-	{
-		ft_printf("MATCH_KEY ERROR\n");
 		return (-1);
-	}
 	i = hash(info[0]);
 	i2 = hash(info[1]);
 	if (l->adj_matrix[i][i2] == 1 || l->adj_matrix[i2][i] == 1)
@@ -242,11 +239,11 @@ void	get_rooms(t_lemin *l)
 		// ft_printf("WHILE\n");
 		if (l->hm[i] != NULL)
 		{
-			ft_printf("add_ROOMS\n");
+			// ft_printf("add_ROOMS\n");
 			l->rooms[j] = ft_strdup(l->hm[i]->key);
 			if (!l->rooms[j])
 				return ;
-			ft_printf("%s|\n", l->rooms[j]);
+			// ft_printf("%s|\n", l->rooms[j]);
 			j++;
 		}
 		i++;
@@ -289,14 +286,14 @@ int	main(void)
 		return (-1);
 	if (read_map(l) == -1)
 		return (-1);
-		//error_fct(l);
+		//error_free(l);
 	ft_printf("nb_rooms=%d\n", l->nb_rooms);
 	ft_printf("nb_links=%d\n", l->nb_links);
 	ft_printf("start=%d end=%d\n", l->start, l->end);
 	// get_rooms(l);
 	// print_key(l->hm);
 	// print_link(l);
-	print_link2(l, 90);
+	 print_link2(l, 90);
 	print_link2(l, 96);
 	print_link2(l, 8);
 	print_link2(l, 14);

@@ -162,3 +162,34 @@ t_link	*new_link(t_lemin *l, int i)
 	new->next = NULL;
 	return (new);
 }
+
+t_path	*new_path(t_hashmap *hm)
+{
+	t_path *new;
+
+	new = (t_path *)ft_memalloc(sizeof(t_path));
+	if (!new)
+		return (NULL);
+		new->node = init_hashmap_item();
+	if (!new->node)
+		return (NULL);
+	new->node = hm;
+	new->next = NULL;
+	return (new);
+}
+
+t_path	*lstdel_path(t_path **head)
+{
+	t_path	*curr;
+	t_path	*next;
+
+	curr = *head;
+	while (curr != NULL)
+	{
+		next = curr->next;
+		free(curr);
+		curr = next;
+	}
+	*head = NULL;
+	return (NULL);
+}

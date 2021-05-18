@@ -17,26 +17,52 @@ void	add_edge()
 
 }
 
-t_path	*init_path(t_lemin *l)
-{
-	t_path	*p;
+// t_path	*init_path(t_lemin *l)
+// {
+// 	t_path	*p;
 
-	p = (t_path *)ft_memalloc(sizeof(t_path));
-	if (!p)
+// 	p = (t_path *)ft_memalloc(sizeof(t_path));
+// 	if (!p)
+// 		return (NULL);
+// 	// p->key = l->str_start;//hm
+// 	// p->hm = l->hm[l];
+// 	p->node = init_hashmap_item();
+// 	if (!p->node)
+// 		return (NULL);
+// 	p->node = l->node_start;
+// 	// ft_printf("%s%d",p->hm->key, p->hm->value);
+// 	p->next = NULL;
+// 	return (p);
+// }
+
+t_path *get_path2(t_lemin *l, t_hashmap *node)
+{
+	// ft_printf("ADD_path\n");
+	t_path	*head;
+	t_path	*new;
+
+	head = add_path(l->node_start);
+	if (!head)
 		return (NULL);
-	// p->key = l->str_start;//hm
-	// p->hm = l->hm[l];
-	p->node = init_hashmap_item();
-	if (!p->node)
-		return (NULL);
-	p->node = l->node_start;
-	// ft_printf("%s%d",p->hm->key, p->hm->value);
-	p->next = NULL;
-	return (p);
+	new = head;
+	while ()
+	{
+		if (new->node->visited == 0)
+		{
+		new->next = new_path(node);
+		if (!new->next)
+		return (lstdel_path(&head));
+		}
+		new = new->next;
+	}
+	new->next = NULL;
+	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->paths->node->key);
+	// ft_printf("ADD_path~OK\n");
+	 return (head);
 }
 
-// void	get_path(t_lemin *l, t_path **p, int i)
-// {
+void	get_path(t_lemin *l, t_path **p, int i)
+{
 // 	int	i;
 // 	int	index;
 // 	int min;
@@ -65,7 +91,16 @@ t_path	*init_path(t_lemin *l)
 // 		i++;
 // 	}
 // 	return (index);
-// }
+	i = l->node_start->value;
+	while (i != l->node_end->value)
+	{
+
+		if (i == l->node_end->value)
+			return (1);
+		 i = 
+	}
+	return (-1);
+}
 
 int algo(t_lemin *l)
 {
