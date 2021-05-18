@@ -102,9 +102,7 @@ t_hashmap	*room_exists(char *key, t_hashmap **hm)
 		return (NULL);
 	if (hm[i]->key && ft_strequ(hm[i]->key, key))
 	{
-		// ft_printf("FOUND KEY\n");
 		ft_printf("FOUND KEY : h[%d]=%s	x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
-
 		return (hm[i]);
 	}
 	// 	i++;
@@ -118,7 +116,19 @@ int	error(int errnum)
 {
 	ft_printf("ERROR : ");
 	if (errnum == 0)
-		ft_printf("Invalid Argument");
+		ft_printf("Invalid Argument\n");
+	else if (errnum == 1)
+		ft_printf("No Path Found\n");
+	else if (errnum == 1)
+		ft_printf("Invalid Argument\n");
+	else if (errnum == 1)
+		ft_printf("Invalid Argument\n");
+	else if (errnum == 1)
+		ft_printf("Invalid Argument\n");
+	else if (errnum == 1)
+		ft_printf("Invalid Argument\n");
+	else if (errnum == 1)
+		ft_printf("Invalid Argument\n");
 	return (-1);
 }
 
