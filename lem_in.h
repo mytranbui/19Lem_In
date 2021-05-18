@@ -77,7 +77,7 @@ typedef struct s_lemin
 	// int			**adj_matrix;
 	int		start; //use?
 	int		end;//use?
-	int		read_error[3];
+	int		read_ok[3];
 	// t_room		start;
 	// t_room		end;
 	t_hashmap	*hm[SIZE];
@@ -113,7 +113,7 @@ int	check_link(char *line, t_lemin *l, t_hashmap **hm);
  */
 void			free_lemin(t_lemin *lemin);
 // int				nbchar_string(char *s, char c);
-t_hashmap		*match_key(char *s, t_hashmap **hm);
+t_hashmap		*room_exists(char *s, t_hashmap **hm);
 int				hash(char *key);
 int				error(int errnum);
 t_hashmap	*init_hashmap_item(void);
@@ -125,6 +125,7 @@ int invalid_read(char *line, t_lemin *l);
 t_link	*new_link(t_lemin *l, int i);
 t_hashmap *copy_item(t_lemin *l, int i);
 t_path	*new_path(t_hashmap *hm);
+t_path	*lstdel_path(t_path **head);
 
 //delete
 void	print_key(t_hashmap **hm);

@@ -17,7 +17,7 @@ int	get_ants(char *line, t_lemin *l)
 	if (isdigit_str(line) == -1)
 		return (-1);
 	l->nb_ants = ft_atoi(line);
-	l->read_error[0] = 1;
+	l->read_ok[0] = 1;
 	return (1);
 }
 
@@ -50,20 +50,20 @@ int	read_map(t_lemin *l)
 		ft_printf("[%s]\n", line);
 		if (l->nb_ants == 0)
 			ret = get_ants(line, l);
+		else if (ft_strequ(line, "##start") || ft_strequ(line, "##end"))
+			ret = check_start_and_end(line, l);
 		else if ((line[0] != '#') && (nb_word(line, ' ') == 3))
 			ret = check_room(line, l, l->hm);
 		else if ((line[0] != '#') && (nb_word(line, '-') == 2))
 			ret = check_link(line, l, l->hm);
-		else if (invalid_read(line, l) == 1)
+		else if (invalid_read(line, l) == 1 || line[0] != '#')
 			return (-1);
-		else if (ft_strequ(line, "##start") || ft_strequ(line, "##end"))
-			ret = check_start_and_end(line, l);
 		if (ret == -1)
 			return (-1);
-		if (line)
-			ft_strdel(&line);
+		//if (line)
+		ft_strdel(&line);
 	}
-	if (l->start == 0 || l->end == 0 || l->read_error[2] == 0)
+	if (l->start == 0 || l->end == 0 || l->read_ok[2] == 0)
 		return (-1);
 	return (1);
 }

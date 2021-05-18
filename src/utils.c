@@ -22,7 +22,7 @@ void free_lemin(t_lemin *lemin)
 int invalid_read(char *line, t_lemin *l)
 {
 	if (line[0] == 'L' || l->start > 1 || l->end > 1)
-			return (1);
+		return (1);
 	return (-1);
 } 
 
@@ -88,7 +88,7 @@ int	hash(char *key)
 	return (value);
 }
 
-t_hashmap	*match_key(char *key, t_hashmap **hm)
+t_hashmap	*room_exists(char *key, t_hashmap **hm)
 {
 	// ft_printf("~MATCH_KEY~\n");
 	int	i;
@@ -98,7 +98,9 @@ t_hashmap	*match_key(char *key, t_hashmap **hm)
 	// {
 	// 	ft_printf("WHILE %d\n", i);
 	// ft_printf("key=%s | h[%d]=%s", key, i, hm[i]->key);
-	if (hm[i]->key && !ft_strcmp(hm[i]->key, key))
+	if (!hm[i])
+		return (NULL);
+	if (hm[i]->key && ft_strequ(hm[i]->key, key))
 	{
 		// ft_printf("FOUND KEY\n");
 		ft_printf("FOUND KEY : h[%d]=%s	x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);

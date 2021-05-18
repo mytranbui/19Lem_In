@@ -14,7 +14,7 @@ NAME = lem-in
 CC = gcc
 FLG = -Wall -Wextra -Werror #-fsanitize=address
 SRC_DIR = src/
-SRC = main.c utils.c algo.c print.c parse.c #algo.c algo2.c 
+SRC = main.c utils.c print.c parse.c #algo.c algo2.c 
 LIB = libft/libft.a
 OBJ = $(SRC:.c=.o)
 

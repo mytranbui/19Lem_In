@@ -47,9 +47,9 @@ t_lemin	*init_lemin(void)
 	              ft_bzero(&l->adj_matrix, SIZE); ///??? working?
 	l->start = 0;
 	l->end = 0;
-	l->read_error[0] = 0;
-	l->read_error[1] = 0;
-	l->read_error[2] = 0;
+	l->read_ok[0] = 0;
+	l->read_ok[1] = 0;
+	l->read_ok[2] = 0;
 	j = 0;
 	while (j < SIZE)
 	{
@@ -122,13 +122,13 @@ int	check_room(char *line, t_lemin *l, t_hashmap **hm)
 	info = NULL;
 	item = NULL;
 	assign_pt(&pt, 0, 0);
-	if (l->read_error[0]== 0 || l->read_error[2] == 1 || invalid_read(line, l) == 1)
+	if (l->read_ok[0] == 0 || l->read_ok[2] == 1 || invalid_read(line, l) == 1)
 		return (-1);
-	l->read_error[1] = 1;
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
-	if (isdigit_str(info[1]) == -1 || isdigit_str(info[2]) == -1)
+	if (isprint_str(info[0]) == -1 || room_exists(info[0], hm) ||
+	isdigit_str(info[1]) == -1 || isdigit_str(info[2]) == -1)
 	{
 		info = free_tab(info, 2);
 		return (-1);
@@ -151,9 +151,10 @@ int	check_room(char *line, t_lemin *l, t_hashmap **hm)
 	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
 	// ft_printf("~CHECK_ROOM~OK\n");
-	l->nb_rooms++;
 	if (l->startend != 0)
 		l->startend = 0;
+	l->nb_rooms++;
+	l->read_ok[1] = 1;
 	return (1);
 }
 
@@ -192,16 +193,16 @@ int	check_link(char *line, t_lemin *l, t_hashmap **hm)
 	int		i;
 	int		i2;
 
-	if (l->read_error[0] == 0 || l->read_error[1] == 0 || invalid_read(line, l) == 1)
+	if (l->read_ok[0] == 0 || l->read_ok[1] == 0 || invalid_read(line, l) == 1)
 		return (-1);
-	l->read_error[2] = 1;
+	l->read_ok[2] = 1;
 	info = ft_strsplit(line, '-');
 	i = 0;
 	i2 = 0;
 	if (!info)
 		return (-1);
 	ft_printf("s1[%s]-s2[%s]\n", info[0], info[1]);
-	if (!match_key(info[0], hm) || !match_key(info[1], hm))
+	if (!room_exists(info[0], hm) || !room_exists(info[1], hm) || ft_strequ(info[0], info[1]))
 		return (-1);
 	i = hash(info[0]);
 	i2 = hash(info[1]);

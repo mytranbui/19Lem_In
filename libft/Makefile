@@ -6,7 +6,7 @@
 #    By: mbui <mbui@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/04 12:49:35 by mbui              #+#    #+#              #
-#    Updated: 2021/05/16 15:51:00 by mbui             ###   ########.fr        #
+#    Updated: 2021/05/18 19:13:11 by mbui             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -138,6 +138,7 @@ SRCS_BONUS = ft_swap.c \
 			ft_pos_i.c \
 			assign_pt.c \
 			isdigit_str.c \
+			isprint_str.c \
 
 SRCS_PRINTF = ft_printf.c \
 			  parse.c \
