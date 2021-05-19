@@ -77,6 +77,22 @@ t_lemin	*init_lemin(void)
 	return (l);
 }
 
+void	get_start_and_end(t_lemin *l, t_hashmap *item)
+{
+	if (l->startend == 1)
+	{
+		// l->str_start = ft_strdup(info[0]);
+		l->node_start = item;
+	}
+	else if (l->startend == 2)
+	{
+		// l->str_end = ft_strdup(info[0]);
+		l->node_end = item;
+	}
+	if (l->startend != 0)
+		l->startend = 0;
+}
+
 t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int startend)
 {
 	// ft_printf("~INSERT~\n");
@@ -138,21 +154,10 @@ int	check_room(char *line, t_lemin *l, t_hashmap **hm)
 	item = insert_item(hm, info[0], pt, l->startend);
 	if (!item)
 		return (-1);
-	if (l->startend == 1)
-	{
-		// l->str_start = ft_strdup(info[0]);
-		l->node_start = item;
-	}
-	if (l->startend == 2)
-	{
-		// l->str_end = ft_strdup(info[0]);
-		l->node_end = item;
-	}
+	get_start_and_end(l, item);
 	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
 	// ft_printf("~CHECK_ROOM~OK\n");
-	if (l->startend != 0)
-		l->startend = 0;
 	l->nb_rooms++;
 	l->read_ok[1] = 1;
 	return (1);

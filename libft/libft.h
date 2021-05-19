@@ -6,7 +6,7 @@
 /*   By: mbui <mbui@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/04 12:53:43 by mbui              #+#    #+#             */
-/*   Updated: 2021/05/18 19:15:05 by mbui             ###   ########.fr       */
+/*   Updated: 2021/05/19 19:29:21 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,5 +190,6 @@ size_t			ft_pos_i(char *str, int c);
 t_point			*assign_pt(t_point *p, int x, int y);
 int				isdigit_str(char *s);
 int				isprint_str(char *s);
+int				nb_char_str(char *s, char c);
 
 #endif

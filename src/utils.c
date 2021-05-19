@@ -24,23 +24,7 @@ int invalid_read(char *line, t_lemin *l)
 	if (line[0] == 'L' || l->start > 1 || l->end > 1)
 		return (1);
 	return (-1);
-} 
-
-// int nbchar_string(char *s, char c)
-// {
-// 	int nb;
-// 	int i;
-
-// 	nb = 0;
-// 	i = 0;
-// 	while (s[i])
-// 	{
-// 		if (s[i] == c)
-// 			nb++;
-// 		i++;
-// 	}
-// 	return (nb);
-// }
+}
 
 t_hashmap	*init_hashmap_item(void)
 {
