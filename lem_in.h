@@ -36,8 +36,8 @@ typedef struct	s_hashmap
 	int		infinity;
 	int dist;
 	t_point	pt;
-	int		start;
-	int		end;
+	// int		start;
+	// int		end;
 	struct s_link *links;
 	//t_room	r;
 }				t_hashmap;
@@ -98,11 +98,15 @@ int	read_map(t_lemin *l);
 int	get_ants(char *line, t_lemin *l);
 int	check_start_and_end(char *line, t_lemin *l);
 int	check_room(char *line, t_lemin *l, t_hashmap **hm);
+t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int startend);
+void	get_rooms(t_lemin *l);
 int	check_link(char *line, t_lemin *l, t_hashmap **hm);
+t_link *add_link(t_lemin *l, int i, int i2);
 
 /*
  ** algo.c & algo2.c
  */
+t_path *get_path2(t_lemin *l);//, t_hashmap *node)
 
 /*
  ** utils.c & utils2.c
@@ -119,6 +123,11 @@ int				error(int errnum);
 t_hashmap	*init_hashmap_item(void);
 void	free_hashmap_item(t_hashmap **item, char *key);
 
+int	check_start_and_end(char *line, t_lemin *l);
+void	get_start_and_end(t_lemin *l, t_hashmap *item);
+
+
+
 int invalid_read(char *line, t_lemin *l);
 
 // void	init_matrix(int ***matrix, int col, int row);
@@ -126,12 +135,13 @@ t_link	*new_link(t_lemin *l, int i);
 t_hashmap *copy_item(t_lemin *l, int i);
 t_path	*new_path(t_hashmap *hm);
 t_path	*lstdel_path(t_path **head);
-
+void	free_node(t_hashmap **node, char *key, t_link **head);
 //delete
 void	print_key(t_hashmap **hm);
 void	print_link(t_lemin *l);
 void	print_link2(t_lemin *l, int value);
 void	print_rooms(t_lemin *l);
+void	print_path(t_path *p);
 
 int		algo(t_lemin *l);
 #endif

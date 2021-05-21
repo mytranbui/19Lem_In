@@ -12,32 +12,6 @@
 
 #include "../lem_in.h"
 
-int	get_ants(char *line, t_lemin *l)
-{
-	if (isdigit_str(line) == -1)
-		return (-1);
-	l->nb_ants = ft_atoi(line);
-	l->read_ok[0] = 1;
-	return (1);
-}
-
-int	check_start_and_end(char *line, t_lemin *l)
-{
-	if (ft_strequ(line, "##start"))
-	{
-		l->startend = 1;
-		l->start++;
-	}
-	else if (ft_strequ(line, "##end"))
-	{
-		l->startend = 2;
-		l->end++;
-	}
-	if (l->start > 1 || l->end > 1)
-		return (-1);
-	return (1);
-}
-
 int	read_map(t_lemin *l)
 {
 	char	*line;
@@ -57,13 +31,13 @@ int	read_map(t_lemin *l)
 		else if ((line[0] != '#') && (nb_word(line, '-') == 2))
 			ret = check_link(line, l, l->hm);
 		else if (invalid_read(line, l) == 1 || line[0] != '#')
-			return (-1);
-		if (ret == -1)
-			return (-1);
+			return (-2);
+		if (ret != 1)
+			return (ret); //return (ret); -> error(ret);
 		//if (line)
 		ft_strdel(&line);
 	}
 	if (l->start == 0 || l->end == 0 || l->read_ok[2] == 0)
-		return (-1);
+		return (-2);
 	return (1);
 }

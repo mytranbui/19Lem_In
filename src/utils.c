@@ -26,6 +26,36 @@ int invalid_read(char *line, t_lemin *l)
 	return (-1);
 }
 
+t_link	*lstdel_link(t_link **head)
+{
+	t_link	*curr;
+	t_link	*next;
+
+	curr = *head;
+	while (curr != NULL)
+	{
+		next = curr->next;
+		free(curr);
+		curr = next;
+	}
+	*head = NULL;
+	return (NULL);
+}
+
+void	free_node(t_hashmap **node, char *key, t_link **head)
+{
+	if (key)
+		ft_strdel(&key);
+	if (head)
+		lstdel_link(head);
+	if (node)
+	{
+		free(*node);
+		*node = NULL;
+	}
+	node = NULL;
+}
+
 t_hashmap	*init_hashmap_item(void)
 {
 	t_hashmap	*item;
@@ -99,20 +129,23 @@ t_hashmap	*room_exists(char *key, t_hashmap **hm)
 int	error(int errnum)
 {
 	ft_printf("ERROR : ");
-	if (errnum == 0)
+	if (errnum == -1)
 		ft_printf("Invalid Argument\n");
-	else if (errnum == 1)
+	else if (errnum == -2)
+		ft_printf("Invalid Map : Invalid Line or More Than One Start/End\n");
+	else if (errnum == -3)
+		ft_printf("Invalid Map : Ants\n");
+	else if (errnum == -4)
+		ft_printf("Invalid Map : Invalid Room\n");
+	else if (errnum == -5)
+		ft_printf("Invalid Map : Invalid Link\n");
+	else if (errnum == -55)
+		ft_printf("Invalid Map : Two Identic Links\n");
+	else if (errnum == -6)
 		ft_printf("No Path Found\n");
-	else if (errnum == 1)
-		ft_printf("Invalid Argument\n");
-	else if (errnum == 1)
-		ft_printf("Invalid Argument\n");
-	else if (errnum == 1)
-		ft_printf("Invalid Argument\n");
-	else if (errnum == 1)
-		ft_printf("Invalid Argument\n");
-	else if (errnum == 1)
-		ft_printf("Invalid Argument\n");
+	// else if (errnum == -7)
+	// else if (errnum == 7)
+	//free all
 	return (-1);
 }
 
@@ -129,8 +162,8 @@ t_hashmap *copy_item(t_lemin *l, int i)
 		return (NULL);
 	new->pt = l->hm[i]->pt;
 	new->visited = l->hm[i]->visited;
-	new->start = l->hm[i]->start;
-	new->end = l->hm[i]->end;
+	// new->start = l->hm[i]->start;
+	// new->end = l->hm[i]->end;
 	new->links = (t_link *)ft_memalloc(sizeof(t_link));
 	if (!new->links)
 		return (NULL);

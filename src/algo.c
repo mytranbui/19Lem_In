@@ -12,10 +12,10 @@
 
 #include "../lem_in.h"
 
-void	add_edge()
-{
+// void	add_edge()
+// {
 
-}
+// }
 
 // t_path	*init_path(t_lemin *l)
 // {
@@ -35,25 +35,51 @@ void	add_edge()
 // 	return (p);
 // }
 
-t_path *get_path2(t_lemin *l, t_hashmap *node)
+int get_path3(t_lemin *l, t_hashmap *node)
 {
-	// ft_printf("ADD_path\n");
+	if (ft_strequ(node->key, l->node_end->key))
+		return (1);
+	return (-1);
+}
+
+t_path *get_path2(t_lemin *l)//, t_hashmap *node)
+{
+	ft_printf("ADD_path\n");
 	t_path	*head;
 	t_path	*new;
+	t_hashmap *tmp;
 
-	head = add_path(l->node_start);
+	tmp = copy_item(l, l->node_start->value);
+	if (!tmp)
+		return (NULL);
+	head = new_path(l->node_start);
 	if (!head)
 		return (NULL);
 	new = head;
-	while (l->node_start->links )
+	free_node(&tmp, tmp->key, &tmp->links);
+		ft_printf("tmp=%s\n", new->node->key);
+		tmp = copy_item(l, new->node->links->node->value);
+
+		ft_printf("tmp=%s\n", new->node->key);
+	if (tmp != l->node_end)
+		ft_printf("tmp=%s\n", new->node->key);
+
+	while (tmp != l->node_end)
 	{
-		if (new->node->visited == 0)
+		ft_printf("WHILE\n");
+		tmp = new->node->links->node;
+		// if (new->node == l->node_end)
+		// 	return (head);
+		ft_printf("tmp=%s\n", tmp->key);
+		if (tmp->visited != 0)
 		{
-			new->next = new_path(node);
+			ft_printf("IF\n");
+			tmp->visited = 1;
+			new->next = new_path(tmp);
 			if (!new->next)
 			return (lstdel_path(&head));
 		}
-		new = new->next;
+		//new = new->next;
 	}
 	new->next = NULL;
 	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->paths->node->key);
@@ -61,8 +87,8 @@ t_path *get_path2(t_lemin *l, t_hashmap *node)
 	 return (head);
 }
 
-void	get_path(t_lemin *l, t_path **p, int i)
-{
+// void	get_path(t_lemin *l, t_path **p, int i)
+// {
 // 	int	i;
 // 	int	index;
 // 	int min;
@@ -91,16 +117,16 @@ void	get_path(t_lemin *l, t_path **p, int i)
 // 		i++;
 // 	}
 // 	return (index);
-	i = l->node_start->value;
-	while (i != l->node_end->value)
-	{
+// 	i = l->node_start->value;
+// 	while (i != l->node_end->value)
+// 	{
 
-		if (i == l->node_end->value)
-			return (1);
-		 i = 
-	}
-	return (-1);
-}
+// 		if (i == l->node_end->value)
+// 			return (1);
+// 		 i = 
+// 	}
+// 	return (-1);
+// }
 
 int algo(t_lemin *l)
 {
@@ -111,9 +137,9 @@ int algo(t_lemin *l)
 	p = (t_path **)ft_memalloc(sizeof(t_path *) * l->nb_ants);
 	if (!p)
 		return (-1);
-	while (i < l->nb_ants)
+	// while (i < l->nb_ants)
 	// {
-		p[i++] = init_path(l);
+		// p[i++] = init_path(l);
 	// }
 	ft_printf("%s%d",p[0]->node->key, p[0]->node->value);
 	ft_printf("%s%d",p[1]->node->key, p[1]->node->value);

@@ -77,210 +77,16 @@ t_lemin	*init_lemin(void)
 	return (l);
 }
 
-void	get_start_and_end(t_lemin *l, t_hashmap *item)
-{
-	if (l->startend == 1)
-	{
-		// l->str_start = ft_strdup(info[0]);
-		l->node_start = item;
-	}
-	else if (l->startend == 2)
-	{
-		// l->str_end = ft_strdup(info[0]);
-		l->node_end = item;
-	}
-	if (l->startend != 0)
-		l->startend = 0;
-}
-
-t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int startend)
-{
-	// ft_printf("~INSERT~\n");
-	t_hashmap	*item;
-	int	i;
-
-	i = hash(key);
-	item = init_hashmap_item();
-	if (!item)
-		return (NULL);
-	item->value = i;
-	item->key = ft_strdup(key);
-	if (!item->key)
-		return (NULL);
-	item->pt = pt;
-	// while (hm[i] != NULL)// && hm[i]->key != NULL)
-	// {
-	// 	ft_printf("NEXT CELL\n");
-	// 	i++;
-	// 	// i %= SIZE;
-	// }
-	if (startend == 1)
-	{
-		item->start = 1;
-		item->visited = 0;
-	}
-	if (startend == 2)
-		item->end = 1;
-	// ft_printf("h[%d]=%s x=%d y=%d		====>i=%d	%s\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y, i, hm[i]->key);
-	//free_hashmap_item(&item), item->key);
-	//if free can't print so free after?
-	// ft_printf("~INSERT~OK\n");
-	return (hm[i] = item);
-}
-
-int	check_room(char *line, t_lemin *l, t_hashmap **hm)
-{
-	// ft_printf("~CHECK_ROOM~\n");
-	char	**info;
-	t_point	pt;
-	t_hashmap *item;
-
-	info = NULL;
-	item = NULL;
-	assign_pt(&pt, 0, 0);
-	if (l->read_ok[0] == 0 || l->read_ok[2] == 1 || invalid_read(line, l) == 1)
-		return (-1);
-	info = ft_strsplit(line, ' ');
-	if (!info)
-		return (-1);
-	if (isprint_str(info[0]) == -1 || room_exists(info[0], hm) ||
-	isdigit_str(info[1]) == -1 || isdigit_str(info[2]) == -1)
-	{
-		info = free_tab(info, 2);
-		return (-1);
-	}
-	pt.x = ft_atoi(info[1]);
-	pt.y = ft_atoi(info[2]);
-	item = insert_item(hm, info[0], pt, l->startend);
-	if (!item)
-		return (-1);
-	get_start_and_end(l, item);
-	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
-	info = free_tab(info, 2);
-	// ft_printf("~CHECK_ROOM~OK\n");
-	l->nb_rooms++;
-	l->read_ok[1] = 1;
-	return (1);
-}
-
-t_link *add_link(t_lemin *l, int i, int i2)
-{
-	// ft_printf("ADD_LINK\n");
-	t_link	*head;
-	t_link	*new;
-
-	head = l->hm[i]->links;
-	if (l->hm[i]->links == NULL)
-	{
-		head = new_link(l, i2);
-		if (!head)
-			return (NULL);
-		l->hm[i]->links = head;
-	}
-	else
-	{
-		new = head;
-		while (new->next != NULL)
-			new = new->next;
-		new->next = new_link(l, i2);
-		if (!new->next) //edit added->next
-			return (NULL);
-	}
-	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->node->key);
-	// ft_printf("ADD_LINK~OK\n");
-	 return (head);
-}
-
-int	check_link(char *line, t_lemin *l, t_hashmap **hm)
-{
-	// ft_printf("~CHECK_LINK~\n");
-	char	**info;
-	int		i;
-	int		i2;
-
-	if (l->read_ok[0] == 0 || l->read_ok[1] == 0 || invalid_read(line, l) == 1)
-		return (-1);
-	l->read_ok[2] = 1;
-	info = ft_strsplit(line, '-');
-	i = 0;
-	i2 = 0;
-	if (!info)
-		return (-1);
-	ft_printf("s1[%s]-s2[%s]\n", info[0], info[1]);
-	if (!room_exists(info[0], hm) || !room_exists(info[1], hm) || ft_strequ(info[0], info[1]))
-		return (-1);
-	i = hash(info[0]);
-	i2 = hash(info[1]);
-	if (l->adj_matrix[i][i2] == 1 || l->adj_matrix[i2][i] == 1)
-		return (-1);
-	l->adj_matrix[i][i2] = 1;
-	l->adj_matrix[i2][i] = 1;
-	l->hm[i]->links = add_link(l, i, i2);
-	l->hm[i2]->links = add_link(l, i2, i);
-	info = free_tab(info, 1);
-	l->nb_links++;
-	// ft_printf("~CHECK_LINK~OK\n");
-	return (1);
-}
-
-void	get_rooms(t_lemin *l)
-{
-	ft_printf("GET_ROOMS\n");
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	l->rooms = (char **)ft_memalloc(sizeof(char *) * l->nb_rooms);
-	if (!l->rooms)
-		return ;
-	while (j < l->nb_rooms)
-	{
-		l->rooms[j] = NULL;
-		j++;
-	}
-	j = 0;
-	while (i < SIZE && j < l->nb_rooms)
-	{
-		// ft_printf("WHILE\n");
-		if (l->hm[i] != NULL)
-		{
-			// ft_printf("add_ROOMS\n");
-			l->rooms[j] = ft_strdup(l->hm[i]->key);
-			if (!l->rooms[j])
-				return ;
-			// ft_printf("%s|\n", l->rooms[j]);
-			j++;
-		}
-		i++;
-	}
-	print_rooms(l);
-	// l->tab = (t_hashmap **)ft_memalloc(sizeof(t_hashmap *) * l->nb_rooms);
-	// if (!l->tab)
-	// 	return ;
-	// i = 0;
-	// j = 0;
-	// while (i < SIZE)
-	// {
-	// 	if (l->hm[i] != NULL)
-	// 	{
-	// 		l->tab[j] = copy_item(l, i);
-	// 		if (!l->tab[j])
-	// 			return ;
-	// 		ft_printf("%s|\n", l->tab[j]->key);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-}
-
 /*
 ** Room will never start with the character 'L' nor the character '#'
 */
 int	main(void)
 {
 	t_lemin	*l;
+	t_path *p;
+	int	ret;
 
+	ret = 0;
 	// if ((ft_read(0)) == -1)
 	// {
 	// 	ft_putendl("ERROR");
@@ -290,12 +96,13 @@ int	main(void)
 	l = init_lemin();
 	if (!l)
 		return (-1);
-	if (read_map(l) == -1)
-		return (-1);
-		//error_free(l);
-	ft_printf("nb_rooms=%d\n", l->nb_rooms);
-	ft_printf("nb_links=%d\n", l->nb_links);
-	ft_printf("start=%d end=%d\n", l->start, l->end);
+	ret = read_map(l);
+	if (ret != 1)
+		return (error(ret));
+	ft_printf("nb_ants:	%d\n", l->nb_ants);
+	ft_printf("nb_rooms:	%d\n", l->nb_rooms);
+	ft_printf("nb_links:	%d\n", l->nb_links);
+	ft_printf("start:	%d end:	%d\n", l->start, l->end);
 	// get_rooms(l);
 	// print_key(l->hm);
 	// print_link(l);
@@ -306,5 +113,7 @@ int	main(void)
 	print_link2(l, 60);
 	get_rooms(l);
 	//algo(l);
+	p = get_path2(l);
+	print_path(p);
 	return (0);
 }

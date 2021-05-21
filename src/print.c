@@ -22,10 +22,10 @@ void	print_key(t_hashmap **hm)
 	{
 		if (hm[i] != NULL)
 		{
-			if (hm[i]->start == 1)
-				ft_printf("##start\n");
-			if (hm[i]->end == 1)
-				ft_printf("##end\n");
+			// if (hm[i]->start == 1)
+			// 	ft_printf("##start\n");
+			// if (hm[i]->end == 1)
+			// 	ft_printf("##end\n");
 			ft_printf("h[%d]=%s x[%d] y[%d]\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 		}
 		// else
@@ -85,6 +85,19 @@ void	print_rooms(t_lemin *l)
 		ft_printf("%s|\n", l->rooms[j]);
 		j++;
 	}
+}
+
+void	print_path(t_path *p)
+{
+	ft_printf("\nPRINT_PATH\n");
+
+	while (p->node != NULL)
+	{
+		//ft_printf("WHILE\n");
+		ft_printf("->%s\n", p->node->key);
+		p = p->next;
+	}
+	ft_printf("\n");
 }
 
 // void	print_result(t_lemin *l)
