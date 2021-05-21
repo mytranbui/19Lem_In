@@ -42,7 +42,7 @@ t_link	*lstdel_link(t_link **head)
 	return (NULL);
 }
 
-void	free_node(t_hashmap **node, char *key, t_link **head)
+void	free_node(t_node **node, char *key, t_link **head)
 {
 	if (key)
 		ft_strdel(&key);
@@ -56,11 +56,11 @@ void	free_node(t_hashmap **node, char *key, t_link **head)
 	node = NULL;
 }
 
-t_hashmap	*init_hashmap_item(void)
+t_node	*init_node_item(void)
 {
-	t_hashmap	*item;
+	t_node	*item;
 
-	item = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	item = (t_node *)ft_memalloc(sizeof(t_node));
 	if (!item)
 		return (NULL);
 	item->key = NULL;
@@ -75,7 +75,7 @@ t_hashmap	*init_hashmap_item(void)
 	return (item);
 }
 
-void	free_hashmap_item(t_hashmap **item, char *key)
+void	free_hashmap_item(t_node **item, char *key)
 {
 	ft_strdel(&key);
 	key = NULL;
@@ -102,7 +102,7 @@ int	hash(char *key)
 	return (value);
 }
 
-t_hashmap	*room_exists(char *key, t_hashmap **hm)
+t_node	*room_exists(char *key, t_node **hm)
 {
 	// ft_printf("~MATCH_KEY~\n");
 	int	i;
@@ -136,9 +136,9 @@ int	error(int errnum)
 	else if (errnum == -3)
 		ft_printf("Invalid Map : Ants\n");
 	else if (errnum == -4)
-		ft_printf("Invalid Map : Invalid Room\n");
+		ft_printf("Invalid Map : Room\n");
 	else if (errnum == -5)
-		ft_printf("Invalid Map : Invalid Link\n");
+		ft_printf("Invalid Map : Link\n");
 	else if (errnum == -55)
 		ft_printf("Invalid Map : Two Identic Links\n");
 	else if (errnum == -6)
@@ -149,11 +149,11 @@ int	error(int errnum)
 	return (-1);
 }
 
-t_hashmap *copy_item(t_lemin *l, int i)
+t_node *copy_item(t_lemin *l, int i)
 {
-	t_hashmap *new;
+	t_node *new;
 
-	new = init_hashmap_item();
+	new = init_node_item();
 	if (!new)
 		return (NULL);
 	new->value = i;
@@ -178,13 +178,13 @@ t_link	*new_link(t_lemin *l, int i)
 	new = (t_link *)ft_memalloc(sizeof(t_link));
 	if (!new)
 		return (NULL);
-	// new->node = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	// new->node = (t_node *)ft_memalloc(sizeof(t_node));
 	// if (!new->node)
 	// 	return (NULL);
 	// new->node = copy_item(l, i);
 	// if (!new->node)
 	// 	return (NULL);
-	new->node = init_hashmap_item();
+	new->node = init_node_item();
 	if (!new->node)
 		return (NULL);
 	new->node = l->hm[i];
@@ -192,14 +192,14 @@ t_link	*new_link(t_lemin *l, int i)
 	return (new);
 }
 
-t_path	*new_path(t_hashmap *hm)
+t_path	*new_path(t_node *hm)
 {
 	t_path *new;
 
 	new = (t_path *)ft_memalloc(sizeof(t_path));
 	if (!new)
 		return (NULL);
-		new->node = init_hashmap_item();
+		new->node = init_node_item();
 	if (!new->node)
 		return (NULL);
 	new->node = hm;

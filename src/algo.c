@@ -26,7 +26,7 @@
 // 		return (NULL);
 // 	// p->key = l->str_start;//hm
 // 	// p->hm = l->hm[l];
-// 	p->node = init_hashmap_item();
+// 	p->node = init_node_item();
 // 	if (!p->node)
 // 		return (NULL);
 // 	p->node = l->node_start;
@@ -35,19 +35,34 @@
 // 	return (p);
 // }
 
-int get_path3(t_lemin *l, t_hashmap *node)
+int get_path3(t_lemin *l, t_node *node)
 {
-	if (ft_strequ(node->key, l->node_end->key))
-		return (1);
+	t_link *tmp;
+	int	value;
+
+	tmp = node->links;
+	value = tmp->node->value;
+	while (tmp != NULL)
+	{
+		if (l->hm[value]->visited == 0)
+			get_path3(l, tmp->node);
+		tmp = tmp->next;
+	}
+	if (node->visited == 0)
+	{
+		node->visited = 1;
+		if (ft_strequ(node->key, l->node_end->key))
+			return (1);
+	}
 	return (-1);
 }
 
-t_path *get_path2(t_lemin *l)//, t_hashmap *node)
+t_path *get_path2(t_lemin *l)//, t_node *node)
 {
 	ft_printf("ADD_path\n");
 	t_path	*head;
 	t_path	*new;
-	t_hashmap *tmp;
+	t_node *tmp;
 
 	tmp = copy_item(l, l->node_start->value);
 	if (!tmp)

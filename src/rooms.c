@@ -12,14 +12,14 @@
 
 #include "../lem_in.h"
 
-t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int startend)
+t_node	*insert_item(t_node **hm, char *key, t_point pt, int startend)
 {
 	// ft_printf("~INSERT~\n");
-	t_hashmap	*item;
+	t_node	*item;
 	int	i;
 
 	i = hash(key);
-	item = init_hashmap_item();
+	item = init_node_item();
 	if (!item)
 		return (NULL);
 	item->value = i;
@@ -35,7 +35,7 @@ t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int startend)
 	// }
 	if (startend == 1)
 	// {
-		item->visited = 0;
+		item->visited = 1;
 	// 	item->start = 1;
 	// }
 	// else if (startend == 2)
@@ -47,12 +47,12 @@ t_hashmap	*insert_item(t_hashmap **hm, char *key, t_point pt, int startend)
 	return (hm[i] = item);
 }
 
-int	check_room(char *line, t_lemin *l, t_hashmap **hm)
+int	check_room(char *line, t_lemin *l, t_node **hm)
 {
 	// ft_printf("~CHECK_ROOM~\n");
 	char	**info;
 	t_point	pt;
-	t_hashmap *item;
+	t_node *item;
 
 	info = NULL;
 	item = NULL;
@@ -88,48 +88,49 @@ void	get_rooms(t_lemin *l)
 	int	i;
 	int	j;
 
-	i = 0;
-	j = 0;
-	l->rooms = (char **)ft_memalloc(sizeof(char *) * l->nb_rooms);
-	if (!l->rooms)
+	// i = 0;
+	// j = 0;
+	// l->rooms = (char **)ft_memalloc(sizeof(char *) * l->nb_rooms);
+	// if (!l->rooms)
+	// 	return ;
+	// while (j < l->nb_rooms)
+	// {
+	// 	l->rooms[j] = NULL;
+	// 	j++;
+	// }
+	// j = 0;
+	// while (i < SIZE && j < l->nb_rooms)
+	// {
+	// 	// ft_printf("WHILE\n");
+	// 	if (l->hm[i] != NULL)
+	// 	{
+	// 		// ft_printf("add_ROOMS\n");
+	// 		l->rooms[j] = ft_strdup(l->hm[i]->key);
+	// 		if (!l->rooms[j])
+	// 			return ;
+	// 		// ft_printf("%s|\n", l->rooms[j]);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	// print_rooms(l);
+	// copy nodes
+	l->tab = (t_node **)ft_memalloc(sizeof(t_node *) * l->nb_rooms);
+	if (!l->tab)
 		return ;
-	while (j < l->nb_rooms)
+	i = 0;
+    j = 0;
+	while (i < SIZE)
 	{
-		l->rooms[j] = NULL;
-		j++;
-	}
-	j = 0;
-	while (i < SIZE && j < l->nb_rooms)
-	{
-		// ft_printf("WHILE\n");
 		if (l->hm[i] != NULL)
 		{
-			// ft_printf("add_ROOMS\n");
-			l->rooms[j] = ft_strdup(l->hm[i]->key);
-			if (!l->rooms[j])
+			l->tab[j] = copy_item(l, i);
+			if (!l->tab[j])
 				return ;
-			// ft_printf("%s|\n", l->rooms[j]);
+			ft_printf("%d %s|\n", j, l->tab[j]->key);
 			j++;
 		}
 		i++;
 	}
 	print_rooms(l);
-	//copy nodes
-	// l->tab = (t_hashmap **)ft_memalloc(sizeof(t_hashmap *) * l->nb_rooms);
-	// if (!l->tab)
-	// 	return ;
-	// i = 0;
-	// j = 0;
-	// while (i < SIZE)
-	// {
-	// 	if (l->hm[i] != NULL)
-	// 	{
-	// 		l->tab[j] = copy_item(l, i);
-	// 		if (!l->tab[j])
-	// 			return ;
-	// 		ft_printf("%s|\n", l->tab[j]->key);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
 }

@@ -33,7 +33,7 @@ int	read_map(t_lemin *l)
 		else if (invalid_read(line, l) == 1 || line[0] != '#')
 			return (-2);
 		if (ret != 1)
-			return (ret); //return (ret); -> error(ret);
+			return (ret);
 		//if (line)
 		ft_strdel(&line);
 	}

@@ -66,10 +66,10 @@ t_lemin	*init_lemin(void)
 	{
 		l->hm[j++] = NULL;
 	}
-	l->node_start = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+	l->node_start = (t_node *)ft_memalloc(sizeof(t_node));
 	if (!l->node_start)
 		return (NULL);
-		l->node_end = (t_hashmap *)ft_memalloc(sizeof(t_hashmap));
+		l->node_end = (t_node *)ft_memalloc(sizeof(t_node));
 	if (!l->node_end)
 		return (NULL);
 	l->tab = NULL;
@@ -83,7 +83,7 @@ t_lemin	*init_lemin(void)
 int	main(void)
 {
 	t_lemin	*l;
-	t_path *p;
+	// t_path *p;
 	int	ret;
 
 	ret = 0;
@@ -113,7 +113,7 @@ int	main(void)
 	print_link2(l, 60);
 	get_rooms(l);
 	//algo(l);
-	p = get_path2(l);
-	print_path(p);
+	// p = get_path2(l);
+	// print_path(p);
 	return (0);
 }

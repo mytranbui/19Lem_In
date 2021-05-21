@@ -12,7 +12,7 @@
 
 #include "../lem_in.h"
 
-void	print_key(t_hashmap **hm)
+void	print_key(t_node **hm)
 {
 	ft_printf("~PRINT_KEY~\n");
 	int	i;
@@ -82,7 +82,8 @@ void	print_rooms(t_lemin *l)
 	j = 0;
 	while (j < l->nb_rooms)
 	{
-		ft_printf("%s|\n", l->rooms[j]);
+		// ft_printf("%s|\n", l->rooms[j]);
+		ft_printf("%s|\n", l->tab[j]->key);
 		j++;
 	}
 }

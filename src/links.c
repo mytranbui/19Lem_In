@@ -32,7 +32,7 @@ t_link *add_link(t_lemin *l, int i, int i2)
 		while (new->next != NULL)
 			new = new->next;
 		new->next = new_link(l, i2);
-		if (!new->next) //edit added->next
+		if (!new->next)
 			return (NULL);
 	}
 	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->node->key);
@@ -40,7 +40,7 @@ t_link *add_link(t_lemin *l, int i, int i2)
 	 return (head);
 }
 
-int	check_link(char *line, t_lemin *l, t_hashmap **hm)
+int	check_link(char *line, t_lemin *l, t_node **hm)
 {
 	// ft_printf("~CHECK_LINK~\n");
 	char	**info;

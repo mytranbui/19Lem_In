@@ -29,7 +29,7 @@ int	check_start_and_end(char *line, t_lemin *l)
 	return (1);
 }
 
-void	get_start_and_end(t_lemin *l, t_hashmap *item)
+void	get_start_and_end(t_lemin *l, t_node *item)
 {
 	if (l->startend == 1)
 	{
