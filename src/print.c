@@ -63,13 +63,15 @@ void	print_link(t_lemin *l)
 void	print_link2(t_lemin *l, int value)
 {
 	ft_printf("\nPRINT_LINKS2\n");
+	t_link	*tmp;
 
+	tmp = l->hm[value]->links;
 	ft_printf("hm[%d]%s\n", value, l->hm[value]->key);
-	while (l->hm[value]->links != NULL)
+	while (tmp != NULL)
 	{
 		//ft_printf("WHILE\n");
-		ft_printf("->%s\n", l->hm[value]->links->node->key);
-		l->hm[value]->links = l->hm[value]->links->next;
+		ft_printf("->%s\n", tmp->node->key);
+		tmp = tmp->next;
 	}
 	ft_printf("\n");
 }

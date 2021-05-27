@@ -105,15 +105,17 @@ int	main(void)
 	ft_printf("start:	%d end:	%d\n", l->start, l->end);
 	// get_rooms(l);
 	// print_key(l->hm);
-	// print_link(l);
-	 print_link2(l, 90);
-	print_link2(l, 96);
-	print_link2(l, 8);
-	print_link2(l, 14);
-	print_link2(l, 60);
+	// // print_link(l);
+	//  print_link2(l, 90);
+	// print_link2(l, 96);
+	// print_link2(l, 8);
+	// print_link2(l, 14);
+	// print_link2(l, 60);
 	get_rooms(l);
 	//algo(l);
 	// p = get_path2(l);
 	// print_path(p);
+	if (get_path3(l, l->node_start->value) == 1)
+		return (1);
 	return (0);
 }

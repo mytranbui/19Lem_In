@@ -35,24 +35,69 @@
 // 	return (p);
 // }
 
-int get_path3(t_lemin *l, t_node *node)
+int get_path3(t_lemin *l, int i)//,t_node *node)
 {
-	t_link *tmp;
-	int	value;
+	ft_printf("-------GET_PATH\n");
+	t_node *tmp;
+	t_link	*tmp_link;                                                                                                                                                                                                                                                                                                                                                                                                                                 
+	//int	value;
 
-	tmp = node->links;
-	value = tmp->node->value;
-	while (tmp != NULL)
+	if (i == l->node_end->value)
+			ft_printf("BEEND\n");
+	l->hm[i]->visited = 1;
+	printf("Visited %d \n", l->hm[i]->visited);
+	tmp = l->hm[i]->links->node;
+	tmp_link = l->hm[i]->links;
+	while (tmp->visited == 1 && tmp_link != NULL)
 	{
-		if (l->hm[value]->visited == 0)
-			get_path3(l, tmp->node);
-		tmp = tmp->next;
+		tmp = tmp_link->next->node;
 	}
-	if (node->visited == 0)
+	ft_printf("BEvisited %s\n", l->hm[i]->key);
+	ft_printf("BEvisited %s\n", tmp->key);
+	ft_printf("BEvalue %d\n", i);
+	// tmp = node->links;
+	// value = tmp->node->value;
+	if (tmp->value == l->node_end->value)
 	{
-		node->visited = 1;
-		if (ft_strequ(node->key, l->node_end->key))
+			ft_printf("tmpEND\n");
 			return (1);
+	}
+	if (i == l->node_end->value)
+	{
+			ft_printf("BEEND\n");
+			return (1);
+	}
+	while (tmp->links != NULL)
+	{
+		printf("WHILE\n");
+		ft_printf("wvisited %s\n", l->hm[i]->key);
+		ft_printf("wvalue %d\n", i);
+		if (l->hm[i]->visited == 0)// && tmp->visited == 1)
+		{
+			//l->hm[value]->visited = 1;
+			ft_printf("ifvisited %s\n", l->hm[i]->key);
+			ft_printf("ifvalue %d\n", i);
+			if (i == l->node_end->value)
+			{
+			ft_printf("ifEND\n");
+				return(1);
+			}
+			if (get_path3(l, i) == 1)
+				return(1);
+		}
+		else if (tmp->visited == 0)
+		{
+			ft_printf("TMP RECUR\n");
+			if (get_path3(l, tmp->value)==1)
+				return (1);
+		}
+		if (i == l->node_end->value)
+		{
+			ft_printf("END\n");
+				return(1);
+			}
+		i = tmp->links->node->value;
+		tmp = tmp->links->next->node;
 	}
 	return (-1);
 }
@@ -101,47 +146,6 @@ t_path *get_path2(t_lemin *l)//, t_node *node)
 	// ft_printf("ADD_path~OK\n");
 	 return (head);
 }
-
-// void	get_path(t_lemin *l, t_path **p, int i)
-// {
-// 	int	i;
-// 	int	index;
-// 	int min;
-// 	t_path	*path;
-
-// 	i = 0;
-// 	index = 0;
-// 	min = SIZE;
-// 	path =
-// 	while (p[i]->node->links)
-// 	{
-		
-// 		p[i]->node->links->next;
-// 	}
-// 	while (i != l->node->end->value)
-// 	{
-
-// 	}
-// 	while (i < SIZE)
-// 	{
-// 		if (l->hm[i]->visited == 0 && l->hm[i]->dist <= min)
-// 		{
-// 			min = l->hm[i]->dist;
-// 			index = i;
-// 		}
-// 		i++;
-// 	}
-// 	return (index);
-// 	i = l->node_start->value;
-// 	while (i != l->node_end->value)
-// 	{
-
-// 		if (i == l->node_end->value)
-// 			return (1);
-// 		 i = 
-// 	}
-// 	return (-1);
-// }
 
 int algo(t_lemin *l)
 {

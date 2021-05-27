@@ -39,6 +39,7 @@ typedef struct	s_node
 	// int		start;
 	// int		end;
 	struct s_link *links;
+	struct s_link2 *links2;
 	//t_room	r;
 }				t_node;
 
@@ -48,8 +49,14 @@ typedef struct	s_node
 typedef struct s_link
 {
 	t_node	*node;
+	// int		value;
 	struct s_link	*next;
 }				t_link;
+typedef struct s_link2
+{
+	int		value;
+	struct s_link2	*next;
+}				t_link2;
 
 typedef struct s_edge
 {
@@ -60,8 +67,8 @@ typedef struct s_edge
 
 typedef struct	s_path
 {
-	// int		ant;
-	// char	*key;
+	int		ant;
+	char	*key;
 	// int		value; visited
 	t_node *node;
 	struct s_path	*next;
@@ -111,6 +118,7 @@ t_link *add_link(t_lemin *l, int i, int i2);
  ** algo.c & algo2.c
  */
 t_path *get_path2(t_lemin *l);//, t_node *node)
+int	get_path3(t_lemin *l, int i);//, t_node *node)
 
 /*
  ** utils.c & utils2.c

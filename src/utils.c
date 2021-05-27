@@ -203,6 +203,9 @@ t_path	*new_path(t_node *hm)
 	if (!new->node)
 		return (NULL);
 	new->node = hm;
+	new->key = ft_strdup(hm->key);
+	if (!new->key)
+		return (NULL);
 	new->next = NULL;
 	return (new);
 }
@@ -216,6 +219,7 @@ t_path	*lstdel_path(t_path **head)
 	while (curr != NULL)
 	{
 		next = curr->next;
+		ft_strdel(&curr->key);
 		free(curr);
 		curr = next;
 	}
