@@ -31,13 +31,13 @@ int	read_map(t_lemin *l)
 		else if ((line[0] != '#') && (nb_word(line, '-') == 2))
 			ret = check_link(line, l, l->hm);
 		else if (invalid_read(line, l) == 1 || line[0] != '#')
-			return (-2);
+			return (ERR_LINE);
 		if (ret != 1)
 			return (ret);
 		//if (line)
 		ft_strdel(&line);
 	}
 	if (l->start == 0 || l->end == 0 || l->read_ok[2] == 0)
-		return (-2);
+		return (ERR_LINE);
 	return (1);
 }

@@ -88,7 +88,7 @@ int	check_link(char *line, t_lemin *l, t_node **hm)
 	int		i2;
 
 	if (l->read_ok[0] == 0 || l->read_ok[1] == 0 || invalid_read(line, l) == 1)
-		return (-2);
+		return (ERR_LINE);
 	l->read_ok[2] = 1;
 	info = ft_strsplit(line, '-');
 	i = 0;
@@ -97,11 +97,11 @@ int	check_link(char *line, t_lemin *l, t_node **hm)
 		return (-1);
 	ft_printf("s1[%s]-s2[%s]\n", info[0], info[1]);
 	if (!room_exists(info[0], hm) || !room_exists(info[1], hm) || ft_strequ(info[0], info[1]))
-		return (-5);
+		return (ERR_LINKS);
 	i = hash(info[0]);
 	i2 = hash(info[1]);
 	if (l->adj_matrix[i][i2] == 1 || l->adj_matrix[i2][i] == 1)
-        return (-55);
+        return (ERR_LINKS2);
 	l->adj_matrix[i][i2] = 1;
 	l->adj_matrix[i2][i] = 1;
 	l->hm[i]->links = add_link(l, i, i2);

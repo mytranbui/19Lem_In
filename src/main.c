@@ -83,9 +83,10 @@ t_lemin	*init_lemin(void)
 int	main(void)
 {
 	t_lemin	*l;
-	// t_path *p;
 	int	ret;
+	int i;
 
+	i = 0;
 	ret = 0;
 	// if ((ft_read(0)) == -1)
 	// {
@@ -103,7 +104,6 @@ int	main(void)
 	ft_printf("nb_rooms:	%d\n", l->nb_rooms);
 	ft_printf("nb_links:	%d\n", l->nb_links);
 	ft_printf("start:	%d end:	%d\n", l->start, l->end);
-	// get_rooms(l);
 	// print_key(l->hm);
 	// // print_link(l);
 	//  print_link2(l, 90);
@@ -112,10 +112,8 @@ int	main(void)
 	// print_link2(l, 14);
 	// print_link2(l, 60);
 	get_rooms(l);
-	//algo(l);
-	// p = get_path2(l);
-	// print_path(p);
-	if (get_path3(l, l->node_start->value) == 1)
-		return (1);
+	get_mult_path(l);
+	while (l->pp[i] != NULL)
+		print_path(l->pp[i++]);
 	return (0);
 }

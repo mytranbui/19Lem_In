@@ -17,6 +17,14 @@
 # define MAX_STRING 65535
 # define SIZE 100
 
+# define ERR_MAP 100
+# define ERR_LINE	-2
+# define ERR_ANTS	-3
+# define ERR_ROOMS	-4
+# define ERR_LINKS	-5
+# define ERR_LINKS2	-55
+# define ERR_PATH	-6
+
 /*
 ** rooms : vertices/nodes of the graph
 ** links : edges of the graph
@@ -69,6 +77,7 @@ typedef struct	s_path
 {
 	int		ant;
 	char	*key;
+	int		dist;
 	// int		value; visited
 	t_node *node;
 	struct s_path	*next;
@@ -96,6 +105,7 @@ typedef struct s_lemin
 	t_node	*node_end;
 	int			startend;
 	t_node	**tab;
+	t_path **pp;
 	// char	*str_start;
 	// char	*str_end;
 }				t_lemin;
@@ -118,8 +128,8 @@ t_link *add_link(t_lemin *l, int i, int i2);
  ** algo.c & algo2.c
  */
 t_path *get_path2(t_lemin *l);//, t_node *node)
-int	get_path3(t_lemin *l, int i);//, t_node *node)
-
+t_path	*get_path3(t_lemin *l, t_path *p,int i);//, t_node *node)
+t_path	*algo2(t_lemin *l);
 /*
  ** utils.c & utils2.c
  */
@@ -156,4 +166,5 @@ void	print_rooms(t_lemin *l);
 void	print_path(t_path *p);
 
 int		algo(t_lemin *l);
+void	get_mult_path(t_lemin *l);
 #endif

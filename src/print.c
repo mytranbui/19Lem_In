@@ -93,14 +93,16 @@ void	print_rooms(t_lemin *l)
 void	print_path(t_path *p)
 {
 	ft_printf("\nPRINT_PATH\n");
+	t_path *tmp;
 
-	while (p->node != NULL)
+	tmp = p;
+	while (tmp != NULL)
 	{
-		//ft_printf("WHILE\n");
-		ft_printf("->%s\n", p->node->key);
-		p = p->next;
+		//ft_tmprintf("WHILE\n");
+		ft_printf("->%s\n", tmp->node->key);
+		tmp = tmp->next;
 	}
-	ft_printf("\n");
+	ft_printf("dist=%d\n", p->dist);
 }
 
 // void	print_result(t_lemin *l)

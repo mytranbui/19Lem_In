@@ -58,7 +58,7 @@ int	check_room(char *line, t_lemin *l, t_node **hm)
 	item = NULL;
 	assign_pt(&pt, 0, 0);
 	if (l->read_ok[0] == 0 || l->read_ok[2] == 1 || invalid_read(line, l) == 1)
-		return (-2);
+		return (ERR_LINE);
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
@@ -66,7 +66,7 @@ int	check_room(char *line, t_lemin *l, t_node **hm)
 	isdigit_str(info[1]) == -1 || isdigit_str(info[2]) == -1)
 	{
 		info = free_tab(info, 2);
-		return (-4);
+		return (ERR_ROOMS);
 	}
 	pt.x = ft_atoi(info[1]);
 	pt.y = ft_atoi(info[2]);

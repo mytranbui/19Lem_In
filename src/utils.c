@@ -116,7 +116,7 @@ t_node	*room_exists(char *key, t_node **hm)
 		return (NULL);
 	if (hm[i]->key && ft_strequ(hm[i]->key, key))
 	{
-		ft_printf("FOUND KEY : h[%d]=%s	x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
+		// ft_printf("FOUND KEY : h[%d]=%s	x=%d y=%d\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 		return (hm[i]);
 	}
 	// 	i++;
@@ -131,17 +131,17 @@ int	error(int errnum)
 	ft_printf("ERROR : ");
 	if (errnum == -1)
 		ft_printf("Invalid Argument\n");
-	else if (errnum == -2)
+	else if (errnum == ERR_LINE)
 		ft_printf("Invalid Map : Invalid Line or More Than One Start/End\n");
-	else if (errnum == -3)
+	else if (errnum == ERR_ANTS)
 		ft_printf("Invalid Map : Ants\n");
-	else if (errnum == -4)
+	else if (errnum == ERR_ROOMS)
 		ft_printf("Invalid Map : Room\n");
-	else if (errnum == -5)
+	else if (errnum == ERR_LINKS)
 		ft_printf("Invalid Map : Link\n");
-	else if (errnum == -55)
+	else if (errnum == ERR_LINKS2)
 		ft_printf("Invalid Map : Two Identic Links\n");
-	else if (errnum == -6)
+	else if (errnum == ERR_PATH)
 		ft_printf("No Path Found\n");
 	// else if (errnum == -7)
 	// else if (errnum == 7)

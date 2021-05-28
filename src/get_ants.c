@@ -15,7 +15,7 @@
 int	get_ants(char *line, t_lemin *l)
 {
 	if (isdigit_str(line) == -1)
-		return (-3);
+		return (ERR_ANTS);
 	l->nb_ants = ft_atoi(line);
 	l->read_ok[0] = 1;
 	return (1);
