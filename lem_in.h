@@ -6,7 +6,7 @@
 /*   By: mbui <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:00:32 by mbui              #+#    #+#             */
-/*   Updated: 2021/05/06 13:36:46 by mbui             ###   ########.fr       */
+/*   Updated: 2021/06/04 12:10:01 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_lemin
 	int			startend;
 	t_node	**tab;
 	t_path **pp;
+	int		nb_paths;
 	// char	*str_start;
 	// char	*str_end;
 }				t_lemin;
@@ -141,7 +142,6 @@ void			free_lemin(t_lemin *lemin);
 // int				nbchar_string(char *s, char c);
 t_node		*room_exists(char *s, t_node **hm);
 int				hash(char *key);
-int				error(int errnum);
 t_node	*init_node_item(void);
 void	free_hashmap_item(t_node **item, char *key);
 
@@ -167,4 +167,9 @@ void	print_path(t_path *p);
 
 int		algo(t_lemin *l);
 void	get_mult_path(t_lemin *l);
+
+int	error(int errnum);
+t_path *bfs(t_lemin *l);//, t_node start, t_node end);
+t_path	*add_path(t_path *head, t_node *node);
+t_node *copy_node(t_node *node);
 #endif

@@ -126,29 +126,6 @@ t_node	*room_exists(char *key, t_node **hm)
 	return (NULL);
 }
 
-int	error(int errnum)
-{
-	ft_printf("ERROR : ");
-	if (errnum == -1)
-		ft_printf("Invalid Argument\n");
-	else if (errnum == ERR_LINE)
-		ft_printf("Invalid Map : Invalid Line or More Than One Start/End\n");
-	else if (errnum == ERR_ANTS)
-		ft_printf("Invalid Map : Ants\n");
-	else if (errnum == ERR_ROOMS)
-		ft_printf("Invalid Map : Room\n");
-	else if (errnum == ERR_LINKS)
-		ft_printf("Invalid Map : Link\n");
-	else if (errnum == ERR_LINKS2)
-		ft_printf("Invalid Map : Two Identic Links\n");
-	else if (errnum == ERR_PATH)
-		ft_printf("No Path Found\n");
-	// else if (errnum == -7)
-	// else if (errnum == 7)
-	//free all
-	return (-1);
-}
-
 t_node *copy_item(t_lemin *l, int i)
 {
 	t_node *new;
@@ -192,6 +169,42 @@ t_link	*new_link(t_lemin *l, int i)
 	return (new);
 }
 
+t_node *copy_node(t_node *node)
+{
+	t_node *new;
+
+	new = init_node_item();
+	if (!new)
+		return (NULL);
+	new->value = node->value;
+	new->key = ft_strdup(node->key);
+	if (!new->key)
+		return (NULL);
+	new->pt = node->pt;
+	new->visited = node->visited;
+	// new->start = node->start;
+	// new->end = node->end;
+	new->links = (t_link *)ft_memalloc(sizeof(t_link));
+	if (!new->links)
+		return (NULL);
+	new->links = node->links;
+	return (new);
+}
+
+t_link	*copy_link(t_link *link)
+{
+	t_link	*copy;
+
+	if (link)
+		return (NULL);
+	copy = (t_link *)ft_memalloc(sizeof(t_link));
+	if (!copy)
+		return (NULL);
+	copy->node = copy_node(link->node);
+	copy->next = copy_link(link->next);
+	return (copy);
+}
+
 t_path	*new_path(t_node *hm)
 {
 	t_path *new;
@@ -206,6 +219,7 @@ t_path	*new_path(t_node *hm)
 	new->key = ft_strdup(hm->key);
 	if (!new->key)
 		return (NULL);
+	new->dist = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -226,3 +240,20 @@ t_path	*lstdel_path(t_path **head)
 	*head = NULL;
 	return (NULL);
 }
+
+// t_link	*lstdel_path(t_link **head)
+// {
+// 	t_link	*curr;
+// 	t_link	*next;
+
+// 	curr = *head;
+// 	while (curr != NULL)
+// 	{
+// 		next = curr->next;
+// 		ft_strdel(&curr->key);
+// 		free(curr);
+// 		curr = next;
+// 	}
+// 	*head = NULL;
+// 	return (NULL);
+// }
