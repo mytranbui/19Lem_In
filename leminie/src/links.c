@@ -100,17 +100,10 @@ int	check_link(char *line, t_lemin *l, t_node **hm)
 		return (ERR_LINKS);
 	i = hash(info[0]);
 	i2 = hash(info[1]);
-	// if (l->adj_matrix[i][i2] == 1 || l->adj_matrix[i2][i] == 1)
-	// {
-	// ft_printf("s1[%s]-s2[%s]\n", info[0], info[1]);
-    //     return (ERR_LINKS2);
-	// }
-	l->adj_matrix[i][i2] = 1;
-	l->adj_matrix[i2][i] = 1;
 	if (i2 != l->node_start->index)
 		l->hm[i]->links = add_link(l, i, i2);
 	if (i != l->node_start->index)
-	l->hm[i2]->links = add_link(l, i2, i);
+		l->hm[i2]->links = add_link(l, i2, i);
 	l->hm[i]->links2 = add_link2(l, i, i2);
 	l->hm[i2]->links2 = add_link2(l, i2, i);
 	info = free_tab(info, 1);

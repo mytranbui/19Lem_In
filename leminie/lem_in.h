@@ -22,7 +22,6 @@
 # define ERR_ANTS	-3
 # define ERR_ROOMS	-4
 # define ERR_LINKS	-5
-# define ERR_LINKS2	-55
 # define ERR_PATH	-6
 
 /*
@@ -104,7 +103,6 @@ typedef struct s_lemin
 	int			nb_rooms;
 	int			nb_links; //useful?
 	char		**rooms; //useful?
-	int			adj_matrix[SIZE][SIZE];
 	int			start;
 	int			end;
 	int			read_ok[3];

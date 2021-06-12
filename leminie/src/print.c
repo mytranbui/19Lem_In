@@ -35,30 +35,30 @@ void	print_key(t_node **hm)
 	}
 }
 
-void	print_link(t_lemin *l)
-{
-	int	i;
-	int	j;
-	int	n;
+// void	print_link(t_lemin *l)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	n;
 
-	j = 0;
-	n = 0;
-	while (j < SIZE)
-	{
-		i = 0;
-		while (i < SIZE)
-		{
-			if (l->adj_matrix[j][i] == 1)
-			{
-				ft_printf("matrix[%d][%d]\n", j, i);
-				n++;
-			}
-			i++;
-		}
-		j++;
-	}
-	ft_printf("nb_links db=%d\n", n);
-}
+// 	j = 0;
+// 	n = 0;
+// 	while (j < SIZE)
+// 	{
+// 		i = 0;
+// 		while (i < SIZE)
+// 		{
+// 			if (l->adj_matrix[j][i] == 1)
+// 			{
+// 				ft_printf("matrix[%d][%d]\n", j, i);
+// 				n++;
+// 			}
+// 			i++;
+// 		}
+// 		j++;
+// 	}
+// 	ft_printf("nb_links db=%d\n", n);
+// }
 
 void	print_link2(t_lemin *l, int index)
 {

@@ -34,7 +34,6 @@ int	ft_read(int fd)
 t_lemin	*init_lemin(void)
 {
 	t_lemin	*l;
-	int	i;
 	int	j;
 
 	l = (t_lemin *)ft_memalloc(sizeof(t_lemin));
@@ -44,7 +43,6 @@ t_lemin	*init_lemin(void)
 	l->nb_rooms = 0;
 	l->nb_links = 0;
 	l->rooms = NULL;
-	              ft_bzero(&l->adj_matrix, SIZE); ///??? working?
 	l->start = 0;
 	l->end = 0;
 	l->i_start = 0;
@@ -52,17 +50,6 @@ t_lemin	*init_lemin(void)
 	l->read_ok[0] = 0;
 	l->read_ok[1] = 0;
 	l->read_ok[2] = 0;
-	j = 0;
-	while (j < SIZE)
-	{
-		i = 0;
-		while (i < SIZE)
-		{
-			l->adj_matrix[j][i] = 0;
-			i++;
-		}
-		j++;
-	}
 	j = 0;
 	while (j < SIZE)
 	{
@@ -86,9 +73,7 @@ int	main(void)
 {
 	t_lemin	*l;
 	int	ret;
-	int i;
 
-	i = 0;
 	ret = 0;
 	// if ((ft_read(0)) == -1)
 	// {

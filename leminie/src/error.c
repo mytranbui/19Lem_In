@@ -25,8 +25,6 @@ int error(int errnum)
 		ft_printf("Invalid Map : Room\n");
 	else if (errnum == ERR_LINKS)
 		ft_printf("Invalid Map : Link\n");
-	else if (errnum == ERR_LINKS2)
-		ft_printf("Invalid Map : Two Identic Links\n");
 	else if (errnum == ERR_PATH)
 		ft_printf("No Path Found\n");
 	// else if (errnum == -7)
