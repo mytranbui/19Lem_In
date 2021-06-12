@@ -109,6 +109,7 @@ int	main(void)
 	// print_key(l->hm);
 	// // print_link(l);
 	get_rooms(l);
+	// algoo(l, l->node_start->index);
 	get_path4(l, l->node_start->index);
 	// get_mult_path(l);
 	// while (l->pp[i] != NULL)

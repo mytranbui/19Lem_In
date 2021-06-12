@@ -25,7 +25,7 @@
 // 	if (!p->node)
 // 		return (NULL);
 // 	p->node = l->node_start;
-// 	// ft_printf("%s%d",p->hm->key, p->hm->value);
+// 	// ft_printf("%s%d",p->hm->key, p->hm->index);
 // 	p->next = NULL;
 // 	return (p);
 // }
@@ -77,11 +77,11 @@ t_path *get_path3(t_lemin *l, t_path *p, int i)//,t_node *node)
 	// int tmpp;
 	int tmpp2;
 	t_link	*tmp_link;
-	//int	value;
+	//int	index;
 
 	// tmp2 = NULL;
 	ft_printf("enter: l->hm[%d] = %s\n", i, l->hm[i]->key);
-	if (i == l->node_end->value)
+	if (i == l->node_end->index)
 	{
 		p = add_path(p, l->node_end);
 		if (!p)
@@ -91,22 +91,22 @@ t_path *get_path3(t_lemin *l, t_path *p, int i)//,t_node *node)
 	}
 	l->hm[i]->visited = 1;
 	tmp = l->hm[i]->links->node;
-	// tmpp = l->hm[i]->links->node->value;
+	// tmpp = l->hm[i]->links->node->index;
 	tmp_link = l->hm[i]->links;
-	while (tmp_link->next != NULL && tmp->visited == 1)//&& tmp->value != l->node_end->value)
+	while (tmp_link->next != NULL && tmp->visited == 1)//&& tmp->index != l->node_end->index)
 	{
 		ft_printf("tmp->%s\n", tmp->key);
 		ft_printf("tmplink->%s\n", tmp_link->node->key);
-			tmpp2 = tmp->value;
+			tmpp2 = tmp->index;
 			tmp = tmp_link->next->node;
-			if (tmp->value == tmpp2)
+			if (tmp->index == tmpp2)
 				return (lstdel_path(&p));
 		ft_printf("lol\n");
 	}
 	ft_printf("BEvisited %s\n", l->hm[i]->key);
 	ft_printf("BEvisited %s\n", tmp->key);
-	ft_printf("BEvalue %d\n", i);
-	if (tmp->value == l->node_end->value)
+	ft_printf("BEindex %d\n", i);
+	if (tmp->index == l->node_end->index)
 	{
 		p = add_path(p, l->node_end);
 		if (!p)
@@ -116,7 +116,7 @@ t_path *get_path3(t_lemin *l, t_path *p, int i)//,t_node *node)
 	}
 	while (tmp->links != NULL)
 	{
-		if (i == l->node_end->value)
+		if (i == l->node_end->index)
 		{
 			p = add_path(p, l->node_end);
 			if (!p)
@@ -129,16 +129,16 @@ t_path *get_path3(t_lemin *l, t_path *p, int i)//,t_node *node)
 			p = add_path(p, tmp);
 			if (!p)
 			return (lstdel_path(&p));
-			if (tmp->value == l->node_end->value)
+			if (tmp->index == l->node_end->index)
 			{
 				ft_printf("ifEND\n");
 				return (p);
 			}
 			ft_printf("TMP RECUR\n");
-			if (get_path3(l, p, tmp->value) != NULL)
+			if (get_path3(l, p, tmp->index) != NULL)
 				return (p);
 		}
-		i = tmp->links->node->value;
+		i = tmp->links->node->index;
 		tmp = tmp->links->next->node;
 	}
 	return (lstdel_path(&p));
@@ -154,7 +154,7 @@ t_path	*algo2(t_lemin *l)
 	// head = add_path(head, NULL);
 	// if (!head)
 	// 	return (NULL);
-	head = get_path3(l, head, l->node_start->value);
+	head = get_path3(l, head, l->node_start->index);
 	if (!head)
 		return (NULL);
 	return (head);
@@ -236,7 +236,7 @@ int algo(t_lemin *l)
 	// {
 		// p[i++] = init_path(l);
 	// }
-	ft_printf("%s%d",p[0]->node->key, p[0]->node->value);
-	ft_printf("%s%d",p[1]->node->key, p[1]->node->value);
+	ft_printf("%s%d",p[0]->node->key, p[0]->node->index);
+	ft_printf("%s%d",p[1]->node->key, p[1]->node->index);
 	return (1);
 }

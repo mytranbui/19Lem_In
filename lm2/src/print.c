@@ -60,13 +60,13 @@ void	print_link(t_lemin *l)
 	ft_printf("nb_links db=%d\n", n);
 }
 
-void	print_link2(t_lemin *l, int value)
+void	print_link2(t_lemin *l, int index)
 {
 	// ft_printf("\nPRINT_LINKS2\n");
 	t_link	*tmp;
 
-	tmp = l->hm[value]->links;
-	ft_printf("LINK hm[%d]%s", value, l->hm[value]->key);
+	tmp = l->hm[index]->links;
+	ft_printf("LINK hm[%d]%s", index, l->hm[index]->key);
 	while (tmp != NULL)
 	{
 		//ft_printf("WHILE\n");

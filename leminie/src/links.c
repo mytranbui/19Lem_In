@@ -107,7 +107,9 @@ int	check_link(char *line, t_lemin *l, t_node **hm)
 	// }
 	l->adj_matrix[i][i2] = 1;
 	l->adj_matrix[i2][i] = 1;
-	l->hm[i]->links = add_link(l, i, i2);
+	if (i2 != l->node_start->index)
+		l->hm[i]->links = add_link(l, i, i2);
+	if (i != l->node_start->index)
 	l->hm[i2]->links = add_link(l, i2, i);
 	l->hm[i]->links2 = add_link2(l, i, i2);
 	l->hm[i2]->links2 = add_link2(l, i2, i);

@@ -143,22 +143,77 @@ void	get_info(t_lemin *l, int i, int i_prev)
 	ft_printf("%s visited%d prev%s dist%d\n", l->hm[i]->key, l->hm[i]->visited, l->hm[l->hm[i]->prev_index]->key, l->hm[i]->dist);
 }
 
-void	get_path4(t_lemin *l, int i)
+t_link	*skip(t_lemin *l, t_node *node)
 {
+	t_link * tmp;
+
+
+	tmp = node->links;
+	ft_printf("SKIP\n");
+	while (tmp->next != NULL)
+	{
+	ft_printf("SKIP\n");
+		if (l->hm[node->index]->prev_index != -1)
+		{
+	 		tmp = tmp->next;
+	return (tmp);
+		}
+	}
+	ft_printf("SKIPEND\n");
+	return (tmp);
+}
+
+void	get_path4(t_lemin *l, int i)//, t_link *link)
+{
+		ft_printf("PATH4\n");
+
 	t_link *tmp_link;
+	t_link *tmp_link2;
+	t_node *tmp2;
 
 	tmp_link = l->hm[i]->links;
+	// tmp2 = tmp_link;
 	while (tmp_link != NULL && i != l->node_end->index)
 	{
 		get_info(l, tmp_link->node->index, i);
-		// if (l->hm[tmp_link->node->index]->visited != 1)
-		// 	get_path4(l, tmp_link->node->index);
+		if (l->hm[tmp_link->node->index]->prev_index != -1)
+		{
+			tmp2 = tmp_link->node;
+			ft_printf("tmp2%s\n", tmp2->key);
+			tmp_link2 = skip(l, tmp2);
+			ft_printf("tmp2%s\n", tmp2->key);
+		}
+
+	//	else//if (l->hm[tmp_link->node->index]->prev_index == -1)
+	//	{
+			ft_printf("LOL%s %s\n", l->hm[tmp_link->node->index]->key, l->hm[l->hm[tmp_link->node->index]->prev_index]->key);
+			get_path4(l, tmp_link->node->index);
+	//	}
+	/*	else
+		{
+			tmp2 = tmp_link->node;
+			ft_printf("tmp2%s\n", tmp2->key);
+			tmp_link2 = skip(l, tmp2);
+			ft_printf("tmp2%s\n", tmp2->key);
+			// get_path4(l, tmp2->index);
+		}
+*/		tmp_link2 = l->hm[i]->links->node->links;
 		tmp_link = tmp_link->next;
 	}
-	if (i != l->node_end->index)
-		get_path4(l, tmp_link->node->index);
 	ft_printf("END\n");
 }
+
+// void algoo(t_lemin *l, int i)
+// {
+// 	t_link *tmp_link;
+	
+// 	tmp_link = l->hm[i]->links;
+// 	while (i != l->node_end->index)
+// 	{
+// 		get_path4(l, i, tmp_link);
+// 		tmp_link = l->hm[i]->links->node->links;
+// 	}
+// }
 
 t_path	*algo2(t_lemin *l)
 {

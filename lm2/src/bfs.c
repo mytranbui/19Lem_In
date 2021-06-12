@@ -45,7 +45,7 @@ t_path	*bfs(t_lemin *l)//, t_node start, t_node end)
 
 		ft_printf("while2\n");
 
-			if (i == l->node_end->value)
+			if (i == l->node_end->index)
 			{
 				ft_printf("end\n");
 				

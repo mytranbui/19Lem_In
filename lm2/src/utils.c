@@ -64,7 +64,7 @@ t_node	*init_node_item(void)
 	if (!item)
 		return (NULL);
 	item->key = NULL;
-	item->value = 0;
+	item->index = 0;
 	item->visited = 0;
 	item->infinity = 1;
 	item->dist = 0;
@@ -89,17 +89,17 @@ void	free_hashmap_item(t_node **item, char *key)
 
 int	hash(char *key)
 {
-	int	value;
+	int	index;
 	int	i;
 
 	i = 0;
-	value = 0;
+	index = 0;
 	while (key[i] != '\0')
-		value = value + 6 * (key[i++] % 10 + 60);
-	// ft_printf("hash_i = %d\n", value);
-	value = value % SIZE;
-	// ft_printf("hash_i = %d\n", value);
-	return (value);
+		index = index + 6 * (key[i++] % 10 + 60);
+	// ft_printf("hash_i = %d\n", index);
+	index = index % SIZE;
+	// ft_printf("hash_i = %d\n", index);
+	return (index);
 }
 
 t_node	*room_exists(char *key, t_node **hm)
@@ -129,7 +129,7 @@ t_node *copy_item(t_lemin *l, int i)
 	new = init_node_item();
 	if (!new)
 		return (NULL);
-	new->value = i;
+	new->index = i;
 	new->key = ft_strdup(l->hm[i]->key);
 	if (!new->key)
 		return (NULL);
@@ -172,7 +172,7 @@ t_node *copy_node(t_node *node)
 	new = init_node_item();
 	if (!new)
 		return (NULL);
-	new->value = node->value;
+	new->index = node->index;
 	new->key = ft_strdup(node->key);
 	if (!new->key)
 		return (NULL);

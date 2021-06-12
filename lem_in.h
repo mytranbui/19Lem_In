@@ -33,13 +33,13 @@
 
 /*
  ** key	 = name of the room
- ** value = hash(key)
+ ** index = hash(key)
  ** pt	 = coords of the room
  */
 typedef struct	s_node
 {
 	char	*key;
-	int		value;
+	int		index;
 	int		visited;
 	int		infinity;
 	int dist;
@@ -57,12 +57,12 @@ typedef struct	s_node
 typedef struct s_link
 {
 	t_node	*node;
-	// int		value;
+	// int		index;
 	struct s_link	*next;
 }				t_link;
 typedef struct s_link2
 {
-	int		value;
+	int		index;
 	struct s_link2	*next;
 }				t_link2;
 
@@ -78,7 +78,7 @@ typedef struct	s_path
 	int		ant;
 	char	*key;
 	int		dist;
-	// int		value; visited
+	// int		index; visited
 	t_node *node;
 	struct s_path	*next;
 }				t_path;
@@ -161,7 +161,7 @@ void	free_node(t_node **node, char *key, t_link **head);
 //delete
 void	print_key(t_node **hm);
 void	print_link(t_lemin *l);
-void	print_link2(t_lemin *l, int value);
+void	print_link2(t_lemin *l, int index);
 void	print_rooms(t_lemin *l);
 void	print_path(t_path *p);
 

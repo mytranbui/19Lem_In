@@ -12,20 +12,20 @@
 
 #include "../../libft.h"
 
-static int	find_size(unsigned long long value, int base)
+static int	find_size(unsigned long long index, int base)
 {
 	int	len;
 
 	len = 0;
-	while (value)
+	while (index)
 	{
 		len++;
-		value /= base;
+		index /= base;
 	}
 	return (len);
 }
 
-char	*ft_utoa_base(unsigned long long value, int base, char x)
+char	*ft_utoa_base(unsigned long long index, int base, char x)
 {
 	char	*ret;
 	char	*str_base;
@@ -34,19 +34,19 @@ char	*ft_utoa_base(unsigned long long value, int base, char x)
 	str_base = "0123456789abcdef";
 	if (x == 'X')
 		str_base = "0123456789ABCDEF";
-	len = find_size(value, base);
+	len = find_size(index, base);
 	if (base < 2 || base > 16)
 		return (0);
-	if (value == 0)
+	if (index == 0)
 		return (ft_strdup("0"));
 	ret = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ret)
 		return (NULL);
 	ret[len] = '\0';
-	while (value)
+	while (index)
 	{
-		ret[--len] = str_base[value % base];
-		value /= base;
+		ret[--len] = str_base[index % base];
+		index /= base;
 	}
 	return (ret);
 }

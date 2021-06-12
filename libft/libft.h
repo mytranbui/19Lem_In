@@ -111,8 +111,8 @@ char			*ft_strjoin_free(char *s1, char *s2, int opt);
 */
 int				ft_atoi(const char *str);
 char			*ft_itoa(int n);
-char			*ft_itoa_base(long long value, int base, char x);
-char			*ft_utoa_base(unsigned long long value, int base, char x);
+char			*ft_itoa_base(long long index, int base, char x);
+char			*ft_utoa_base(unsigned long long index, int base, char x);
 int				ft_abs(int i);
 double			ft_dabs(double x);
 long double		ft_ldabs(long double x);

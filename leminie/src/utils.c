@@ -65,6 +65,7 @@ t_node	*init_node_item(void)
 		return (NULL);
 	item->key = NULL;
 	item->index = 0;
+	item->prev_index = -1;
 	item->visited = 0;
 	item->dist = 0;
 	// item->start = 0;
