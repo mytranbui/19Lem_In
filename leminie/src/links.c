@@ -47,7 +47,7 @@ t_link2	*new_link2(int i)
 	new = (t_link2 *)ft_memalloc(sizeof(t_link2));
 	if (!new)
 		return (NULL);
-	new->value = i;
+	new->index = i;
 	new->next = NULL;
 	return (new);
 }

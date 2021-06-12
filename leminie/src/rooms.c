@@ -33,7 +33,7 @@ t_node	*insert_item(t_node **hm, char *key, t_point pt, int startend)
 		// if (i >= SIZE)
 		// i %= SIZE;
 	}
-	item->value = i;
+	item->index = i;
 	if (startend == 1)
 	// {
 		item->visited = 1;
@@ -126,25 +126,25 @@ void	get_rooms(t_lemin *l)
 		return ;
 	i = 0;
     j = 0;
-    l->tab[j] = copy_item(l, l->node_start->value);
+    l->tab[j] = copy_item(l, l->node_start->index);
     if (!l->tab[j])
 		return ;
     j++;
 	while (i < SIZE && j != l->nb_rooms - 1)
 	{
-		if (l->hm[i] != NULL && i != l->node_start->value && i != l->node_end->value)
+		if (l->hm[i] != NULL && i != l->node_start->index && i != l->node_end->index)
 		{
 			l->tab[j] = copy_item(l, i);
 			if (!l->tab[j])
 				return ;
-			//ft_printf("num%d    [%d]%s\n", j, l->tab[j]->value, l->tab[j]->key);
-            print_link2(l, l->tab[j]->value);
+			//ft_printf("num%d    [%d]%s\n", j, l->tab[j]->index, l->tab[j]->key);
+            print_link2(l, l->tab[j]->index);
 			j++;
 		}
 		i++;
 	}
     ft_printf("j=%d\n", j);
-    l->tab[j] = copy_item(l, l->node_end->value);
+    l->tab[j] = copy_item(l, l->node_end->index);
     if (!l->tab[j])
 		return ;
 	print_rooms(l);
