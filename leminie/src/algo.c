@@ -135,6 +135,31 @@ t_path *get_path3(t_lemin *l, t_path *p, int i)//,t_node *node)
 	return (lstdel_path(&p));
 }
 
+void	get_info(t_lemin *l, int i, int i_prev)
+{
+	l->hm[i]->visited = 1;
+	l->hm[i]->prev_index = i_prev;
+	l->hm[i]->dist++;
+	ft_printf("%s visited%d prev%s dist%d\n", l->hm[i]->key, l->hm[i]->visited, l->hm[l->hm[i]->prev_index]->key, l->hm[i]->dist);
+}
+
+void	get_path4(t_lemin *l, int i)
+{
+	t_link *tmp_link;
+
+	tmp_link = l->hm[i]->links;
+	while (tmp_link != NULL && i != l->node_end->index)
+	{
+		get_info(l, tmp_link->node->index, i);
+		// if (l->hm[tmp_link->node->index]->visited != 1)
+		// 	get_path4(l, tmp_link->node->index);
+		tmp_link = tmp_link->next;
+	}
+	if (i != l->node_end->index)
+		get_path4(l, tmp_link->node->index);
+	ft_printf("END\n");
+}
+
 t_path	*algo2(t_lemin *l)
 {
 	t_path	*head;

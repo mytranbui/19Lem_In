@@ -109,9 +109,10 @@ int	main(void)
 	// print_key(l->hm);
 	// // print_link(l);
 	get_rooms(l);
+	get_path4(l, l->node_start->index);
 	// get_mult_path(l);
 	// while (l->pp[i] != NULL)
-	// 	print_path(l->pp[i++]);
+	//	print_path(l->pp[i++]);
 	// bfs(l);
 	return (0);
 }
