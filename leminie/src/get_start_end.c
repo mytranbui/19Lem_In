@@ -29,15 +29,19 @@ int	check_start_and_end(char *line, t_lemin *l)
 	return (1);
 }
 
-void	get_start_and_end(t_lemin *l, t_node *item)
+void	get_start_and_end(t_lemin *l, int i)
 {
 	if (l->startend == 1)
 	{
-		l->node_start = item;
+		l->node_start = l->hm[i];
+		// l->node_start = copy_item(l, i);
+		l->i_start = i;
 	}
 	else if (l->startend == 2)
 	{
-		l->node_end = item;
+		l->node_end = l->hm[i];
+		// l->node_end = copy_item(l, i);
+		l->i_end = i;
 	}
 	if (l->startend != 0)
 		l->startend = 0;

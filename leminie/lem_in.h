@@ -48,7 +48,6 @@ typedef struct	s_node
 	// int		end;
 	struct s_link *links;
 	struct s_link2 *links2;
-	//t_room	r;
 }				t_node;
 
 /*
@@ -73,6 +72,17 @@ typedef struct s_edge
 	t_node	*dst;
 	struct s_edge	*next;
 }				t_edge;
+
+typedef struct s_queue
+{
+	int			*queue;
+	int			*visited;
+	int			*prev;
+	int			length;
+	int			position;
+	int			**flow;
+	struct s_queue	*next;
+}				t_queue;
 
 typedef struct	s_path
 {
@@ -101,6 +111,8 @@ typedef struct s_lemin
 	t_node		*hm[SIZE];
 	t_node		*node_start;
 	t_node		*node_end;
+	int			i_start;
+	int			i_end;
 	int			startend;
 	t_node	**tab;
 	t_path		**pp;
@@ -141,8 +153,7 @@ int				hash(char *key);
 t_node	*init_node_item(void);
 void	free_hashmap_item(t_node **item, char *key);
 
-int	check_start_and_end(char *line, t_lemin *l);
-void	get_start_and_end(t_lemin *l, t_node *item);
+void	get_start_and_end(t_lemin *l, int i);
 
 
 

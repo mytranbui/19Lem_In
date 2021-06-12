@@ -47,6 +47,8 @@ t_lemin	*init_lemin(void)
 	              ft_bzero(&l->adj_matrix, SIZE); ///??? working?
 	l->start = 0;
 	l->end = 0;
+	l->i_start = 0;
+	l->i_end = 0;
 	l->read_ok[0] = 0;
 	l->read_ok[1] = 0;
 	l->read_ok[2] = 0;

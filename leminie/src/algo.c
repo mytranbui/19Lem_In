@@ -35,6 +35,8 @@ t_path	*add_path(t_path *head, t_node *node)
 	//t_path	*head;
 	t_path	*new;
 
+	if (!node)
+		return (NULL);
 	//head = NULL;
 	// if (!head)
 	// {
@@ -56,17 +58,6 @@ t_path	*add_path(t_path *head, t_node *node)
 	head->dist++;
 	ft_printf("dist++ %d\n", head->dist);
 	return (head);
-}
-
-
-t_path		*add_path_in_list(t_path *list)
-{
-  t_path       	*new;
-
-  if ((new = malloc(sizeof(t_path))) == NULL)
-    return (NULL);
-  new->next = list;
-  return (new);
 }
 
 t_path *get_path3(t_lemin *l, t_path *p, int i)//,t_node *node)

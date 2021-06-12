@@ -79,7 +79,7 @@ int	check_room(char *line, t_lemin *l, t_node **hm)
 	item = insert_item(hm, info[0], pt, l->startend);
 	if (!item)
 		return (-1);
-	get_start_and_end(l, item);
+	get_start_and_end(l, item->index);
 	ft_printf("room[%s] x[%d] y[%d]\n", info[0], ft_atoi(info[1]), ft_atoi(info[2]));
 	info = free_tab(info, 2);
 	// ft_printf("~CHECK_ROOM~OK\n");
