@@ -72,8 +72,10 @@ int	main(void)
 {
 	t_lemin	*l;
 	int	ret;
+	int	j;
 
 	ret = 0;
+	j = 0;
 	// if ((ft_read(0)) == -1)
 	// {
 	// 	ft_putendl("ERROR");
@@ -93,8 +95,10 @@ int	main(void)
 	// print_hm_keys(l->hm);
 	get_rooms(l);
 	// algoo(l, l->node_start->index);
-	if (get_path4(l, l->node_start->index))
-		return (1);
+	while (j < l->nb_rooms)
+		get_path4(l, l->tab[j++]->index);
+	// if (get_path4(l, l->node_start->index))
+	// 	return (1);
 	// get_mult_path(l);
 	// while (l->pp[i] != NULL)
 	//	print_path(l->pp[i++]);

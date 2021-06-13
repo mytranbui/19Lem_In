@@ -171,31 +171,41 @@ int	get_path4(t_lemin *l, int i)//, t_link *link)
 	//t_link *tmp_link2;
 	// t_node *tmp2;
 	int	tmp_index;
+	static int j;
 
+	j = 0;
 	tmp_index = i;
 	tmp_link = l->hm[i]->links;
 	// tmp2 = tmp_link;
-	while (tmp_link != NULL)// && i != l->node_end->index)
+	if (i == l->node_end->index)
+		return (1);
+	while (tmp_link != NULL && i != l->node_end->index)
 	{
 		get_info(l, tmp_link->node->index, i);
-			if (i == l->node_end->index) 
+			if (tmp_link->node->index == l->node_end->index) 
 					return (1);
 			// print_key(l, tmp_index);
-			if (tmp_link->next != NULL)
-			ft_printf("yup\n");
-			if (tmp_link->next != NULL)
+			//if (tmp_link->next != NULL)
 			// print_key(l, tmp_link->next->node->index);
 			ft_printf("here\n");
 			if (tmp_link->next && tmp_link->next->node->index == tmp_index)
 				ft_printf("SAME\n");
-			if (!tmp_link->next)
-			{
-			ft_printf("there\n");
-				i = tmp_link->node->index;
-				tmp_link = tmp_link->node->links;
-				if (get_path4(l, i))
-					return (1);
-			}
+			// if (!tmp_link->next)
+			// {
+			// 	ft_printf("there\n");
+			// 	i = tmp_link->node->index;
+			// 	tmp_link = tmp_link->node->links;
+			// 	if (get_path4(l, i))
+			// 		return (1);
+			// }
+			// if (tmp_link->next == NULL)
+			// {
+			// 	ft_printf("there\n");
+
+			// 		while (l->tab[j])
+			// 			if (get_path4(l, l->tab[j++]->index))
+            //     			return (1);
+			// }
 			// if (tmp_link->node->links)
 			// {
 			// 	if (get_path4(l, tmp_link->node->index))
@@ -205,10 +215,50 @@ int	get_path4(t_lemin *l, int i)//, t_link *link)
 			// }
 			tmp_index = tmp_link->node->index;
 			tmp_link = tmp_link->next;
-			ft_printf("lol\n");
 	}
 	ft_printf("END\n");
 	return (0);
+}
+
+int get_path5(t_lemin *l, int i)//, t_link *link)
+{
+        ft_printf("PATH4\n");
+    t_link *tmp_link;
+    t_link *tmp_link2;
+    t_link *tmp_link_orig;
+    t_node *tmp2;
+    static int num;
+    ft_printf("num = %d\n",num);
+    tmp_link = l->hm[i]->links;
+    if (num == 0)
+    tmp_link_orig = l->hm[i]->links;
+    // tmp2 = tmp_link;
+    if (i == l->node_end->index)
+        return (1); // save path through going back
+    while (tmp_link != NULL && i != l->node_end->index)
+    {
+        if (l->hm[tmp_link->node->index]->prev_index != -1) // first level
+        {
+            tmp2 = tmp_link->node;
+            ft_printf("tmp2%s\n", tmp2->key);
+            tmp_link2 = skip(l, tmp2);
+            ft_printf("tmp2%s\n", tmp2->key);
+        }
+        get_info(l, tmp_link->node->index, i);
+        ft_printf("current:%s prev:%s\n", l->hm[tmp_link->node->index]->key, l->hm[l->hm[tmp_link->node->index]->prev_index]->key);
+        tmp_link = tmp_link->next;
+        if (tmp_link == NULL) // second level
+        {
+            ft_printf("going to sub list\n");
+            tmp_link = l->node_start->links->next;
+            ft_printf("current:%s prev:%s\n", l->hm[tmp_link->node->index]->key, l->hm[l->hm[tmp_link->node->index]->prev_index]->key);
+            num++;
+            if (get_path4(l, tmp_link->node->index))
+                return (1);
+    }
+    }
+    ft_printf("END\n");
+    return (0);
 }
 
 // void algoo(t_lemin *l, int i)
