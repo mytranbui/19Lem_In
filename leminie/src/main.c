@@ -52,9 +52,7 @@ t_lemin	*init_lemin(void)
 	l->read_ok[2] = 0;
 	j = 0;
 	while (j < SIZE)
-	{
 		l->hm[j++] = NULL;
-	}
 	l->node_start = (t_node *)ft_memalloc(sizeof(t_node));
 	if (!l->node_start)
 		return (NULL);

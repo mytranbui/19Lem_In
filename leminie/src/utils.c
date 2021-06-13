@@ -144,27 +144,6 @@ t_node *copy_item(t_lemin *l, int i)
 	return (new);
 }
 
-t_link	*new_link(t_lemin *l, int i)
-{
-	t_link *new;
-
-	new = (t_link *)ft_memalloc(sizeof(t_link));
-	if (!new)
-		return (NULL);
-	// new->node = (t_node *)ft_memalloc(sizeof(t_node));
-	// if (!new->node)
-	// 	return (NULL);
-	// new->node = copy_item(l, i);
-	// if (!new->node)
-	// 	return (NULL);
-	new->node = init_node_item();
-	if (!new->node)
-		return (NULL);
-	new->node = l->hm[i];
-	new->next = NULL;
-	return (new);
-}
-
 t_node *copy_node(t_node *node)
 {
 	t_node *new;

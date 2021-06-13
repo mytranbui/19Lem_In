@@ -59,12 +59,6 @@ typedef struct s_link
 	struct s_link	*next;
 }				t_link;
 
-typedef struct s_link2
-{
-	int		index;
-	struct s_link2	*next;
-}				t_link2;
-
 typedef struct s_edge
 {
 	t_node	*src;
