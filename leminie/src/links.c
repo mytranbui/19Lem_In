@@ -42,7 +42,6 @@ t_link *add_link(t_lemin *l, int i, int i2)
 	t_link	*new;
 
 	head = l->hm[i]->links;
-	head->nb++;
 	if (l->hm[i]->links == NULL)
 	{
 		head = new_link(l, i2);
@@ -59,6 +58,8 @@ t_link *add_link(t_lemin *l, int i, int i2)
 		if (!new->next)
 			return (NULL);
 	}
+	l->hm[i]->links->nb++;
+	ft_printf("nb%d\n", l->hm[i]->links->nb);
 	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->node->key);
 	// ft_printf("ADD_LINK~OK\n");
 	 return (head);
