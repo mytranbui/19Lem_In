@@ -208,7 +208,7 @@ void DFS(t_lemin *l, int i) {
   while (temp != NULL) {
     int connectedVertex = temp->node->index;
 	if (i == l->node_end->index)
-		i = l->node_start->index;
+		DFS(l, l->node_start->index);
     if (l->hm[connectedVertex]->visited == 0) {
 
   get_info(l, connectedVertex, i);
