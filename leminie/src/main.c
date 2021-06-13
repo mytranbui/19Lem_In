@@ -53,6 +53,7 @@ t_lemin	*init_lemin(void)
 	j = 0;
 	while (j < SIZE)
 		l->hm[j++] = NULL;
+	ft_bzero(l->hm, SIZE);
 	l->node_start = (t_node *)ft_memalloc(sizeof(t_node));
 	if (!l->node_start)
 		return (NULL);
@@ -89,10 +90,11 @@ int	main(void)
 	ft_printf("nb_rooms:	%d\n", l->nb_rooms);
 	ft_printf("nb_links:	%d\n", l->nb_links);
 	ft_printf("start:	%d end:	%d\n", l->start, l->end);
-	// print_key(l->hm);
+	// print_hm_keys(l->hm);
 	get_rooms(l);
 	// algoo(l, l->node_start->index);
-	// get_path4(l, l->node_start->index);
+	if (get_path4(l, l->node_start->index))
+		return (1);
 	// get_mult_path(l);
 	// while (l->pp[i] != NULL)
 	//	print_path(l->pp[i++]);

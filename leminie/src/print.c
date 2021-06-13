@@ -12,9 +12,9 @@
 
 #include "../lem_in.h"
 
-void	print_key(t_node **hm)
+void	print_hm_keys(t_node **hm)
 {
-	ft_printf("~PRINT_KEY~\n");
+	ft_printf("~print_hm_keys~\n");
 	int	i;
 
 	i = 0;
@@ -35,30 +35,13 @@ void	print_key(t_node **hm)
 	}
 }
 
-// void	print_link(t_lemin *l)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	n;
-
-// 	j = 0;
-// 	n = 0;
-// 	while (j < SIZE)
-// 	{
-// 		i = 0;
-// 		while (i < SIZE)
-// 		{
-// 			if (l->adj_matrix[j][i] == 1)
-// 			{
-// 				ft_printf("matrix[%d][%d]\n", j, i);
-// 				n++;
-// 			}
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// 	ft_printf("nb_links db=%d\n", n);
-// }
+void print_key(t_lemin *l, int i)
+{
+	if (!l->hm[i])
+		ft_printf("KEY[%d] NULL\n", i);
+	else
+		ft_printf("KEY[%d] %s\n", i, l->hm[i]->key);
+}
 
 void	print_link2(t_lemin *l, int index)
 {
@@ -69,7 +52,6 @@ void	print_link2(t_lemin *l, int index)
 	ft_printf("LINK hm[%d]%s nb(%d)", index, l->hm[index]->key, l->hm[index]->links->nb);
 	while (tmp != NULL)
 	{
-		//ft_printf("WHILE\n");
 		ft_printf("->%s", tmp->node->key);
 		tmp = tmp->next;
 	}

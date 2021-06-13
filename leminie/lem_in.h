@@ -46,7 +46,6 @@ typedef struct	s_node
 	// int		start;
 	// int		end;
 	struct s_link *links;
-	struct s_link2 *links2;
 }				t_node;
 
 /*
@@ -54,9 +53,9 @@ typedef struct	s_node
 */
 typedef struct s_link
 {
-	t_node	*node;
-	// int		index;
 	int		nb;
+	// int		index;
+	t_node	*node;
 	struct s_link	*next;
 }				t_link;
 
@@ -126,19 +125,10 @@ void	get_rooms(t_lemin *l);
 int	check_link(char *line, t_lemin *l, t_node **hm);
 t_link *add_link(t_lemin *l, int i, int i2);
 
-/*
- ** algo.c & algo2.c
- */
 t_path *get_path2(t_lemin *l);//, t_node *node)
 t_path	*get_path3(t_lemin *l, t_path *p,int i);//, t_node *node)
 t_path	*algo2(t_lemin *l);
-/*
- ** utils.c & utils2.c
- */
 
-/*
- ** free.c
- */
 void			free_lemin(t_lemin *lemin);
 // int				nbchar_string(char *s, char c);
 t_node		*room_exists(char *s, t_node **hm);
@@ -158,12 +148,7 @@ t_node *copy_item(t_lemin *l, int i);
 t_path	*new_path(t_node *hm);
 t_path	*lstdel_path(t_path **head);
 void	free_node(t_node **node, char *key, t_link **head);
-//delete
-void	print_key(t_node **hm);
-void	print_link(t_lemin *l);
-void	print_link2(t_lemin *l, int index);
-void	print_rooms(t_lemin *l);
-void	print_path(t_path *p);
+
 
 int		algo(t_lemin *l);
 void	get_mult_path(t_lemin *l);
@@ -172,6 +157,17 @@ int	error(int errnum);
 t_path *bfs(t_lemin *l);//, t_node start, t_node end);
 t_path	*add_path(t_path *head, t_node *node);
 t_node *copy_node(t_node *node);
-void	get_path4(t_lemin *l, int i);//, t_link * link);
+int	get_path4(t_lemin *l, int i);//, t_link * link);
 // void algoo(t_lemin *l, int i);
+
+//delete
+/*
+** print.c
+*/
+void	print_hm_keys(t_node **hm);
+void	print_key(t_lemin *l, int i);
+void	print_link(t_lemin *l);
+void	print_link2(t_lemin *l, int index);
+void	print_rooms(t_lemin *l);
+void	print_path(t_path *p);
 #endif
