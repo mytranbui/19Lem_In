@@ -20,15 +20,13 @@ int error(int errnum)
 	else if (errnum == ERR_LINE)
 		ft_printf("Invalid Map : Invalid Line or More Than One Start/End\n");
 	else if (errnum == ERR_ANTS)
-		ft_printf("Invalid Map : Ants\n");
+		ft_printf("Invalid Map : Ant\n");
 	else if (errnum == ERR_ROOMS)
 		ft_printf("Invalid Map : Room\n");
 	else if (errnum == ERR_LINKS)
 		ft_printf("Invalid Map : Link\n");
 	else if (errnum == ERR_PATH)
 		ft_printf("No Path Found\n");
-	// else if (errnum == -7)
-	// else if (errnum == 7)
 	//free all
 	exit(0);
 	return (-1);

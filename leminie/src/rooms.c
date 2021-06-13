@@ -133,7 +133,7 @@ void	get_rooms(t_lemin *l)
 			if (!l->tab[j])
 				return ;
 			//ft_printf("num%d    [%d]%s\n", j, l->tab[j]->index, l->tab[j]->key);
-            // print_link2(l, l->tab[j]->index);
+            // print_link(l, l->tab[j]->index);
 			j++;
 		}
 		i++;

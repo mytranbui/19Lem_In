@@ -28,9 +28,6 @@ void	print_hm_keys(t_node **hm)
 			// 	ft_printf("##end\n");
 			ft_printf("h[%d]=%s x[%d] y[%d]\n", i, hm[i]->key, hm[i]->pt.x, hm[i]->pt.y);
 		}
-		// else
-		// 	ft_printf("~~\n");
-		//printf("i%d\n",i);
 		i++;
 	}
 }
@@ -43,7 +40,7 @@ void print_key(t_lemin *l, int i)
 		ft_printf("KEY[%d] %s\n", i, l->hm[i]->key);
 }
 
-void	print_link2(t_lemin *l, int index)
+void	print_link(t_lemin *l, int index)
 {
 	// ft_printf("\nPRINT_LINKS2\n");
 	t_link	*tmp;
@@ -70,7 +67,7 @@ void	print_rooms(t_lemin *l)
 	{
 		// ft_printf("%s|\n", l->tab[j]->key);
 		room_index = l->tab[j]->index;
-		print_link2(l, room_index);
+		print_link(l, room_index);
 		j++;
 	}
 }

@@ -166,8 +166,7 @@ int	get_path4(t_lemin *l, int i);//, t_link * link);
 */
 void	print_hm_keys(t_node **hm);
 void	print_key(t_lemin *l, int i);
-void	print_link(t_lemin *l);
-void	print_link2(t_lemin *l, int index);
+void	print_link(t_lemin *l, int index);
 void	print_rooms(t_lemin *l);
 void	print_path(t_path *p);
 #endif

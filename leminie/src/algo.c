@@ -172,48 +172,21 @@ int	get_path4(t_lemin *l, int i)//, t_link *link)
 	// t_node *tmp2;
 	int	tmp_index;
 
-	tmp_index = 0;
+	tmp_index = i;
 	tmp_link = l->hm[i]->links;
 	// tmp2 = tmp_link;
 	while (tmp_link != NULL)// && i != l->node_end->index)
 	{
 		get_info(l, tmp_link->node->index, i);
-	// 	if (l->hm[tmp_link->node->index]->prev_index != -1)
-	// 	{
-	// 		tmp2 = tmp_link->node;
-	// 		ft_printf("tmp2%s\n", tmp2->key);
-	// 		tmp_link2 = skip(l, tmp2);
-	// 		ft_printf("tmp2%s\n", tmp2->key);
-	// 	}
-
-	// //	else//if (l->hm[tmp_link->node->index]->prev_index == -1)
-	// //	{
-	// 		ft_printf("LOL%s %s\n", l->hm[tmp_link->node->index]->key, l->hm[l->hm[tmp_link->node->index]->prev_index]->key);
-	// 		get_path4(l, tmp_link->node->index);
-	//	}
-		// else
-		// {
-		// 	tmp2 = tmp_link->node;
-		// 	ft_printf("tmp2%s\n", tmp2->key);
-		// 	tmp_link2 = skip(l, tmp2);
-		// 	ft_printf("tmp2%s\n", tmp2->key);
-		// 	// get_path4(l, tmp2->index);
-		// }
-		// if (l->hm[tmp_link->next->node->index]->prev_index != -1)
-		// {
-		// 	print_key(l, tmp_link->next->node->index);
-		// 	ft_printf("lol2\n");
-		// 	tmp_link = tmp_link->next;
-		// 	print_key(l, tmp_link->node->index);
-
-		// }
-	 	// 	get_path4(l, tmp_link->node->index);
-		//tmp_link2 = l->hm[i]->links->node->links;
 			if (i == l->node_end->index) 
 					return (1);
 			print_key(l, tmp_index);
-			print_key(l, tmp_link->node->index);
-			if (tmp_link->node->index == tmp_index)
+			if (tmp_link->next != NULL)
+			ft_printf("yup\n");
+			if (tmp_link->next != NULL)
+			print_key(l, tmp_link->next->node->index);
+			ft_printf("here\n");
+			if (tmp_link->next && tmp_link->next->node->index == tmp_index)
 				ft_printf("SAME\n");
 			// if (tmp_link->node->links)
 			// {
