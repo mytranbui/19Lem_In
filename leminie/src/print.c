@@ -66,7 +66,7 @@ void	print_link2(t_lemin *l, int index)
 	t_link	*tmp;
 
 	tmp = l->hm[index]->links;
-	ft_printf("LINK hm[%d]%s", index, l->hm[index]->key);
+	ft_printf("LINK hm[%d]%s nb(%d)", index, l->hm[index]->key, l->hm[index]->links->nb);
 	while (tmp != NULL)
 	{
 		//ft_printf("WHILE\n");
@@ -80,12 +80,15 @@ void	print_rooms(t_lemin *l)
 {
 	ft_printf("PRINT_ROOMS\n");
 	int	j;
+	int	room_index;
 
 	j = 0;
+	room_index = -1;
 	while (j < l->nb_rooms)
 	{
-		// ft_printf("%s|\n", l->rooms[j]);
 		ft_printf("%s|\n", l->tab[j]->key);
+		room_index = l->tab[j]->index;
+		print_link2(l, room_index);
 		j++;
 	}
 }

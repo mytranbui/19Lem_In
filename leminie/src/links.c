@@ -59,7 +59,6 @@ t_link *add_link(t_lemin *l, int i, int i2)
 			return (NULL);
 	}
 	l->hm[i]->links->nb++;
-	ft_printf("nb%d\n", l->hm[i]->links->nb);
 	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->node->key);
 	// ft_printf("ADD_LINK~OK\n");
 	 return (head);
