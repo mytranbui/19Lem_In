@@ -6,7 +6,7 @@
 /*   By: mbui <mbui@student.s19.be>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/18 19:22:10 by mbui              #+#    #+#             */
-/*   Updated: 2021/05/06 13:36:17 by mbui             ###   ########.fr       */
+/*   Updated: 2021/06/13 17:14:25 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_lemin	*init_lemin(void)
 	l->node_start = (t_node *)ft_memalloc(sizeof(t_node));
 	if (!l->node_start)
 		return (NULL);
-		l->node_end = (t_node *)ft_memalloc(sizeof(t_node));
+	l->node_end = (t_node *)ft_memalloc(sizeof(t_node));
 	if (!l->node_end)
 		return (NULL);
 	l->tab = NULL;
@@ -66,11 +66,12 @@ t_lemin	*init_lemin(void)
 }
 
 /*
-** Room will never start with the character 'L' nor the character '#'
-*/
+ ** Room will never start with the character 'L' nor the character '#'
+ */
 int	main(void)
 {
 	t_lemin	*l;
+	t_path	*p;
 	int	ret;
 	int	j;
 
@@ -94,12 +95,13 @@ int	main(void)
 	ft_printf("start:	%d end:	%d\n", l->start, l->end);
 	// print_hm_keys(l->hm);
 	get_rooms(l);
+	p = new_path(l->node_start);
+	if (!p)
+		return (-1);
 	DFS(l, l->node_start->index);
+	// DFS(l, l->node_start->index, p);
 	// while (j < l->nb_rooms)
 	// 	get_path4(l, l->tab[j++]->index);
-	// find_path();
-	// if  (get_path5(l, l->node_start->index))
-	// 	return (1);
 	// if (get_path4(l, l->node_start->index))
 	// 	return (1);
 	// get_mult_path(l);

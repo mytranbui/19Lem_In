@@ -6,7 +6,7 @@
 /*   By: mbui <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 15:53:46 by mbui              #+#    #+#             */
-/*   Updated: 2021/05/06 13:36:28 by mbui             ###   ########.fr       */
+/*   Updated: 2021/06/13 17:13:21 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ t_path	*new_path(t_node *hm)
 	new = (t_path *)ft_memalloc(sizeof(t_path));
 	if (!new)
 		return (NULL);
-		new->node = init_node_item();
+	new->node = init_node_item();
 	if (!new->node)
 		return (NULL);
 	new->node = hm;

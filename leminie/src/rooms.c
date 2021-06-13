@@ -6,7 +6,7 @@
 /*   By: mbui <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 13:34:11 by mbui              #+#    #+#             */
-/*   Updated: 2021/05/21 13:34:16 by mbui             ###   ########.fr       */
+/*   Updated: 2021/06/13 17:12:20 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_node	*insert_item(t_node **hm, char *key, t_point pt, int startend)
 	}
 	item->index = i;
 	if (startend == 1)
-	// {
+		// {
 		item->visited = 1;
 	// 	item->start = 1;
 	// }
@@ -64,7 +64,7 @@ int	check_room(char *line, t_lemin *l, t_node **hm)
 	if (!info)
 		return (-1);
 	if (isprint_str(info[0]) == -1 || room_exists(info[0], hm) ||
-	isdigit_str(info[1]) == -1 || isdigit_str(info[2]) == -1)
+			isdigit_str(info[1]) == -1 || isdigit_str(info[2]) == -1)
 	{
 		info = free_tab(info, 2);
 		return (ERR_ROOMS);
@@ -120,11 +120,11 @@ void	get_rooms(t_lemin *l)
 	if (!l->tab)
 		return ;
 	i = 0;
-    j = 0;
-    l->tab[j] = copy_item(l, l->node_start->index);
-    if (!l->tab[j])
+	j = 0;
+	l->tab[j] = copy_item(l, l->node_start->index);
+	if (!l->tab[j])
 		return ;
-    j++;
+	j++;
 	while (i < SIZE && j != l->nb_rooms - 1)
 	{
 		if (l->hm[i] != NULL && i != l->node_start->index && i != l->node_end->index)
@@ -133,13 +133,13 @@ void	get_rooms(t_lemin *l)
 			if (!l->tab[j])
 				return ;
 			//ft_printf("num%d    [%d]%s\n", j, l->tab[j]->index, l->tab[j]->key);
-            // print_link(l, l->tab[j]->index);
+			// print_link(l, l->tab[j]->index);
 			j++;
 		}
 		i++;
 	}
-    l->tab[j] = copy_item(l, l->node_end->index);
-    if (!l->tab[j])
+	l->tab[j] = copy_item(l, l->node_end->index);
+	if (!l->tab[j])
 		return ;
 	print_rooms(l);
 }

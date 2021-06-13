@@ -6,7 +6,7 @@
 /*   By: mbui <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 19:00:32 by mbui              #+#    #+#             */
-/*   Updated: 2021/06/04 12:10:01 by mbui             ###   ########.fr       */
+/*   Updated: 2021/06/13 17:10:56 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define ERR_PATH	-6
 
 /*
-** rooms : vertices/nodes of the graph
-** links : edges of the graph
-*/
+ ** rooms : vertices/nodes of the graph
+ ** links : edges of the graph
+ */
 
 
 /*
@@ -49,8 +49,8 @@ typedef struct	s_node
 }				t_node;
 
 /*
-** storing links in an adjacency list
-*/
+ ** storing links in an adjacency list
+ */
 typedef struct s_link
 {
 	int		nb;
@@ -89,8 +89,8 @@ typedef struct	s_path
 
 
 /*
-** hm[SIZE] : storing nodes/vertices in a hashmap
-*/
+ ** hm[SIZE] : storing nodes/vertices in a hashmap
+ */
 typedef struct s_lemin
 {
 	int			nb_ants;
@@ -159,11 +159,11 @@ t_path	*add_path(t_path *head, t_node *node);
 t_node	*copy_node(t_node *node);
 int	get_path4(t_lemin *l, int i);//, t_link * link);
 int	get_path5(t_lemin *l, int i);
-void DFS(t_lemin *l, int i);
+t_path *DFS(t_lemin *l, int i);//,t_path *p);
 //delete
 /*
-** print.c
-*/
+ ** print.c
+ */
 void	print_hm_keys(t_node **hm);
 void	print_key(t_lemin *l, int i);
 void	print_link(t_lemin *l, int index);

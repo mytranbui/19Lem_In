@@ -6,7 +6,7 @@
 /*   By: mbui <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 13:34:22 by mbui              #+#    #+#             */
-/*   Updated: 2021/05/21 13:34:24 by mbui             ###   ########.fr       */
+/*   Updated: 2021/06/13 17:12:29 by mbui             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_link *add_link(t_lemin *l, int i, int i2)
 	l->hm[i]->links->nb++;
 	// ft_printf("hm[%d]%s->%s\n", i, l->hm[i]->key, l->hm[i]->links->node->key);
 	// ft_printf("ADD_LINK~OK\n");
-	 return (head);
+	return (head);
 }
 
 int	check_link(char *line, t_lemin *l, t_node **hm)
