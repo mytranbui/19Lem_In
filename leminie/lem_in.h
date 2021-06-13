@@ -56,6 +56,7 @@ typedef struct s_link
 {
 	t_node	*node;
 	// int		index;
+	int		nb;
 	struct s_link	*next;
 }				t_link;
 
