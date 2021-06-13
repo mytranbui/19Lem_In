@@ -180,14 +180,22 @@ int	get_path4(t_lemin *l, int i)//, t_link *link)
 		get_info(l, tmp_link->node->index, i);
 			if (i == l->node_end->index) 
 					return (1);
-			print_key(l, tmp_index);
+			// print_key(l, tmp_index);
 			if (tmp_link->next != NULL)
 			ft_printf("yup\n");
 			if (tmp_link->next != NULL)
-			print_key(l, tmp_link->next->node->index);
+			// print_key(l, tmp_link->next->node->index);
 			ft_printf("here\n");
 			if (tmp_link->next && tmp_link->next->node->index == tmp_index)
 				ft_printf("SAME\n");
+			if (!tmp_link->next)
+			{
+			ft_printf("there\n");
+				i = tmp_link->node->index;
+				tmp_link = tmp_link->node->links;
+				if (get_path4(l, i))
+					return (1);
+			}
 			// if (tmp_link->node->links)
 			// {
 			// 	if (get_path4(l, tmp_link->node->index))
