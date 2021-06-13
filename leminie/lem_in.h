@@ -50,7 +50,7 @@ typedef struct	s_node
 }				t_node;
 
 /*
-** storing links in a adjacency list
+** storing links in an adjacency list
 */
 typedef struct s_link
 {
@@ -60,14 +60,14 @@ typedef struct s_link
 	struct s_link	*next;
 }				t_link;
 
-typedef struct s_edge
+typedef struct s_edge //not in use
 {
 	t_node	*src;
 	t_node	*dst;
 	struct s_edge	*next;
 }				t_edge;
 
-typedef struct s_queue
+typedef struct s_queue // not in use
 {
 	int			*queue;
 	int			*visited;
@@ -90,7 +90,7 @@ typedef struct	s_path
 
 
 /*
-** hm[SIZE] : storing nodes/vertices in an hashmap
+** hm[SIZE] : storing nodes/vertices in a hashmap
 */
 typedef struct s_lemin
 {

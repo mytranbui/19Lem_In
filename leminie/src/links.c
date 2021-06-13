@@ -90,6 +90,6 @@ int	check_link(char *line, t_lemin *l, t_node **hm)
 		l->hm[i2]->links = add_link(l, i2, i);
 	info = free_tab(info, 1);
 	l->nb_links++;
-	ft_printf("~CHECK_LINK~OK\n");
+	// ft_printf("~CHECK_LINK~OK\n");
 	return (1);
 }

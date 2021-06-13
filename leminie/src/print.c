@@ -86,7 +86,7 @@ void	print_rooms(t_lemin *l)
 	room_index = -1;
 	while (j < l->nb_rooms)
 	{
-		ft_printf("%s|\n", l->tab[j]->key);
+		// ft_printf("%s|\n", l->tab[j]->key);
 		room_index = l->tab[j]->index;
 		print_link2(l, room_index);
 		j++;

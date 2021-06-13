@@ -26,7 +26,7 @@ t_node	*insert_item(t_node **hm, char *key, t_point pt, int startend)
 	if (!item->key)
 		return (NULL);
 	item->pt = pt;
-	ft_printf("i:%d\n", i);
+	// ft_printf("i:%d\n", i);
 	while (hm[i] != NULL && hm[i]->key != NULL)
 	{
 		i++;
@@ -45,7 +45,6 @@ t_node	*insert_item(t_node **hm, char *key, t_point pt, int startend)
 	//free_hashmap_item(&item), item->key);
 	//if free can't print so free after?
 	// ft_printf("~INSERT~OK\n");
-	ft_printf("i:%d\n", i);
 	return (hm[i] = item);
 }
 
@@ -61,19 +60,15 @@ int	check_room(char *line, t_lemin *l, t_node **hm)
 	assign_pt(&pt, 0, 0);
 	if (l->read_ok[0] == 0 || l->read_ok[2] == 1 || invalid_read(line, l) == 1)
 		return (ERR_LINE);
-	ft_printf("~CHECK_ROOM~\n");
 	info = ft_strsplit(line, ' ');
 	if (!info)
 		return (-1);
-	ft_printf("~CHECK_ROOM~\n");
 	if (isprint_str(info[0]) == -1 || room_exists(info[0], hm) ||
 	isdigit_str(info[1]) == -1 || isdigit_str(info[2]) == -1)
 	{
 		info = free_tab(info, 2);
 		return (ERR_ROOMS);
 	}
-	ft_printf("~CHECK_ROOM~\n");
-
 	pt.x = ft_atoi(info[1]);
 	pt.y = ft_atoi(info[2]);
 	item = insert_item(hm, info[0], pt, l->startend);
@@ -138,12 +133,11 @@ void	get_rooms(t_lemin *l)
 			if (!l->tab[j])
 				return ;
 			//ft_printf("num%d    [%d]%s\n", j, l->tab[j]->index, l->tab[j]->key);
-            print_link2(l, l->tab[j]->index);
+            // print_link2(l, l->tab[j]->index);
 			j++;
 		}
 		i++;
 	}
-    ft_printf("j=%d\n", j);
     l->tab[j] = copy_item(l, l->node_end->index);
     if (!l->tab[j])
 		return ;

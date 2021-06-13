@@ -90,7 +90,6 @@ int	main(void)
 	ft_printf("nb_links:	%d\n", l->nb_links);
 	ft_printf("start:	%d end:	%d\n", l->start, l->end);
 	// print_key(l->hm);
-	// // print_link(l);
 	get_rooms(l);
 	// algoo(l, l->node_start->index);
 	// get_path4(l, l->node_start->index);
