@@ -139,7 +139,7 @@ void	get_info(t_lemin *l, int i, int i_prev)
 {
 	l->hm[i]->visited = 1;
 	l->hm[i]->prev_index = i_prev;
-	l->hm[i]->dist++;
+	l->hm[i]->dist = l->hm[l->hm[i]->prev_index]->dist + 1;
 	ft_printf("%s visited%d prev%s dist%d\n", l->hm[i]->key, l->hm[i]->visited, l->hm[l->hm[i]->prev_index]->key, l->hm[i]->dist);
 }
 
@@ -165,18 +165,14 @@ t_link	*skip(t_lemin *l, t_node *node)
 
 int	get_path4(t_lemin *l, int i)//, t_link *link)
 {
-		ft_printf("PATH4\n");
-
+	ft_printf("PATH4\n");
 	t_link *tmp_link;
-	//t_link *tmp_link2;
-	// t_node *tmp2;
 	int	tmp_index;
 	static int j;
 
 	j = 0;
 	tmp_index = i;
 	tmp_link = l->hm[i]->links;
-	// tmp2 = tmp_link;
 	if (i == l->node_end->index)
 		return (1);
 	while (tmp_link != NULL && i != l->node_end->index)
@@ -184,40 +180,43 @@ int	get_path4(t_lemin *l, int i)//, t_link *link)
 		get_info(l, tmp_link->node->index, i);
 			if (tmp_link->node->index == l->node_end->index) 
 					return (1);
-			// print_key(l, tmp_index);
-			//if (tmp_link->next != NULL)
-			// print_key(l, tmp_link->next->node->index);
 			ft_printf("here\n");
 			if (tmp_link->next && tmp_link->next->node->index == tmp_index)
 				ft_printf("SAME\n");
 			// if (!tmp_link->next)
 			// {
 			// 	ft_printf("there\n");
-			// 	i = tmp_link->node->index;
+			// 	// i = tmp_link->node->index;
+			// 	i = l->node_start->links->next->node->index;
 			// 	tmp_link = tmp_link->node->links;
 			// 	if (get_path4(l, i))
 			// 		return (1);
-			// }
-			// if (tmp_link->next == NULL)
-			// {
-			// 	ft_printf("there\n");
-
-			// 		while (l->tab[j])
-			// 			if (get_path4(l, l->tab[j++]->index))
-            //     			return (1);
-			// }
-			// if (tmp_link->node->links)
-			// {
-			// 	if (get_path4(l, tmp_link->node->index))
-			// 		return (1);
-			// 	// i = tmp_link->node->index;
-			// 	// tmp_link = tmp_link->node->links;
 			// }
 			tmp_index = tmp_link->node->index;
 			tmp_link = tmp_link->next;
 	}
 	ft_printf("END\n");
 	return (0);
+}
+
+//Depth First Search
+void DFS(t_lemin *l, int i) {
+  t_link* temp = l->hm[i]->links;
+
+  l->hm[i]->visited = 1;
+  ft_printf("Visited%s %d \n", l->hm[i]->key , l->hm[i]->visited);
+  while (temp != NULL) {
+    int connectedVertex = temp->node->index;
+	if (i == l->node_end->index)
+		i = l->node_start->index;
+    if (l->hm[connectedVertex]->visited == 0) {
+
+  get_info(l, connectedVertex, i);
+	i = connectedVertex;
+      DFS(l, connectedVertex);
+    }
+    temp = temp->next;
+  }
 }
 
 int get_path5(t_lemin *l, int i)//, t_link *link)
@@ -253,7 +252,8 @@ int get_path5(t_lemin *l, int i)//, t_link *link)
             tmp_link = l->node_start->links->next;
             ft_printf("current:%s prev:%s\n", l->hm[tmp_link->node->index]->key, l->hm[l->hm[tmp_link->node->index]->prev_index]->key);
             num++;
-            if (get_path4(l, tmp_link->node->index))
+			if (l->hm[tmp_link->node->index]->visited == 0)
+            if (get_path5(l, tmp_link->node->index))
                 return (1);
     }
     }
@@ -261,52 +261,31 @@ int get_path5(t_lemin *l, int i)//, t_link *link)
     return (0);
 }
 
-// void algoo(t_lemin *l, int i)
+// t_path *find_path(t_lemin *l)
 // {
-// 	t_link *tmp_link;
-	
-// 	tmp_link = l->hm[i]->links;
-// 	while (i != l->node_end->index)
-// 	{
-// 		get_path4(l, i, tmp_link);
-// 		tmp_link = l->hm[i]->links->node->links;
-// 	}
+// 	t_path	*p;
+
+// 	p = new_path()
 // }
 
-t_path	*algo2(t_lemin *l)
-{
-	t_path	*head;
+// void	get_mult_path(t_lemin *l)
+// {
+// 	int i;
 
-	head = new_path(l->node_start);
-	if (!head)
-		return (NULL);
-	// head = add_path(head, NULL);
-	// if (!head)
-	// 	return (NULL);
-	head = get_path3(l, head, l->node_start->index);
-	if (!head)
-		return (NULL);
-	return (head);
-}
-
-void	get_mult_path(t_lemin *l)
-{
-	int i;
-
-	i = 0;
-	l->pp = (t_path **)ft_memalloc(sizeof(t_path *) * l->nb_rooms);
-	if (!l->pp)
-		return ;
-	while (i < l->nb_rooms)
-	{
-		ft_printf("pp[%d]\n", i);
-		l->pp[i] = algo2(l);
-		if (!l->pp[i])
-			return ;
-		i++;
-	}
-	return ;
-}
+// 	i = 0;
+// 	l->pp = (t_path **)ft_memalloc(sizeof(t_path *) * l->nb_rooms);
+// 	if (!l->pp)
+// 		return ;
+// 	while (i < l->nb_rooms)
+// 	{
+// 		ft_printf("pp[%d]\n", i);
+// 		l->pp[i] = algo2(l);
+// 		if (!l->pp[i])
+// 			return ;
+// 		i++;
+// 	}
+// 	return ;
+// }
 
 // int	shortest_path(t_lemin *l)
 // {

@@ -94,9 +94,12 @@ int	main(void)
 	ft_printf("start:	%d end:	%d\n", l->start, l->end);
 	// print_hm_keys(l->hm);
 	get_rooms(l);
-	// algoo(l, l->node_start->index);
-	while (j < l->nb_rooms)
-		get_path4(l, l->tab[j++]->index);
+	DFS(l, l->node_start->index);
+	// while (j < l->nb_rooms)
+	// 	get_path4(l, l->tab[j++]->index);
+	// find_path();
+	// if  (get_path5(l, l->node_start->index))
+	// 	return (1);
 	// if (get_path4(l, l->node_start->index))
 	// 	return (1);
 	// get_mult_path(l);

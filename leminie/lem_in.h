@@ -154,12 +154,12 @@ int		algo(t_lemin *l);
 void	get_mult_path(t_lemin *l);
 
 int	error(int errnum);
-t_path *bfs(t_lemin *l);//, t_node start, t_node end);
+t_path	*bfs(t_lemin *l);//, t_node start, t_node end);
 t_path	*add_path(t_path *head, t_node *node);
-t_node *copy_node(t_node *node);
+t_node	*copy_node(t_node *node);
 int	get_path4(t_lemin *l, int i);//, t_link * link);
-// void algoo(t_lemin *l, int i);
-
+int	get_path5(t_lemin *l, int i);
+void DFS(t_lemin *l, int i);
 //delete
 /*
 ** print.c

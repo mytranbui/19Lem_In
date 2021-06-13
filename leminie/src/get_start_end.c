@@ -34,6 +34,8 @@ void	get_start_and_end(t_lemin *l, int i)
 	if (l->startend == 1)
 	{
 		l->node_start = l->hm[i];
+		//l->hm[i]->dist = -1;//hm
+
 		// l->node_start = copy_item(l, i);
 		l->i_start = i;
 	}
